@@ -12,14 +12,14 @@ button {
 }
 
 .logo-light {
-    background-image: url('../public/logo-white.png');
+    background-image: url('/logo-white.png');
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
 }
 
 .logo-dark {
-    background-image: url('../public/logo-black.png');
+    background-image: url('/logo-black.png');
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
