@@ -156,6 +156,7 @@ const Navigation: React.FC = () => {
           <p>dsa</p>
         )}
           <DarkModeButton/>
+          <DarkModeButton/>
       </div>
     </div>
   );
