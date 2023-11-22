@@ -26,7 +26,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       animate="visible"
       className={`absolute top-full pt-3 ${direction}`}
     >
-      <div className="relative flex justify-center items-center flex-col pt-3 bg-white drop-shadow-md p-5 -z-10 rounded-lg">
+      <div className="relative flex justify-center items-center flex-col pt-3 bg-white drop-shadow-md p-5 -z-10 rounded-lg dark:bg-bgDark1">
         {React.Children.map(children, (child) =>
           React.cloneElement(child as React.ReactElement, {
             onCloseFunction: onCloseFunction,
