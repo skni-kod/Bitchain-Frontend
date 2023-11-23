@@ -1,17 +1,13 @@
-# Bitchain - Symulator Giełdy Kryptowalut
+# Bitchain 
 
-## Opis Projektu
+**This is the frontend of Bitchain project.**
 
-Projekt Bitchain jest symulatorem giełdy kryptowalut, który umożliwia użytkownikom handlowanie na rynkach kryptowalut bez ryzyka finansowego. Symulacja pozwala na naukę korzystania z różnych instrumentów finansowych dostępnych na prawdziwych giełdach kryptowalut, takich jak Spot, Futures, a także opcje typu stacking. Inspirujemy się mechanizmami znanych giełd, takich jak Binance i BingX, a naszym celem jest zaimplementowanie ich większości.
+## Description
 
-## Funkcje i Mechanizmy
+Bitchain Project is a cryptocurrency exchange simulator that enables users to trade on cryptocurrency markets without any financial risk. The simulation allows users to learn how to use various financial instruments available on real cryptocurrency exchanges, such as Spot, Futures, as well as stacking options. We draw inspiration from the mechanisms of well-known exchanges like Binance and BingX, with our goal being to implement the majority of their features.
 
-- **Handel Spot:** Możliwość handlu kryptowalutami na rynku spot, gdzie inwestorzy kupują i sprzedają rzeczywiste aktywa.
+## How to run project
 
-- **Kontrakty Terminowe (Futures):** Wprowadzenie kontraktów terminowych, pozwalających na handel na przyszłość z zastosowaniem dźwigni finansowej.
-
-- **Stacking:** Implementacja opcji stacking, umożliwiającej zarabianie pasywnego dochodu poprzez trzymanie określonych tokenów.
-
-- **Analiza Techniczna:** Narzędzia wspomagające analizę techniczną, takie jak wskaźniki, wykresy i inne, pomagające inwestorom podejmować bardziej świadome decyzje.
-
-- **Zarządzanie Portfelem:** Funkcje zarządzania portfelem pozwalające użytkownikom śledzić, analizować i optymalizować ich portfele kryptowalutowe.
+1. Clone this repository to your local machine.
+2. Run `npm i` to instal modules.
+3. Run `npm run dev` to start.
