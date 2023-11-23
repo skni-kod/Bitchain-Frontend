@@ -16,12 +16,13 @@ import { GiHotDog } from "react-icons/gi";
 import AccountBalanceCard from "./AccountBalanceCard";
 import { GoGlobe } from "react-icons/go";
 import DarkModeButton from "./DarkModeButton";
+import Button from "../Button";
 
 const Navigation: React.FC = () => {
-  const userAuthenticated = true; //Pablo kiedy logowanie?????????????????????????????????????????
+  const userAuthenticated = false; //Pablo kiedy logowanie?????????????????????????????????????????
 
   return (
-    <div className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-neutral-900 dark:text-white border-b-[1px] border-solid border-slate-100 text-sm px-6 z-50">
+    <div className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 text-sm px-6 z-50 transition-colors duration-300">
       <Logo />
       <div className="flex justify-center items-center h-full">
         <DropdownButton text={"Buy Crypto"} type={"dropdown"}>
@@ -153,10 +154,12 @@ const Navigation: React.FC = () => {
             </Dropdown>
           </DropdownButton>
         ) : (
-          <p>dsa</p>
+          <>
+            <Button type="link" to="login" bgType="transparent">Log in</Button>
+            <Button type="link" to="signup">Sign up</Button>
+          </>
         )}
-          <DarkModeButton/>
-          <DarkModeButton/>
+        <DarkModeButton />
       </div>
     </div>
   );
