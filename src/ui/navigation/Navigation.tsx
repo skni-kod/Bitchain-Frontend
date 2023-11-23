@@ -14,7 +14,6 @@ import { RiFolderInfoLine } from "react-icons/ri";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { GiHotDog } from "react-icons/gi";
 import AccountBalanceCard from "./AccountBalanceCard";
-import { GoGlobe } from "react-icons/go";
 import DarkModeButton from "./DarkModeButton";
 import Button from "../Button";
 

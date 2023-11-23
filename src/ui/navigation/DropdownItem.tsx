@@ -29,7 +29,7 @@ const DropdownItem: React.FC<DropdownItemprops> = ({
         {icon && <div className="h-full p-5 text-lg">{icon}</div>}
         <div className="w-full flex flex-col items-start">
           <p className={icon ? "" : "w-full p-3 flex justify-between items-center"}>{title}{!icon && <IoIosArrowForward />}</p>
-          {desc && <p className="text-slate-300 dark:text-neutral-500 text-xs text-left">{desc}</p>}
+          {desc && <p className="text-slate-300 dark:text-neutral-500 text-xs text-left font-normal">{desc}</p>}
         </div>
       </div>
     </NavLink>
