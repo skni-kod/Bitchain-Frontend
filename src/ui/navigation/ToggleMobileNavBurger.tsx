@@ -10,6 +10,10 @@ export default function ToggleMobileNavBurger() {
     setOpen((s: boolean) => !s);
   }
 
+  function handleCloseNav() {
+    setOpen(false);
+  }
+
   const variantsBar1 = {
     closed: {
       rotate: "45deg",
@@ -65,7 +69,7 @@ export default function ToggleMobileNavBurger() {
         </div>
       </IconButton>
 
-        {open && <MobileNav/>}
+      <MobileNav open={open} onCloseNav={handleCloseNav} />
     </>
   );
 }
