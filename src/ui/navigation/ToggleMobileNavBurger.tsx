@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import IconButton from "../IconButton";
-import { FaBarsStaggered } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import MobileNav from "./MobileNav";
 
 export default function ToggleMobileNavBurger() {
   const [open, setOpen] = useState(false);
@@ -13,6 +13,8 @@ export default function ToggleMobileNavBurger() {
   const variantsBar1 = {
     closed: {
       rotate: "45deg",
+      translateX: 3,
+      translateY: -0.5,
     },
     open: {
       rotate: "0deg",
@@ -31,7 +33,8 @@ export default function ToggleMobileNavBurger() {
   const variantsBar3 = {
     closed: {
       rotate: "45deg",
-      translate: '4pxgit '
+      translateX: 1,
+      translateY: 0.5,
     },
     open: {
       rotate: "0deg",
@@ -39,26 +42,30 @@ export default function ToggleMobileNavBurger() {
   };
 
   return (
-    <IconButton onClick={toggleOpenNav}>
-      <div className="flex flex-col h-full justify-evenly items-center py-1">
-        <motion.div
-          variants={variantsBar1}
-          animate={open ? "open" : "closed"}
-          className="bg-bgDark1 w-3 h-[2px] rounded-2xl self-start origin-left"
-        ></motion.div>
+    <>
+      <IconButton onClick={toggleOpenNav}>
+        <div className="flex flex-col h-full justify-evenly items-center py-1">
+          <motion.div
+            variants={variantsBar1}
+            animate={open ? "closed" : "open"}
+            className="bg-bgDark1 dark:bg-bgWhite1 w-3 h-[2px] rounded-2xl self-start origin-left"
+          ></motion.div>
 
-        <motion.div
-          variants={variantsBar2}
-          animate={open ? "open" : "closed"}
-          className="bg-bgDark1 w-5 h-[2px] rounded-2xl"
-        ></motion.div>
+          <motion.div
+            variants={variantsBar2}
+            animate={open ? "closed" : "open"}
+            className="bg-bgDark1 dark:bg-bgWhite1 w-5 h-[2px] rounded-2xl"
+          ></motion.div>
 
-        <motion.div
-          variants={variantsBar3}
-          animate={open ? "open" : "closed"}
-          className="bg-bgDark1 w-4 h-[2px] rounded-2xl self-start origin-right"
-        ></motion.div>
-      </div>
-    </IconButton>
+          <motion.div
+            variants={variantsBar3}
+            animate={open ? "closed" : "open"}
+            className="bg-bgDark1 dark:bg-bgWhite1 w-4 h-[2px] rounded-2xl self-start origin-right"
+          ></motion.div>
+        </div>
+      </IconButton>
+
+        {open && <MobileNav/>}
+    </>
   );
 }
