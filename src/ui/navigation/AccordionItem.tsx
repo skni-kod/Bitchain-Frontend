@@ -1,7 +1,22 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 
-export default function AccordionItem() {
+interface AccordionItemProps {
+  onCloseNav: () => void;
+  delay: number
+}
+
+export default function AccordionItem({ onCloseNav, delay }: AccordionItemProps) {
   return (
-    <div>AccordionItem</div>
-  )
+    <motion.div transition={{delay: 2}}>
+      <NavLink
+        className="origin-top text-bgDark dark:text-bgWhite1"
+        to=""
+        onClick={onCloseNav}
+      >
+        AccordionItem
+      </NavLink>
+    </motion.div>
+  );
 }

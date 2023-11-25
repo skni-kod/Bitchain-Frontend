@@ -5,13 +5,16 @@ import MobileNav from "./MobileNav";
 
 export default function ToggleMobileNavBurger() {
   const [open, setOpen] = useState(false);
+  //let clickOutsideFlag = false
 
   function toggleOpenNav() {
-    setOpen((s: boolean) => !s);
+    setOpen(true);
+    console.log('object2');
   }
 
   function handleCloseNav() {
     setOpen(false);
+    console.log('object');
   }
 
   const variantsBar1 = {
