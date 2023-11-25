@@ -1,5 +1,5 @@
-import React from "react";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
+import { IoIosArrowDown } from "react-icons/io";
 
 interface AccordionButtonProps {
   text: string;
@@ -12,12 +12,29 @@ export default function AccordionButton({
   setOpen,
   openCard,
 }: AccordionButtonProps) {
+  const textFormatted = text.replace(/ /g, "").toLowerCase();
+  const variants = {
+    open: {
+      rotate: "180deg",
+    },
+    hidden: {
+      rotate: "0",
+    },
+  };
+
   return (
     <motion.button
-      className="flex flex-col p-1 pl-4 w-4/5 mt-3 mb-3 text-dark dark:text-white bg-white dark:bg-bgDark1 hover:text-main dark:hover:text-main transition-colors duration-300 border-l-main border-l-[2px] border-solid"
-      onClick={() => setOpen(text.replace(/ /g, "").toLowerCase())}
+      className="flex justify-between items-center p-1  w-4/5 py-4 bg-white dark:bg-bgDark1 hover:text-main dark:hover:text-main transition-colors duration-300 "
+      onClick={() => setOpen(textFormatted)}
     >
       <p>{text}</p>
+      <motion.span
+        variants={variants}
+        animate={(textFormatted === openCard ? "open" : "hidden")}
+        transition={{ease: "easeInOut"}}
+      >
+        <IoIosArrowDown />
+      </motion.span>
     </motion.button>
   );
 }
