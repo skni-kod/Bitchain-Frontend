@@ -16,6 +16,7 @@ import { RiStackLine } from "react-icons/ri";
 import { RiFolderInfoLine } from "react-icons/ri";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { GiHotDog } from "react-icons/gi";
+import MobileNavButton from "./MobileNavButton";
 
 
 interface MobileNavProps {
@@ -24,9 +25,8 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
-  //const userAuthenticated = false; //Pablo kiedy logowanie?????????????????????????????????????????
-  // const userAuthenticated = true; //Pablo kiedy logowanie?????????????????????????????????????????
-  //const width = useUserWidth();
+  // const userAuthenticated = false; //Pablo kiedy logowanie?????????????????????????????????????????
+  const userAuthenticated = true; //Pablo kiedy logowanie?????????????????????????????????????????
   const [openCard, setOpenCard] = useState("");
   const ref = useClickOutside({ onCloseNav });
 
@@ -37,7 +37,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
       translateX: 0,
     },
     hidden: {
-      translateX: 320,
+      translateX: '100%',
     },
   };
 
@@ -70,9 +70,9 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
           transition={{ ease: "easeInOut" }}
           ref={ref as React.RefObject<HTMLDivElement>}
           animate={open ? "open" : "hidden"}
-          className="absolute flex justify-start items-center flex-col top-0 pt-16 right-0 z-40 h-full w-72 bg-white dark:bg-bgDark1 transition-colors duration-300 border-l-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-dark dark:text-white"
+          className="absolute flex justify-start items-center flex-col top-0 pt-16 right-0 z-40 h-full xs:w-72 w-full bg-white dark:bg-bgDark1 transition-colors duration-300 border-l-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-dark dark:text-white overflow-hidden "
         >
-          <AccountDetails/>
+          <AccountDetails onCloseNav={onCloseNav}/>
           <AccordionButton
             text="Buy Crypto"
             setOpen={setOpen}
@@ -99,7 +99,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               onCloseFunction={onCloseNav}
             />
           </motion.div>
-
+          <MobileNavButton text='Markets' to='markets' onCloseFunction={ onCloseNav}/>
           <AccordionButton text="Trade" setOpen={setOpen} openCard={openCard} />
           <motion.div
             className="flex flex-col origin-top w-full px-6"
@@ -191,6 +191,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
           </motion.div>
 
           <div className="bg-white dark:bg-bgDark1 h-full w-full"></div>
+          {userAuthenticated && <MobileNavButton text='Log out' to='' textColor="text-rose-600" onCloseFunction={ onCloseNav}/>}
         </motion.div>,
         document.body
       )}

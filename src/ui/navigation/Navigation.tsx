@@ -3,7 +3,7 @@ import Logo from "../Logo";
 import DropdownItem from "./DropdownItem";
 import DropdownButton from "./DropdownButton";
 import Dropdown from "./Dropdown";
-import ToggleMobileNavBurger from './ToggleMobileNavBurger'
+import ToggleMobileNavBurger from "./ToggleMobileNavBurger";
 
 import { FaPlus } from "react-icons/fa";
 import { FaPeopleArrows } from "react-icons/fa";
@@ -27,7 +27,7 @@ const Navigation: React.FC = () => {
   //console.log(width);
 
   return (
-    <div className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300">
+    <div className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300 ">
       <Logo />
       {width > 820 && (
         <div className="flex justify-center items-center h-full">
@@ -94,7 +94,7 @@ const Navigation: React.FC = () => {
                 onCloseFunction={undefined as never}
               />
               <DropdownItem
-                icon={<GiHotDog />}  
+                icon={<GiHotDog />}
                 title="Fajnego"
                 desc="Co mówiłeś"
                 to=""
@@ -130,7 +130,7 @@ const Navigation: React.FC = () => {
         </div>
       )}
       <div className="flex justify-center items-center h-full">
-        {userAuthenticated ? (
+        {width > 420 && (userAuthenticated ? (
           <DropdownButton
             text={
               <p className="flex justify-center items-center gap-2">
@@ -169,7 +169,7 @@ const Navigation: React.FC = () => {
               Sign up
             </Button>
           </>
-        )}
+        ))}
         <DarkModeButton />
         {width < 820 && <ToggleMobileNavBurger />}
       </div>
