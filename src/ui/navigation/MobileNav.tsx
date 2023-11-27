@@ -43,14 +43,10 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
 
   const variantsAccorion = {
     hidden: {
-      // scaleY: 0,
       height: 0,
-      // display: "none",
     },
     open: {
-      // scaleY: 1,
       height: "fit-content",
-      // display: "block",
     },
   };
 
@@ -65,13 +61,13 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
   return (
     <div>
       {createPortal(
-        <div className="absolute h-full w-full overflow-x-hidden ">
+        <div className="absolute h-full w-full top-0 left-0 overflow-x-hidden ">
           <motion.div
             variants={variants}
             transition={{ ease: "easeInOut" }}
             ref={ref as React.RefObject<HTMLDivElement>}
             animate={open ? "open" : "hidden"}
-            className="absolute flex justify-start items-center flex-col top-0 pt-16 right-0 z-40 h-full xs:w-72 w-full bg-white dark:bg-bgDark1 transition-colors duration-300 border-l-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-dark dark:text-white overflow-hidden "
+            className="absolute flex justify-start items-center flex-col top-0 pt-16 right-0 z-40 h-full xs:w-72 w-full bg-white dark:bg-bgDark1 transition-colors duration-300 border-l-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-dark dark:text-white overflow-auto"
           >
             <AccountDetails onCloseNav={onCloseNav} />
             <AccordionButton
@@ -80,7 +76,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               openCard={openCard}
             />
             <motion.div
-              className="flex flex-col origin-top w-full px-6"
+              className={`flex flex-col origin-top w-full px-6 ${openCard !== "buycrypto" && 'over flow-hidden'}`}
               variants={variantsAccorion}
               animate={openCard === "buycrypto" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
@@ -111,7 +107,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               openCard={openCard}
             />
             <motion.div
-              className="flex flex-col origin-top w-full px-6"
+              className={`flex flex-col origin-top w-full px-6 ${openCard !== "trade" && 'over flow-hidden'}`}
               variants={variantsAccorion}
               animate={openCard === "trade" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
@@ -145,7 +141,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               openCard={openCard}
             />
             <motion.div
-              className="flex flex-col origin-top w-full px-6"
+              className={`flex flex-col origin-top w-full px-6 ${openCard !== "tools" && 'ove rflow-hidden'}`}
               variants={variantsAccorion}
               animate={openCard === "tools" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
@@ -179,7 +175,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               openCard={openCard}
             />
             <motion.div
-              className="flex flex-col origin-top w-full px-6"
+              className={`flex flex-col origin-top w-full px-6 ${openCard !== "more" && 'overf low-hidden'}`}
               variants={variantsAccorion}
               animate={openCard === "more" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
