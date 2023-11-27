@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { createPortal } from "react-dom";
-//import { useUserWidth } from "../../hooks/useUserWidth";
 import AccordionButton from "./AccordionButton";
 import DropdownItem from "./DropdownItem";
 import AccountDetails from "./AccountDetails";
@@ -30,8 +29,6 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
   const [openCard, setOpenCard] = useState("");
   const ref = useClickOutside({ onCloseNav });
 
-  console.log(openCard);
-
   const variants = {
     open: {
       x: 0,
@@ -44,11 +41,9 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
   const variantsAccorion = {
     hidden: {
       height: 0,
-      // overflow: 'hidden'
     },
     open: {
       height: "fit-content",
-      // overflow: 'visible'
     },
   };
 
@@ -116,29 +111,29 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               animate={openCard === "trade" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
             >
-              <div className="overflow-hidden">
-                <DropdownItem
-                  icon={<MdOutlineMultilineChart />}
-                  title="Spot"
-                  desc="Trade assets with tools"
-                  to="spot"
-                  onCloseFunction={onCloseNav}
-                />
-                <DropdownItem
-                  icon={<FaChartLine />}
-                  title="Futures"
-                  desc="Invest with borrowed funds"
-                  to="futures"
-                  onCloseFunction={onCloseNav}
-                />
-                <DropdownItem
-                  icon={<FaArrowsRotate />}
-                  title="Convert"
-                  desc="Convert between crypto"
-                  to="convert"
-                  onCloseFunction={onCloseNav}
-                />
-              </div>
+                <div className="overflow-hidden"> 
+                  <DropdownItem
+                    icon={<MdOutlineMultilineChart />}
+                    title="Spot"
+                    desc="Trade assets with tools"
+                    to="spot"
+                    onCloseFunction={onCloseNav}
+                  />
+                  <DropdownItem
+                    icon={<FaChartLine />}
+                    title="Futures"
+                    desc="Invest with borrowed funds"
+                    to="futures"
+                    onCloseFunction={onCloseNav}
+                  />
+                  <DropdownItem
+                    icon={<FaArrowsRotate />}
+                    title="Convert"
+                    desc="Convert between crypto"
+                    to="convert"
+                    onCloseFunction={onCloseNav}
+                  />
+                </div>
             </motion.div>
 
             <AccordionButton
@@ -152,7 +147,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               animate={openCard === "tools" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
             >
-              <div className="overflow-hidden">
+              <div className=" overflow-hidden">
                 <DropdownItem
                   icon={<GiHotDog />}
                   title="Mati"
@@ -188,7 +183,7 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               animate={openCard === "more" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
             >
-              <div className="overflow-hidden">
+              <div className="overflow-hidden ">
                 <DropdownItem
                   icon={<RiStackLine />}
                   title="Stacking"

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import IconButton from "../IconButton";
-import { motion } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
 import MobileNav from "./MobileNav";
 
 export default function ToggleMobileNavBurger() {
@@ -9,12 +9,12 @@ export default function ToggleMobileNavBurger() {
 
   function toggleOpenNav() {
     setOpen(true);
-    console.log('object2');
+    console.log("object2");
   }
 
   function handleCloseNav() {
     setOpen(false);
-    console.log('object');
+    console.log("object");
   }
 
   const variantsBar1 = {
@@ -55,18 +55,21 @@ export default function ToggleMobileNavBurger() {
           <motion.div
             variants={variantsBar1}
             animate={open ? "closed" : "open"}
+            transition={{ease: easeInOut}}
             className="bg-bgDark1 dark:bg-bgWhite1 w-3 h-[2px] rounded-2xl self-start origin-left"
           ></motion.div>
 
           <motion.div
             variants={variantsBar2}
             animate={open ? "closed" : "open"}
+            transition={{ease: easeInOut}}
             className="bg-bgDark1 dark:bg-bgWhite1 w-5 h-[2px] rounded-2xl"
           ></motion.div>
 
           <motion.div
             variants={variantsBar3}
             animate={open ? "closed" : "open"}
+            transition={{ease: easeInOut}}
             className="bg-bgDark1 dark:bg-bgWhite1 w-4 h-[2px] rounded-2xl self-start origin-right"
           ></motion.div>
         </div>

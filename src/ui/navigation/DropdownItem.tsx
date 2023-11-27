@@ -22,7 +22,7 @@ const DropdownItem: React.FC<DropdownItemprops> = ({
   return (
     <NavLink
       to={to}
-      className={`bg-white hover:bg-slate-100 w-60 rounded-lg dark:bg-bgDark1 dark:hover:bg-bgDark1Hover transition-colors duration-500 ${textColor && textColor}`}
+      className={`block bg-white hover:bg-slate-100 w-60 rounded-lg dark:bg-bgDark1 dark:hover:bg-bgDark1Hover transition-colors duration-500 ${textColor && textColor}`}
       onClick={onCloseFunction}
     >
       <div className="w-full flex justify-start items-center">
