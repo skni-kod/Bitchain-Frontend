@@ -130,46 +130,60 @@ const Navigation: React.FC = () => {
         </div>
       )}
       <div className="flex justify-center items-center h-full">
-        {width > 420 && (userAuthenticated ? (
-          <DropdownButton
-            text={
-              <p className="flex justify-center items-center gap-2">
-                User Name{" "}
-                <img className="w-7 rounded-full" src="default-user.jpg" />
-              </p>
-            }
-            type={"dropdown"}
-          >
-            <Dropdown onCloseFunction={undefined as never} direction="right-0">
-              <AccountBalanceCard />
-              <DropdownItem
-                title="Assets & History"
-                to="account"
+        {width > 420 &&
+          (userAuthenticated ? (
+            <DropdownButton
+              text={
+                <p className="flex justify-center items-center gap-2">
+                  User Name{" "}
+                  <img className="w-7 rounded-full" src="default-user.jpg" />
+                </p>
+              }
+              type={"dropdown"}
+            >
+              <Dropdown
                 onCloseFunction={undefined as never}
-              />
-              <DropdownItem
-                title="Account settings"
-                to="settings"
-                onCloseFunction={undefined as never}
-              />
-              <DropdownItem
-                title="Logout"
-                to=""
-                onCloseFunction={undefined as never}
-                textColor="text-rose-600"
-              />
-            </Dropdown>
-          </DropdownButton>
-        ) : (
-          <>
-            <Button type="link" to="login" bgType="transparent">
-              Log in
-            </Button>
-            <Button type="link" to="signup">
-              Sign up
-            </Button>
-          </>
-        ))}
+                direction="right-0"
+              >
+                <AccountBalanceCard />
+                <DropdownItem
+                  title="Overview"
+                  to="account"
+                  onCloseFunction={undefined as never}
+                />
+                <DropdownItem
+                  title="Assets"
+                  to="assets"
+                  onCloseFunction={undefined as never}
+                />
+                <DropdownItem
+                  title="History"
+                  to="history"
+                  onCloseFunction={undefined as never}
+                />
+                <DropdownItem
+                  title="Account settings"
+                  to="settings"
+                  onCloseFunction={undefined as never}
+                />
+                <DropdownItem
+                  title="Logout"
+                  to=""
+                  onCloseFunction={undefined as never}
+                  textColor="text-rose-600"
+                />
+              </Dropdown>
+            </DropdownButton>
+          ) : (
+            <>
+              <Button type="link" to="login" bgType="transparent">
+                Log in
+              </Button>
+              <Button type="link" to="signup">
+                Sign up
+              </Button>
+            </>
+          ))}
         <DarkModeButton />
         {width < 820 && <ToggleMobileNavBurger />}
       </div>
