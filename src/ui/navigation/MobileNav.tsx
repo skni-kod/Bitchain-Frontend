@@ -26,7 +26,7 @@ interface MobileNavProps {
 export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
   // const userAuthenticated = false; //Pablo kiedy logowanie?????????????????????????????????????????
   const userAuthenticated = true; //Pablo kiedy logowanie?????????????????????????????????????????
-  const portalContainer = document.getElementById('root')!;
+  const portalContainer = document.getElementById("root")!;
   const [openCard, setOpenCard] = useState("");
   const ref = useClickOutside({ onCloseNav });
 
@@ -44,9 +44,11 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
   const variantsAccorion = {
     hidden: {
       height: 0,
+      // overflow: 'hidden'
     },
     open: {
       height: "fit-content",
+      // overflow: 'visible'
     },
   };
 
@@ -76,25 +78,27 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               openCard={openCard}
             />
             <motion.div
-              className={`flex flex-col origin-top w-full px-6 ${openCard !== "buycrypto" && 'over flow-hidden'}`}
+              className={`flex flex-col origin-top w-full px-6 `}
               variants={variantsAccorion}
               animate={openCard === "buycrypto" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
             >
-              <DropdownItem
-                icon={<FaPlus />}
-                title="Quick buy"
-                desc="Buy or sell your crypto"
-                to="quickbuy"
-                onCloseFunction={onCloseNav}
-              />
-              <DropdownItem
-                icon={<FaPeopleArrows />}
-                title="P2P"
-                desc="Exchange with others"
-                to="p2p"
-                onCloseFunction={onCloseNav}
-              />
+              <div className="overflow-hidden">
+                <DropdownItem
+                  icon={<FaPlus />}
+                  title="Quick buy"
+                  desc="Buy or sell your crypto"
+                  to="quickbuy"
+                  onCloseFunction={onCloseNav}
+                />
+                <DropdownItem
+                  icon={<FaPeopleArrows />}
+                  title="P2P"
+                  desc="Exchange with others"
+                  to="p2p"
+                  onCloseFunction={onCloseNav}
+                />
+              </div>
             </motion.div>
             <MobileNavButton
               text="Markets"
@@ -107,32 +111,34 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               openCard={openCard}
             />
             <motion.div
-              className={`flex flex-col origin-top w-full px-6 ${openCard !== "trade" && 'over flow-hidden'}`}
+              className={`flex flex-col origin-top w-full px-6 `}
               variants={variantsAccorion}
               animate={openCard === "trade" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
             >
-              <DropdownItem
-                icon={<MdOutlineMultilineChart />}
-                title="Spot"
-                desc="Trade assets with tools"
-                to="spot"
-                onCloseFunction={onCloseNav}
-              />
-              <DropdownItem
-                icon={<FaChartLine />}
-                title="Futures"
-                desc="Invest with borrowed funds"
-                to="futures"
-                onCloseFunction={onCloseNav}
-              />
-              <DropdownItem
-                icon={<FaArrowsRotate />}
-                title="Convert"
-                desc="Convert between crypto"
-                to="convert"
-                onCloseFunction={onCloseNav}
-              />
+              <div className="overflow-hidden">
+                <DropdownItem
+                  icon={<MdOutlineMultilineChart />}
+                  title="Spot"
+                  desc="Trade assets with tools"
+                  to="spot"
+                  onCloseFunction={onCloseNav}
+                />
+                <DropdownItem
+                  icon={<FaChartLine />}
+                  title="Futures"
+                  desc="Invest with borrowed funds"
+                  to="futures"
+                  onCloseFunction={onCloseNav}
+                />
+                <DropdownItem
+                  icon={<FaArrowsRotate />}
+                  title="Convert"
+                  desc="Convert between crypto"
+                  to="convert"
+                  onCloseFunction={onCloseNav}
+                />
+              </div>
             </motion.div>
 
             <AccordionButton
@@ -141,32 +147,34 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               openCard={openCard}
             />
             <motion.div
-              className={`flex flex-col origin-top w-full px-6 ${openCard !== "tools" && 'ove rflow-hidden'}`}
+              className={`flex flex-col origin-top w-full px-6`}
               variants={variantsAccorion}
               animate={openCard === "tools" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
             >
-              <DropdownItem
-                icon={<GiHotDog />}
-                title="Mati"
-                desc="Zrób"
-                to=""
-                onCloseFunction={onCloseNav}
-              />
-              <DropdownItem
-                icon={<GiHotDog />}
-                title="Tutaj"
-                desc="Coś"
-                to=""
-                onCloseFunction={onCloseNav}
-              />
-              <DropdownItem
-                icon={<GiHotDog />}
-                title="Fajnego"
-                desc="Co mówiłeś"
-                to=""
-                onCloseFunction={onCloseNav}
-              />
+              <div className="overflow-hidden">
+                <DropdownItem
+                  icon={<GiHotDog />}
+                  title="Mati"
+                  desc="Zrób"
+                  to=""
+                  onCloseFunction={onCloseNav}
+                />
+                <DropdownItem
+                  icon={<GiHotDog />}
+                  title="Tutaj"
+                  desc="Coś"
+                  to=""
+                  onCloseFunction={onCloseNav}
+                />
+                <DropdownItem
+                  icon={<GiHotDog />}
+                  title="Fajnego"
+                  desc="Co mówiłeś"
+                  to=""
+                  onCloseFunction={onCloseNav}
+                />
+              </div>
             </motion.div>
 
             <AccordionButton
@@ -175,32 +183,34 @@ export default function MobileNav({ open, onCloseNav }: MobileNavProps) {
               openCard={openCard}
             />
             <motion.div
-              className={`flex flex-col origin-top w-full px-6 ${openCard !== "more" && 'overf low-hidden'}`}
+              className={`flex flex-col origin-top w-full px-6 `}
               variants={variantsAccorion}
               animate={openCard === "more" ? "open" : "hidden"}
               transition={{ ease: "easeInOut" }}
             >
-              <DropdownItem
-                icon={<RiStackLine />}
-                title="Stacking"
-                desc="Earn daily"
-                to="stack"
-                onCloseFunction={onCloseNav}
-              />
-              <DropdownItem
-                icon={<HiOutlineClipboardDocumentList />}
-                title="Leaderboard"
-                desc="Let's see the best investors"
-                to="leaderboard"
-                onCloseFunction={onCloseNav}
-              />
-              <DropdownItem
-                icon={<RiFolderInfoLine />}
-                title="About Us"
-                desc="Something about the project"
-                to="about"
-                onCloseFunction={onCloseNav}
-              />
+              <div className="overflow-hidden">
+                <DropdownItem
+                  icon={<RiStackLine />}
+                  title="Stacking"
+                  desc="Earn daily"
+                  to="stack"
+                  onCloseFunction={onCloseNav}
+                />
+                <DropdownItem
+                  icon={<HiOutlineClipboardDocumentList />}
+                  title="Leaderboard"
+                  desc="Let's see the best investors"
+                  to="leaderboard"
+                  onCloseFunction={onCloseNav}
+                />
+                <DropdownItem
+                  icon={<RiFolderInfoLine />}
+                  title="About Us"
+                  desc="Something about the project"
+                  to="about"
+                  onCloseFunction={onCloseNav}
+                />
+              </div>
             </motion.div>
 
             <div className="bg-white dark:bg-bgDark1 h-full w-full"></div>

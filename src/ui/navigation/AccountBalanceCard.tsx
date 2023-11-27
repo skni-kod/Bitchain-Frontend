@@ -6,7 +6,7 @@ export default function AccountBalanceCard() {
   const userData = {balance: 14232.312, km: 12321.212}; //Pablo kiedy logowanie??????????????????????????????????????????????????///
 
   return (
-    <div className="flex flex-col w-full p-3 bg-bgDark1Hover rounded-lg mb-3 mt-2 cursor-default">
+    <div className="flex flex-col w-full p-3 bg-bgWhite1Hover dark:bg-bgDark1Hover rounded-lg mb-3 mt-2 cursor-default">
       <NavLink to="assets" className="flex justify-between items-center w-full">
         <p>Total assets</p>
         <span>
