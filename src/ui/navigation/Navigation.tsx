@@ -27,7 +27,10 @@ const Navigation: React.FC = () => {
   //console.log(width);
 
   return (
-    <div className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300 ">
+    <div
+      id="nav"
+      className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300 "
+    >
       <Logo />
       {width > 820 && (
         <div className="flex justify-center items-center h-full">
@@ -145,7 +148,7 @@ const Navigation: React.FC = () => {
                 onCloseFunction={undefined as never}
                 direction="right-0"
               >
-                <AccountBalanceCard onCloseFunction={undefined as never}/>
+                <AccountBalanceCard onCloseFunction={undefined as never} />
                 <DropdownItem
                   title="Overview"
                   to="account"

@@ -5,17 +5,25 @@ import MobileNav from "./MobileNav";
 
 export default function ToggleMobileNavBurger() {
   const [open, setOpen] = useState(false);
-  //let clickOutsideFlag = false
 
   function toggleOpenNav() {
-    setOpen(true);
-    console.log("object2");
+    setOpen((s: boolean) => (s = !s));
   }
 
   function handleCloseNav() {
-    setOpen(false);
-    console.log("object");
+    if (open) {
+      setOpen(false);
+      console.log("object");
+    }
   }
+
+  function handleToClickOutside(e: MouseEvent) {
+    const targetElement = e.target as Element
+    if(targetElement.closest('button')?.id !== 'iconBtn'){
+      setOpen(false);
+    }
+  }
+  
 
   const variantsBar1 = {
     closed: {
@@ -55,27 +63,27 @@ export default function ToggleMobileNavBurger() {
           <motion.div
             variants={variantsBar1}
             animate={open ? "closed" : "open"}
-            transition={{ease: easeInOut}}
+            transition={{ ease: easeInOut }}
             className="bg-bgDark1 dark:bg-bgWhite1 w-3 h-[2px] rounded-2xl self-start origin-left"
           ></motion.div>
 
           <motion.div
             variants={variantsBar2}
             animate={open ? "closed" : "open"}
-            transition={{ease: easeInOut}}
+            transition={{ ease: easeInOut }}
             className="bg-bgDark1 dark:bg-bgWhite1 w-5 h-[2px] rounded-2xl"
           ></motion.div>
 
           <motion.div
             variants={variantsBar3}
             animate={open ? "closed" : "open"}
-            transition={{ease: easeInOut}}
+            transition={{ ease: easeInOut }}
             className="bg-bgDark1 dark:bg-bgWhite1 w-4 h-[2px] rounded-2xl self-start origin-right"
           ></motion.div>
         </div>
       </IconButton>
 
-      <MobileNav open={open} onCloseNav={handleCloseNav} />
+      <MobileNav open={open} onCloseNav={handleCloseNav} OnClickOutside={handleToClickOutside}/>
     </>
   );
 }

@@ -6,7 +6,7 @@ import PageNotFound from "./pages/PageNotFound";
 import DarkModeProvider from "./context/DarkModeContext";
 import Assets from "./pages/Assets";
 import QuickBuy from "./pages/QuickBuy";
-import P2p from "./pages/p2p";
+import P2p from "./pages/P2p";
 import Markets from "./pages/Markets";
 import Spot from "./pages/Spot";
 import Futures from "./pages/Futures";
