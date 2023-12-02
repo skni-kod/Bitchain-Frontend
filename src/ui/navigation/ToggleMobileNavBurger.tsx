@@ -13,7 +13,6 @@ export default function ToggleMobileNavBurger() {
   function handleCloseNav() {
     if (open) {
       setOpen(false);
-      console.log("object");
     }
   }
 

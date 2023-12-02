@@ -17,33 +17,50 @@ import About from "./pages/About";
 import Account from "./pages/Account";
 import History from "./pages/History";
 import Settings from "./pages/Settings";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+    },
+  },
+});
 
 function App() {
   return (
     <DarkModeProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Navigate replace to="homepage" />} />
-            <Route path="homepage" element={<HomePage />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="quickbuy" element={<QuickBuy />} />
-            <Route path="p2p" element={<P2p />} />
-            <Route path="markets" element={<Markets />} />
-            <Route path="spot" element={<Spot />} />
-            <Route path="futures" element={<Futures />} />
-            <Route path="convert" element={<Convert />} />
-            <Route path="stack" element={<Stacking />} />
-            <Route path="leaderboard" element={<LeaderBoard />} />
-            <Route path="about" element={<About />} />
-            <Route path="account" element={<Account />} />
-            <Route path="history" element={<History />} />
-            <Route path="assets" element={<Assets />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route index element={<Navigate replace to="homepage" />} />
+              <Route path="homepage" element={<HomePage />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="quickbuy" element={<QuickBuy />} />
+              <Route path="p2p" element={<P2p />} />
+              <Route path="markets" element={<Markets />} />
+              <Route path="spot" element={<Spot />} />
+              <Route path="futures" element={<Futures />} />
+              <Route path="convert" element={<Convert />} />
+              <Route path="stack" element={<Stacking />} />
+              <Route path="leaderboard" element={<LeaderBoard />} />
+              <Route path="about" element={<About />} />
+              <Route path="account" element={<Account />} />
+              <Route path="history" element={<History />} />
+              <Route path="assets" element={<Assets />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<Register />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
     </DarkModeProvider>
   );
 }
