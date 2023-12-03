@@ -9,6 +9,11 @@ const API_KEY = "http://localhost:8000/";
 //   }
 // }
 
+interface LoginProps {
+  email: string
+  password: string
+}
+
 export async function getUser(): Promise<void> {
   try {
     const response = await fetch(API_KEY + "api/user/me/", {
@@ -33,34 +38,29 @@ export async function getUser(): Promise<void> {
   }
 }
 
-export async function login(
-    email: string,
-    password: string
-  ): Promise<void> {
-    try {
-      const response = await fetch(API_KEY + "api/user/token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-      } else {
-        throw new Error(`Login error: ${response.status}`);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error:", error.message);
-      } else {
-        console.error("An unknown error occurred.");
-      }
+export async function login({
+  email,
+  password,
+}: LoginProps): Promise<void> {
+  try {
+    const response = await fetch(API_KEY + "api/user/token/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+    console.log(data)
+    if (response.ok) {
+      console.log(data);
+    } else {
+      throw new Error(`Login error: ${response.status}`);
     }
+  } catch (error) {
+    console.error(error);
   }
-  
+}
