@@ -23,6 +23,9 @@ export default {
       screens: {
         xs: "320px",
       },
+      gridTemplateRows: {
+        "layout": ' auto'
+      }
     },
   },
   plugins: [],

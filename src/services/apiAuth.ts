@@ -1,31 +1,29 @@
 const API_KEY = "http://localhost:8000/";
 
-// export async function getUser() {
-//   try {
-//     const response = await axios.get('api/user/me');
-//     console.log(response);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
 interface LoginProps {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
-export async function getUser(): Promise<void> {
+export async function getUser() {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    console.log("Can not find accessToken in localStorage");
+    return null;
+  }
+  
   try {
     const response = await fetch(API_KEY + "api/user/me/", {
       method: "GET",
       headers: {
+        Authorization: `Token ${token}`,
         "Content-Type": "application/json",
       },
     });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
+      return data;
     } else {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -38,10 +36,7 @@ export async function getUser(): Promise<void> {
   }
 }
 
-export async function login({
-  email,
-  password,
-}: LoginProps): Promise<void> {
+export async function login({ email, password }: LoginProps): Promise<void> {
   try {
     const response = await fetch(API_KEY + "api/user/token/", {
       method: "POST",
@@ -53,14 +48,19 @@ export async function login({
         password: password,
       }),
     });
-    const data = await response.json();
-    console.log(data)
     if (response.ok) {
-      console.log(data);
+      const data = await response.json();
+      localStorage.setItem("accessToken", data.token);
+      const userData = getUser();
+      return userData;
     } else {
       throw new Error(`Login error: ${response.status}`);
     }
   } catch (error) {
     console.error(error);
   }
+}
+
+export function register() {
+  //avatar wiec narazie nei ma co robic
 }

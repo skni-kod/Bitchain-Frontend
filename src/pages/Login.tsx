@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { getUser, login } from "../services/apiAuth";
+import { useLogin } from "../features/Authentication/useLogin";
 
 export default function Login() {
-    login({email: "olaochal@pawel.com", password: "judijudi"})
+  const { login, isPending } = useLogin();
+  useEffect(
+    function () {
+      login({ email: "olaochal@pawel.com", password: "judijudi" });
+      // console.log(isPending);
+    },
+    [login]
+  );
   // getUser();
-  return <div>Login</div>;
+  return <div className="bg-white dark:bg-bgDark">
+    
+  </div>;
 }

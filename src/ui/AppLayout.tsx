@@ -4,9 +4,11 @@ import Navigation from "./navigation/Navigation";
 
 export default function AppLayout() {
   return (
-    <div>
+    <div className="grid grid-rows-layout h-screen">
       <Navigation />
-      <Outlet />
+      <div>
+        <Outlet />
+      </div>
     </div>
   );
 }
