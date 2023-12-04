@@ -29,7 +29,7 @@ export default function DropdownButton({
   if (type === "dropdown") {
     return (
       <button
-        className="relative h-full w-fit px-2 font-medium tracking-wide"
+        className="relative h-full w-fit px-2 font-medium tracking-wide cursor-default"
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         onFocus={() => setIsHover(true)}
