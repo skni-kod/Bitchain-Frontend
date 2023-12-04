@@ -6,7 +6,7 @@ export default function Login() {
   const { login, isPending } = useLogin();
   useEffect(
     function () {
-      login({ email: "olaochal@pawel.com", password: "judijudi" });
+      login({ email: "test@judi.com", password: "pawel" });
       // console.log(isPending);
     },
     [login]
