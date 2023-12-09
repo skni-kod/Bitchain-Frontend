@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { easeInOut, motion } from "framer-motion";
-import useDarkMode from "../hooks/useDarkMode";
 
 interface FormInputProps {
   placeholder: string;
@@ -10,7 +9,6 @@ interface FormInputProps {
 export default function FormInput({ placeholder, icon }: FormInputProps) {
   const [input, setInput] = useState("");
   const [onFocus, setOnFocus] = useState(false);
-  const { isDarkMode } = useDarkMode();
 
   const motionBarVariants = {
     hidden: {
@@ -21,43 +19,15 @@ export default function FormInput({ placeholder, icon }: FormInputProps) {
     },
   };
 
-  const IconVariants = useMemo(() => {
-    return {
-      hidden: { color: isDarkMode ? "white" : "black" },
-      open: {
-        color: "#ff5700",
-      },
-    };
-  }, [isDarkMode]);
-
-  // useEffect(
-  //   function () {
-  //     const IconVariants = {
-  //       hidden: { color: "" },
-  //       open: {
-  //         color: "#ff5700",
-  //       },
-  //     };
-  //     if (isDarkMode) {
-  //       IconVariants.hidden = { color: "black" };
-  //     } else {
-  //       IconVariants.hidden = { color: "white" };
-  //     }
-  //   },
-  //   [isDarkMode, IconVariants]
-  // );
-
   return (
     <div
       className={`relative flex justify-center items-center w-full  dark:text-white  text-bgDark1 overflow-x-hidden`}
     >
-      <motion.div
-        variants={IconVariants}
-        animate={onFocus ? "open" : "hidden"}
-        className="flex justify-center items-center p-2 h-full text-xl"
+      <div
+        className={`flex justify-center items-center p-2 h-full text-xl transition-colors duration-300  ${onFocus ? 'text-main' : "text-black dark:text-white"}`}
       >
         {icon}
-      </motion.div>
+      </div>
       <input
         id="input"
         className="w-full bg-transparent outline-none py-2  text-md mt-[1px]"
