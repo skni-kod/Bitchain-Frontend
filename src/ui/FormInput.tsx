@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { easeInOut, motion } from "framer-motion";
 import useDarkMode from "../hooks/useDarkMode";
 
@@ -21,20 +21,31 @@ export default function FormInput({ placeholder, icon }: FormInputProps) {
     },
   };
 
-  const IconVariants = {
-    hidden: { color: "" },
-    open: {
-      color: "#ff5700",
-    },
-  };
+  const IconVariants = useMemo(() => {
+    return {
+      hidden: { color: isDarkMode ? "white" : "black" },
+      open: {
+        color: "#ff5700",
+      },
+    };
+  }, [isDarkMode]);
 
-  useEffect(function () {
-    if (isDarkMode) {
-      IconVariants.hidden = { color: "black" };
-    } else {
-      IconVariants.hidden = { color: "white" };
-    }
-  }, [isDarkMode, IconVariants]);
+  // useEffect(
+  //   function () {
+  //     const IconVariants = {
+  //       hidden: { color: "" },
+  //       open: {
+  //         color: "#ff5700",
+  //       },
+  //     };
+  //     if (isDarkMode) {
+  //       IconVariants.hidden = { color: "black" };
+  //     } else {
+  //       IconVariants.hidden = { color: "white" };
+  //     }
+  //   },
+  //   [isDarkMode, IconVariants]
+  // );
 
   return (
     <div
@@ -42,8 +53,8 @@ export default function FormInput({ placeholder, icon }: FormInputProps) {
     >
       <motion.div
         variants={IconVariants}
-        animate={onFocus ? "open" : ""}
-        className="flex justify-center items-center p-2 h-full text-xl text-black dark:text-white"
+        animate={onFocus ? "open" : "hidden"}
+        className="flex justify-center items-center p-2 h-full text-xl"
       >
         {icon}
       </motion.div>
