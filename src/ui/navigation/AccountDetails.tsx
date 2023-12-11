@@ -1,4 +1,3 @@
-import React from "react";
 import { useUserWidth } from "../../hooks/useUserWidth";
 import Button from "../Button";
 import { NavLink } from "react-router-dom";

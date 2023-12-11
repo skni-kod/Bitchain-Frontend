@@ -6,17 +6,31 @@ interface ButtonProps {
   type: "link" | "button";
   bgType?: "transparent";
   to: string;
-  onClick?: ()=>void
+  onClick?: () => void;
+  size?: "small" | "medium" | "large";
 }
 
-export default function Button({ children, bgType, type, to, onClick }: ButtonProps) {
+export default function Button({
+  children,
+  bgType,
+  type,
+  to,
+  onClick,
+  size = "small",
+}: ButtonProps) {
   if (type === "button") {
     return (
       <button
-        className={`px-4 py-2 rounded-3xl text-sm tracking-wider m-2 ${
+        className={` rounded-3xl text-sm tracking-wider m-2 w-fit ${
           !bgType
             ? "bg-main hover:bg-mainHover"
             : "dark:hover:bg-bgDark1Hover hover:bg-bgWhite1"
+        } ${
+          size === "small"
+            ? "px-4 py-2"
+            : size === "medium"
+            ? "px-6 py-3"
+            : size === "large" && "px-10 py-4"
         } transition-colors duration-300`}
         onClick={onClick}
       >
@@ -31,7 +45,13 @@ export default function Button({ children, bgType, type, to, onClick }: ButtonPr
           !bgType
             ? "bg-main hover:bg-mainHover"
             : "dark:hover:bg-bgDark1Hover hover:bg-bgWhite1"
-        } transition-colors duration-300`}
+        } ${
+          size === "small"
+            ? "px-4 py-2"
+            : size === "medium"
+            ? "px-6 py-3"
+            : size === "large" && "px-10 py-4"
+        }transition-colors duration-300`}
         onClick={onClick}
       >
         {children}
