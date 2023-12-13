@@ -11,53 +11,42 @@ export async function getUser() {
     console.log("Can not find accessToken in localStorage");
     return null;
   }
-  
-  try {
-    const response = await fetch(API_KEY + "api/user/me/", {
-      method: "GET",
-      headers: {
-        Authorization: `Token ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+  const response = await fetch(API_KEY + "api/user/me/", {
+    method: "GET",
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
 
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error:", error.message);
-    } else {
-      console.error("An unknown error occurred.");
-    }
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    throw new Error(`Get user error: ${response.status}`);
   }
 }
 
 export async function login({ email, password }: LoginProps): Promise<void> {
-  try {
-    const response = await fetch(API_KEY + "api/user/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("accessToken", data.token);
-      const userData = getUser();
-      return userData;
-    } else {
-      throw new Error(`Login error: ${response.status}`);
-    }
-  } catch (error) {
-    console.error(error);
+  const response = await fetch(API_KEY + "api/user/token/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    localStorage.setItem("accessToken", data.token);
+    console.log(data.token);
+    const userData = getUser();
+    return userData;
+  } else {
+    const bodyText = await response.text();
+    throw new Error(`${bodyText}`);
   }
 }
 
