@@ -24,7 +24,7 @@ export default function Login() {
           <img src="/logo-icon-white.svg" />
         </div> */}
         <LoginCard />
-        <div>sd</div>
+        {/* <div>sd</div> */}
       {/* </div> */}
     </div>
   );
