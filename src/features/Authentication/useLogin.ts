@@ -12,7 +12,6 @@ export function useLogin() {
     },
     onSuccess: (data) => {
       toast.success("Logged successfully");
-      console.log(data);
       queryClient.setQueryData(["user"], data);
       navigate("/homepage")
     },

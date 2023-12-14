@@ -1,14 +1,13 @@
 // import ReactDOM from "react-dom"
-import FormInput from "../FormInput";
+import FormInput from "../../ui/FormInput";
 import { GoPerson } from "react-icons/go";
 import { CiLock } from "react-icons/ci";
-import Button from "../Button";
+import Button from "../../ui/Button";
 import { Link } from "react-router-dom";
 import useDarkMode from "../../hooks/useDarkMode";
-import React, { useEffect, useState } from "react";
-import { useLogin } from "../../features/Authentication/useLogin";
-import toast from "react-hot-toast";
+import { useLogin } from "./useLogin";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import Spinner from "../../ui/Spinner";
 
 export default function LoginCard() {
   const { login, isPending } = useLogin();
@@ -20,8 +19,7 @@ export default function LoginCard() {
   const { isDarkMode } = useDarkMode();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    login({email: data.email, password: data.password })
+    login({ email: data.email, password: data.password });
   };
 
   return (
@@ -53,8 +51,8 @@ export default function LoginCard() {
         >
           Forgot password?
         </Link>
-        <Button size="medium" to="" type="button">
-          Log in
+        <Button size="medium" to="" type="button" disabled={isPending}>
+          {isPending ? <Spinner type="button"/> : "Log in"}
         </Button>
         <Link
           to="/signup"

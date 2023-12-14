@@ -8,6 +8,7 @@ interface ButtonProps {
   to: string;
   onClick?: () => void;
   size?: "small" | "medium" | "large";
+  disabled?: boolean
 }
 
 export default function Button({
@@ -17,7 +18,9 @@ export default function Button({
   to,
   onClick,
   size = "small",
+  disabled,
 }: ButtonProps) {
+  console.log(disabled);
   if (type === "button") {
     return (
       <button
@@ -33,6 +36,7 @@ export default function Button({
             : size === "large" && "px-10 py-4"
         } transition-colors duration-300`}
         onClick={onClick}
+        disabled={disabled}
       >
         {children}
       </button>

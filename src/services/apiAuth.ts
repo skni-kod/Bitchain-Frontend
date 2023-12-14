@@ -41,7 +41,6 @@ export async function login({ email, password }: LoginProps): Promise<void> {
   if (response.ok) {
     const data = await response.json();
     localStorage.setItem("accessToken", data.token);
-    console.log(data.token);
     const userData = getUser();
     return userData;
   } else {
