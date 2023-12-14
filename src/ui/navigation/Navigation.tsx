@@ -18,13 +18,13 @@ import AccountBalanceCard from "./AccountBalanceCard";
 import DarkModeButton from "./DarkModeButton";
 import Button from "../Button";
 import { useUserWidth } from "../../hooks/useUserWidth";
+import { useUser } from "../../features/Authentication/useUser";
 
 const Navigation: React.FC = () => {
-  const userAuthenticated = false; //Pablo kiedy logowanie?????????????????????????????????????????
-  // const userAuthenticated = true; //Pablo kiedy logowanie?????????????????????????????????????????
+  const {data} = useUser()
+  console.log(data);
+  const userAuthenticated = data !== null; 
   const width = useUserWidth();
-
-  //console.log(width);
 
   return (
     <div
@@ -138,7 +138,7 @@ const Navigation: React.FC = () => {
             <DropdownButton
               text={
                 <p className="flex justify-center items-center gap-2">
-                  User Name{" "}
+                  {data.nick_name}
                   <img className="w-7 rounded-full" src="default-user.jpg" />
                 </p>
               }

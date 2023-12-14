@@ -20,7 +20,6 @@ export default function Button({
   size = "small",
   disabled,
 }: ButtonProps) {
-  console.log(disabled);
   if (type === "button") {
     return (
       <button
