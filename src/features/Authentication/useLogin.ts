@@ -18,6 +18,7 @@ export function useLogin() {
     onError: (err) => {
       const error = JSON.parse(err.message)
       toast.error(error?.non_field_errors?.at(0));
+      console.log(err.message);
     },
   });
 

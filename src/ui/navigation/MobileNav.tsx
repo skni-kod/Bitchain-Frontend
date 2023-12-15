@@ -17,6 +17,7 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { GiHotDog } from "react-icons/gi";
 import MobileNavButton from "./MobileNavButton";
 import { useQueryClient } from "@tanstack/react-query";
+import LogOutButton from "./LogOutButton";
 
 interface MobileNavProps {
   open: boolean;
@@ -69,7 +70,6 @@ export default function MobileNav({
   return (
     <div>
       {createPortal(
-        // <div className="absolute h-full w-full top-0 left-0 overflow-x-hidden ">
         <motion.div
           variants={variants}
           transition={{ ease: "easeInOut" }}
@@ -209,15 +209,9 @@ export default function MobileNav({
 
           <div className="bg-white dark:bg-bgDark1 h-full w-full"></div>
           {userAuthenticated && (
-            <MobileNavButton
-              text="Log out"
-              to=""
-              textColor="text-rose-600"
-              onCloseFunction={onCloseNav}
-            />
+            <LogOutButton onCloseFunction={onCloseNav}/>
           )}
         </motion.div>,
-        // </div>,
         portalContainer
       )}
     </div>

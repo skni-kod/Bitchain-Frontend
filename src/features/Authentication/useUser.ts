@@ -6,6 +6,7 @@ export function useUser() {
     queryFn: getUser,
     queryKey: ["user"],
   });
+  const userAuthenticated = data !== null;
 
-  return {data, isPending}
+  return {data, isPending, userAuthenticated}
 }

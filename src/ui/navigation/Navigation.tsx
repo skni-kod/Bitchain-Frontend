@@ -16,14 +16,14 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { GiHotDog } from "react-icons/gi";
 import AccountBalanceCard from "./AccountBalanceCard";
 import DarkModeButton from "./DarkModeButton";
+import LogOutButton from "./LogOutButton";
 import Button from "../Button";
 import { useUserWidth } from "../../hooks/useUserWidth";
 import { useUser } from "../../features/Authentication/useUser";
 
 const Navigation: React.FC = () => {
-  const {data} = useUser()
-  console.log(data);
-  const userAuthenticated = data !== null; 
+  const { data, userAuthenticated } = useUser();
+  console.log(data, userAuthenticated);
   const width = useUserWidth();
 
   return (
@@ -138,7 +138,7 @@ const Navigation: React.FC = () => {
             <DropdownButton
               text={
                 <p className="flex justify-center items-center gap-2">
-                  {data.nick_name}
+                  {data?.nick_name}
                   <img className="w-7 rounded-full" src="default-user.jpg" />
                 </p>
               }
@@ -169,12 +169,7 @@ const Navigation: React.FC = () => {
                   to="settings"
                   onCloseFunction={undefined as never}
                 />
-                <DropdownItem
-                  title="Logout"
-                  to=""
-                  onCloseFunction={undefined as never}
-                  textColor="text-rose-600"
-                />
+                <LogOutButton onCloseFunction={undefined as never} />
               </Dropdown>
             </DropdownButton>
           ) : (

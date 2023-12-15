@@ -8,7 +8,6 @@ interface LoginProps {
 export async function getUser() {
   const token = localStorage.getItem("accessToken");
   if (!token) {
-    console.log("Can not find accessToken in localStorage");
     return null;
   }
   const response = await fetch(API_KEY + "api/user/me/", {
