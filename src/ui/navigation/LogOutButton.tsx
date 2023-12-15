@@ -10,12 +10,20 @@ interface DropdownItemprops {
 function LogOutButton({ onCloseFunction }: DropdownItemprops) {
   const queryClient = useQueryClient();
 
-  function logout() {
-    queryClient.removeQueries();
-    localStorage.removeItem("accessToken");
-    onCloseFunction();
-    toast.success("Log out successfully");
-    location.reload();
+  async function logout() {
+    try {
+      queryClient.removeQueries();
+      localStorage.removeItem("accessToken");
+
+      setTimeout(() => {
+        location.reload();
+      }, 100); 
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      onCloseFunction();
+      toast.success("Log out successfully");
+    }
   }
 
   return (
