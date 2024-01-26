@@ -29,11 +29,11 @@ const Navigation: React.FC = () => {
   return (
     <div
       id="nav"
-      className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300 "
+      className="relative flex h-16 w-full justify-center items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300 "
     >
       <Logo />
       {width > 820 && (
-        <div className="flex justify-center items-center h-full">
+        <div className="flex justify-center items-center h-full mx-auto pl-[90px]">
           <DropdownButton text={"Buy Crypto"} type={"dropdown"}>
             <Dropdown onCloseFunction={undefined as never}>
               <DropdownItem
