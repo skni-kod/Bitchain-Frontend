@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react";
+import { getCryptoPrice } from "../services/apiCoinCap";
 
 export default function Markets() {
-  return (
-    <div>Markets</div>
-  )
+  const data = getCryptoPrice();
+  console.log(data);
+  return <div>Markets</div>;
 }
