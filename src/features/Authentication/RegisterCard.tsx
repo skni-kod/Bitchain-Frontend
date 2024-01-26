@@ -40,7 +40,7 @@ function RegisterCard() {
   };
 
   return (
-    <div className="relative flex items-center justify-center gap-5 z-10 w-full rounded-lg  bg-white dark:bg-bgDark dark:text-white text-bgDark sm:h-[750px] sm:w-full overflow-hidden">
+    <div className="relative flex items-center justify-center gap-5 z-10 w-full rounded-lg  bg-white dark:bg-bgDark dark:text-white text-bgDark sm:h-[750p x] py-6 sm:py-0 sm:w-full overflow-hidden">
       <form
         className="flex flex-col justify-center items-center w-5/6 sm:w-[400px] gap-1 sm:p-10  bg-white dark:bg-bgDark "
         onSubmit={handleSubmit(onSubmit)}
