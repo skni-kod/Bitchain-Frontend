@@ -1,4 +1,4 @@
-const API_KEY = 'http://localhost:8000/';
+const API_KEY = 'http://localhost:8000';
 
 interface LoginProps {
 	email: string;
@@ -19,7 +19,14 @@ export async function getUser() {
 	if (!token) {
 		return null;
 	}
-	const response = await fetch(API_KEY + 'api/user/me/', {
+	const response = await fetch(API_KEY + '/api/user/me/', {
+		method: 'GET',
+		headers: {
+			Authorization: `Token ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
+  const imgResponse = await fetch(API_KEY + '/api/user/me/image', {
 		method: 'GET',
 		headers: {
 			Authorization: `Token ${token}`,
@@ -27,16 +34,18 @@ export async function getUser() {
 		},
 	});
 
-	if (response.ok) {
+	if (response.ok && imgResponse.ok) {
 		const data = await response.json();
-		return data;
+		const imgData = await imgResponse.json();
+    const image = API_KEY + imgData.image 
+		return {...data, image};
 	} else {
 		throw new Error(`Get user error: ${response.status}`);
 	}
 }
 
 export async function login({ email, password }: LoginProps): Promise<void> {
-	const response = await fetch(API_KEY + 'api/user/token/', {
+	const response = await fetch(API_KEY + '/api/user/token/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -65,7 +74,7 @@ export async function register({
 	dateOfBirth,
 	pesel,
 }: registerProps): Promise<void> {
-	const response = await fetch(API_KEY + 'api/user/create/', {
+	const response = await fetch(API_KEY + '/api/user/create/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

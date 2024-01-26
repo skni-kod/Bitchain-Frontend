@@ -23,7 +23,7 @@ export default function AccountDetails({ onCloseNav }: AccountDetails) {
           onClick={onCloseNav}
         >
           <span>{user?.nick_name}</span>
-          <img className="rounded-full w-12" src="default-user.jpg" />
+          <img className="rounded-full w-12" src={user?.image} />
         </NavLink>
       );
     } else {

@@ -29,7 +29,7 @@ const Navigation: React.FC = () => {
   return (
     <div
       id="nav"
-      className="relative flex h-16 w-full justify-center items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300 "
+      className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300 "
     >
       <Logo />
       {width > 820 && (
@@ -139,7 +139,7 @@ const Navigation: React.FC = () => {
               text={
                 <p className="flex justify-center items-center gap-2">
                   {data?.nick_name}
-                  <img className="w-7 rounded-full" src="default-user.jpg" />
+                  <img className="w-7 rounded-full" src={data?.image} />
                 </p>
               }
               type={"dropdown"}
