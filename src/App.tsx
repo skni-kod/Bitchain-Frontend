@@ -73,12 +73,13 @@ function App() {
               duration: 5000,
             },
             style: {
+              zIndex: 1000,
               fontSize: "16px",
               maxWidth: "500px",
               padding: "16px 24px",
-              backgroundColor: "var(--color-grey-0)",
-              color: "var(--color-grey-700)",
             },
+            className:
+              "bg-bgWhite dark:bg-bgDark1Hover text-bgDark dark:text-bgWhite",
           }}
         />
       </QueryClientProvider>

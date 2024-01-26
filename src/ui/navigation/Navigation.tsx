@@ -16,15 +16,15 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { GiHotDog } from "react-icons/gi";
 import AccountBalanceCard from "./AccountBalanceCard";
 import DarkModeButton from "./DarkModeButton";
+import LogOutButton from "./LogOutButton";
 import Button from "../Button";
 import { useUserWidth } from "../../hooks/useUserWidth";
+import { useUser } from "../../features/Authentication/useUser";
 
 const Navigation: React.FC = () => {
-  const userAuthenticated = false; //Pablo kiedy logowanie?????????????????????????????????????????
-  // const userAuthenticated = true; //Pablo kiedy logowanie?????????????????????????????????????????
+  const { data, userAuthenticated } = useUser();
+  console.log(data, userAuthenticated);
   const width = useUserWidth();
-
-  //console.log(width);
 
   return (
     <div
@@ -33,7 +33,7 @@ const Navigation: React.FC = () => {
     >
       <Logo />
       {width > 820 && (
-        <div className="flex justify-center items-center h-full">
+        <div className="flex justify-center items-center h-full mx-auto pl-[90px]">
           <DropdownButton text={"Buy Crypto"} type={"dropdown"}>
             <Dropdown onCloseFunction={undefined as never}>
               <DropdownItem
@@ -138,8 +138,8 @@ const Navigation: React.FC = () => {
             <DropdownButton
               text={
                 <p className="flex justify-center items-center gap-2">
-                  User Name{" "}
-                  <img className="w-7 rounded-full" src="default-user.jpg" />
+                  {data?.nick_name}
+                  <img className="w-7 rounded-full" src={data?.image} />
                 </p>
               }
               type={"dropdown"}
@@ -169,12 +169,7 @@ const Navigation: React.FC = () => {
                   to="settings"
                   onCloseFunction={undefined as never}
                 />
-                <DropdownItem
-                  title="Logout"
-                  to=""
-                  onCloseFunction={undefined as never}
-                  textColor="text-rose-600"
-                />
+                <LogOutButton onCloseFunction={undefined as never} />
               </Dropdown>
             </DropdownButton>
           ) : (

@@ -1,4 +1,4 @@
-import React from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useUserWidth } from "../../hooks/useUserWidth";
 import Button from "../Button";
 import { NavLink } from "react-router-dom";
@@ -9,8 +9,10 @@ interface AccountDetails {
 
 export default function AccountDetails({ onCloseNav }: AccountDetails) {
   const width = useUserWidth();
-  const userAuthenticated = false; //Pablo kiedy logowanie?????????????????????????????????????????
-  // const userAuthenticated = true; //Pablo kiedy logowanie?????????????????????????????????????????
+  const queryClient = useQueryClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const user: any = queryClient.getQueryData(["user"])
+  const userAuthenticated = user !== null;
 
   if (width < 500) {
     if (userAuthenticated) {
@@ -20,8 +22,8 @@ export default function AccountDetails({ onCloseNav }: AccountDetails) {
           className="flex justify-between items-center px-6 py-3 rounded-lg w-60 my-3 hover:text-main dark:bg-bgDark1 transition-colors duration-300"
           onClick={onCloseNav}
         >
-          <span>User Name</span>
-          <img className="rounded-full w-12" src="default-user.jpg" />
+          <span>{user?.nick_name}</span>
+          <img className="rounded-full w-12" src={user?.image} />
         </NavLink>
       );
     } else {

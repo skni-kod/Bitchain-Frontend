@@ -27,3 +27,13 @@ button {
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+::-webkit-scrollbar{
+    background-color: transparent;
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #ff5700;
+    width: 5px;
+}
