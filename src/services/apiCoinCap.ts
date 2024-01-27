@@ -1,15 +1,20 @@
 const API_KEY = "ae32b41b-f3dc-4a41-8433-5dbab89ec8a4";
 
-export async function getCryptoPrice(id?: string, interval?: string) {
+export async function getCryptoPrice(
+  limit?: number,
+  offset?: number
+) {
   let link = "https://api.coincap.io/v2/assets";
-  id && (link += `/${id}`);
-  interval && (link += `/${id}/${interval}`);
+  limit && (link = `https://api.coincap.io/v2/assets?limit=${limit}`);
+  offset && (link = `https://api.coincap.io/v2/assets?offset=${offset}`);
+
+  console.log(link);
 
   const response = await fetch(link, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${API_KEY}`
-    }
+      Authorization: `Bearer ${API_KEY}`,
+    },
   });
 
   if (response.ok) {
@@ -17,6 +22,30 @@ export async function getCryptoPrice(id?: string, interval?: string) {
     console.log(data);
     return data;
   } else {
-    throw new Error(`Api error: ${response.status}`);
+    throw new Error(`GetCryptoPrice error: ${response.status}`);
+  }
+}
+
+export async function getSpecificCryptoInfo(
+  id: string,
+  interval: string,
+  start: number,
+  end: number
+) {
+  const link = `https://api.coincap.io/v2/assets/${id}/history?interval=${interval}&start=${start}&end=${end}`;
+
+  const response = await fetch(link, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } else {
+    throw new Error(`GetSpecificCryptoInfo error: ${response.status}`);
   }
 }
