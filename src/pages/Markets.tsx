@@ -1,8 +1,14 @@
 import React from "react";
-import { getCryptoPrice } from "../services/apiCoinCap";
+import { useAllCryptoPrice } from "../features/markets/useAllCryptoPrice";
+import TopCryptoCard from "../features/markets/TopHotCryptoCard";
 
 export default function Markets() {
-  const data = getCryptoPrice();
+  const { data, isPending } = useAllCryptoPrice();
+  // const data = getCryptoPrice("dogecoin");
   console.log(data);
-  return <div>Markets</div>;
+  return (
+    <div className="flex justify-center items-center">
+      <TopCryptoCard />
+    </div>
+  );
 }
