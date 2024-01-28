@@ -17,6 +17,8 @@ export default {
         bgDark1: "#141519", //kolor tla elementu
         bgDark1Hover: "#2b2d35", //kolor tla elementu ale hover
 
+        gray: "#8f8a88"
+
         //&-rose-600 - to jest czerwony wszedzie
         //&-slate-300 - taki wyszarzony font
       },
