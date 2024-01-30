@@ -169,7 +169,7 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
           />
           {topCrypto.current?.symbol}/USDT
         </div>
-        <div className="flex gap-7">
+        <div className="flex gap-7 justify-between">
           <div>
             <p className="font-bold px-2 pt-1">
               {topCrypto.current?.priceUsd &&

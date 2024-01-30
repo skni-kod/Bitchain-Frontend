@@ -15,15 +15,14 @@ export default function Markets() {
   // const data = getCryptoPrice("dogecoin");
   console.log(data);
   return (
-    <div className="flex justify-center items-start w-full ">
+    <div className="w-full pt-5">
       {isFetched ? (
-        <div className="flex gap-3 flex-wrap justify-center items-start">
-          <TopCryptoCard type="hot24"/>
-          <TopCryptoCard type="top24"/>
-          <TopCryptoCard type="big24"/>
-          {/* <TopCryptoCard /> */}
-          {/* <TopCryptoCard /> */}
-          {/* <TopCryptoCard /> */}
+        <div className="flex flex-col">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-8 w-full ">
+            <TopCryptoCard type="hot24" />
+            <TopCryptoCard type="top24" />
+            <TopCryptoCard type="big24" />
+          </div>
         </div>
       ) : (
         <Spinner type="full" />
