@@ -1,4 +1,7 @@
-export const formatCurrency = (value: number) =>{
-    return value.toFixed(2)
+export const formatCurrency = (value: number) => {
+    if (Math.abs(value) < 0.01) {
+        return parseFloat(value.toPrecision(2)).toString();
+    } else {
+        return value.toFixed(2);
+    }
 }
-  
