@@ -8,7 +8,7 @@ export default function Markets() {
 
   useEffect(
     function () {
-      setInterval(refetch, 3000);
+      setInterval(refetch, 5000);
     },
     [refetch]
   );
@@ -17,13 +17,18 @@ export default function Markets() {
   return (
     <div className="w-full pt-5">
       {isFetched ? (
-        <div className="flex flex-col">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-8 w-full ">
-            <TopCryptoCard type="hot24" />
-            <TopCryptoCard type="top24" />
-            <TopCryptoCard type="big24" />
+        <>
+          <div className="flex flex-col">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-8 w-full ">
+              <TopCryptoCard type="hot24" />
+              <TopCryptoCard type="top24" />
+              <TopCryptoCard type="big24" />
+            </div>
           </div>
-        </div>
+          <div>
+            <Spinner type="full" />
+          </div>
+        </>
       ) : (
         <Spinner type="full" />
       )}

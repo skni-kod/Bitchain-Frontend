@@ -153,7 +153,7 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
   }, [hot24Data]);
 
   return (
-    <NavLink to={`/spot&${topCrypto.current?.symbol}USDT`} className="dark:bg-bgDark1 bg-bgWhite1Hover p-4 rounded-lg text-bgDark dark:text-bgWhite ">
+    <NavLink to={`/spot?${topCrypto.current?.symbol}USDT`} className="dark:bg-bgDark1 bg-bgWhite1Hover p-4 rounded-lg text-bgDark dark:text-bgWhite ">
       <p className="border-b-[1px] border-solid border-slate-200 dark:border-stone-700 text-xs px-2 pb-2">
         {type === "hot24"
           ? "Hot 24"

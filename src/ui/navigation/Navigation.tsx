@@ -20,6 +20,7 @@ import LogOutButton from "./LogOutButton";
 import Button from "../Button";
 import { useUserWidth } from "../../hooks/useUserWidth";
 import { useUser } from "../../features/Authentication/useUser";
+import SelectCurrency from "./SelectCurrency";
 
 const Navigation: React.FC = () => {
   const { data, userAuthenticated } = useUser();
@@ -183,6 +184,7 @@ const Navigation: React.FC = () => {
             </>
           ))}
         <DarkModeButton />
+        <SelectCurrency />
         {width < 820 && <ToggleMobileNavBurger />}
       </div>
     </div>
