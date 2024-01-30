@@ -4,6 +4,7 @@ import { useSpecificCryptoInfo } from "./useSpecificCryptoInfo";
 import { formatCurrency } from "../../utils/helpers";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
+import { NavLink } from "react-router-dom";
 
 interface CryptoData {
   id: string;
@@ -152,7 +153,7 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
   }, [hot24Data]);
 
   return (
-    <div className="dark:bg-bgDark1 bg-bgWhite1Hover p-4 rounded-lg text-bgDark dark:text-bgWhite ">
+    <NavLink to={`/spot&${topCrypto.current?.symbol}USDT`} className="dark:bg-bgDark1 bg-bgWhite1Hover p-4 rounded-lg text-bgDark dark:text-bgWhite ">
       <p className="border-b-[1px] border-solid border-slate-200 dark:border-stone-700 text-xs px-2 pb-2">
         {type === "hot24"
           ? "Hot 24"
@@ -177,7 +178,7 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
             </p>
             <p className=" text-[10px] text-gray px-2">
               {topCrypto.current?.priceUsd &&
-                formatCurrency(+topCrypto.current!.priceUsd!)}{" "}
+                formatCurrency(+topCrypto.current!.priceUsd!)}
               USD
             </p>
             <p
@@ -203,6 +204,6 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
           </div>
         </div>
       </>
-    </div>
+    </NavLink>
   );
 }
