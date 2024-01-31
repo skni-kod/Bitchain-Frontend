@@ -43,3 +43,22 @@ export async function getSpecificCryptoInfo({ id, interval, start, end }: mutate
     throw new Error(`GetSpecificCryptoInfo error: ${response.status}`);
   }
 }
+
+export async function getRates() {
+  const link = `https://api.coincap.io/v2/rates`;
+
+  const response = await fetch(link, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } else {
+    throw new Error(`GetSpecificCryptoInfo error: ${response.status}`);
+  }
+}
