@@ -63,7 +63,7 @@ export default function LoginCard() {
 					Don't have an account? Click here
 				</Link>
 			</form>
-			<div className='hidden sm:block absolute top-[0%] -left-10 h-40 w-40 rotate-[10deg]'>
+			<div className='hidden sm:block absolute top-[10%] left-10 h-40 w-40 rotate-[10deg]'>
 				{isDarkMode ? (
 					<img src='/logo-icon-dark.svg' />
 				) : (

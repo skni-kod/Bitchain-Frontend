@@ -2,7 +2,7 @@ import React from "react";
 
 interface IconButtonProps {
   children: React.ReactNode;
-  onClick: ()=>void
+  onClick?: ()=>void
 }
 
 export default function IconButton({ children, onClick }: IconButtonProps) {
