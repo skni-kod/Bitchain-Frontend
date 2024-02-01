@@ -6,13 +6,14 @@ import Spinner from "../ui/Spinner";
 export default function Markets() {
   const { data, isSuccess: isFetched, refetch } = useAllCryptoPrice(500);
 
-  useEffect(
-    function () {
-      setInterval(refetch, 5000);
-    },
-    [refetch]
-  );
-  // const data = getCryptoPrice("dogecoin");
+  useEffect(() => {
+    const intervalId = setInterval(refetch, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [refetch]);
+
   console.log(data);
   return (
     <div className="w-full pt-5">

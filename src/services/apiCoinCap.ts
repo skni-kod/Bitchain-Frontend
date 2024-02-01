@@ -44,8 +44,8 @@ export async function getSpecificCryptoInfo({ id, interval, start, end }: mutate
   }
 }
 
-export async function getRates() {
-  const link = `https://api.coincap.io/v2/rates`;
+export async function getRates(id: string = "tether") {
+  const link = `https://api.coincap.io/v2/rates/${id}`;
 
   const response = await fetch(link, {
     method: "GET",

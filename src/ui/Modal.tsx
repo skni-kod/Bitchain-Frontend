@@ -59,7 +59,7 @@ function Window({ children, name }: WindowProps) {
   return createPortal(
     <div className="fixed h-screen w-screen z-50">
       <div className="h-full w-full bg-bgDark opacity-20"></div>
-      <div className="fixed top-1/2 left-1/2 bg-white dark:bg-bgDark -translate-y-1/2 -translate-x-1/2 z-[51] rounded-lg p-6  ">
+      <div className="fixed top-1/2 left-1/2 bg-white dark:bg-bgDark1 -translate-y-1/2 -translate-x-1/2 z-[51] rounded-lg p-6  ">
         <div>
           {cloneElement(children as React.ReactElement, {
             onCloseModal: close,
