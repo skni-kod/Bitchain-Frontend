@@ -36,12 +36,16 @@ interface TopHotCryptoCardProps {
   type: "hot24" | "top24" | "big24";
 }
 
+interface UserCurrencyType {
+  id: string;
+  symbol: string;
+  currencySymbol: string;
+  rateUsd: string;
+}
+
 export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
-  const {
-    getSpecificCryptoInfo,
-    isSuccess,
-    data: topCryptoPrices,
-  } = useSpecificCryptoInfo();
+  const { getSpecificCryptoInfo, data: topCryptoPrices } =
+    useSpecificCryptoInfo();
   const queryClient = useQueryClient();
   const data: data = queryClient.getQueryData(["cryptoPrice"])!;
   let hot24Data: CryptoInfoData | undefined;
@@ -56,9 +60,10 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
   const topCrypto = useRef<CryptoData>();
   const options = useRef<unknown>();
   const firstFetch = useRef<CryptoData>();
-
-  console.log(topCrypto);
-  console.log(topCryptoPrices);
+  const usdtPrice: number | undefined = queryClient.getQueryData(["USDT"]);
+  const userCurrency: UserCurrencyType | undefined = queryClient.getQueryData([
+    "userCurrency",
+  ]);
 
   useEffect(() => {
     if (data) {
@@ -154,7 +159,6 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
         },
       ],
     };
-    console.log(options.current);
   }, [hot24Data]);
 
   return (
@@ -182,12 +186,16 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
           <div>
             <p className="font-bold px-2 pt-1">
               {topCrypto.current?.priceUsd &&
-                formatCurrency(+topCrypto.current!.priceUsd!)}
+                formatCurrency(+topCrypto.current!.priceUsd! * usdtPrice!)}
             </p>
             <p className=" text-[10px] text-gray px-2">
               {topCrypto.current?.priceUsd &&
-                formatCurrency(+topCrypto.current!.priceUsd!)}
-              USD
+                (userCurrency
+                  ? formatCurrency(
+                      +topCrypto.current!.priceUsd! / +userCurrency.rateUsd
+                    )
+                  : formatCurrency(+topCrypto.current!.priceUsd!))}
+              {" "}{userCurrency ? userCurrency.symbol : "USD"}
             </p>
             <p
               className={`px-2 text-xs pt-1 ${
