@@ -19,8 +19,11 @@ export default {
 
         gray: "#8f8a88"
 
-        //&-rose-600 - to jest czerwony wszedzie
+        //&-rose-600 - to jest czerwony czasem
         //&-slate-300 - taki wyszarzony font
+
+        //&-green-500 - zielony 
+        //&-red-500 - czerwony wszedzie
       },
       screens: {
         xs: "320px",

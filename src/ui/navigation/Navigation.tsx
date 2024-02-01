@@ -24,7 +24,6 @@ import SelectCurrency from "./SelectCurrency";
 
 const Navigation: React.FC = () => {
   const { data, userAuthenticated } = useUser();
-  console.log(data, userAuthenticated);
   const width = useUserWidth();
 
   return (

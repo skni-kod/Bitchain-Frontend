@@ -7,8 +7,6 @@ export async function getCryptoPrice(limit?: number, offset?: number) {
   limit && (link = `https://api.coincap.io/v2/assets?limit=${limit}`);
   offset && (link = `https://api.coincap.io/v2/assets?offset=${offset}`);
 
-  console.log(link);
-
   const response = await fetch(link, {
     method: "GET",
     headers: {
@@ -18,14 +16,18 @@ export async function getCryptoPrice(limit?: number, offset?: number) {
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     return data;
   } else {
     throw new Error(`GetCryptoPrice error: ${response.status}`);
   }
 }
 
-export async function getSpecificCryptoInfo({ id, interval, start, end }: mutateProps) {
+export async function getSpecificCryptoInfo({
+  id,
+  interval,
+  start,
+  end,
+}: mutateProps) {
   const link = `https://api.coincap.io/v2/assets/${id}/history?interval=${interval}&start=${start}&end=${end}`;
 
   const response = await fetch(link, {
@@ -37,7 +39,6 @@ export async function getSpecificCryptoInfo({ id, interval, start, end }: mutate
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     return data;
   } else {
     throw new Error(`GetSpecificCryptoInfo error: ${response.status}`);
@@ -56,7 +57,6 @@ export async function getRates(id: string = "tether") {
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     return data;
   } else {
     throw new Error(`GetSpecificCryptoInfo error: ${response.status}`);

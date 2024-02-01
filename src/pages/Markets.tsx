@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAllCryptoPrice } from "../features/markets/useAllCryptoPrice";
 import TopCryptoCard from "../features/markets/TopHotCryptoCard";
 import Spinner from "../ui/Spinner";
+import SearchCrypto from "../features/markets/SearchCrypto";
 
 export default function Markets() {
   const { data, isSuccess: isFetched, refetch } = useAllCryptoPrice(500);
+  const [label, setLabel] = useState<string>("");
 
   useEffect(() => {
     const intervalId = setInterval(refetch, 2000);
@@ -26,12 +28,17 @@ export default function Markets() {
               <TopCryptoCard type="big24" />
             </div>
           </div>
-          <div>
-            <Spinner type="full" />
+          <div className="flex justify-between items-center p-8 px-12">
+            <p className="text-[36px] font-bold text-bgDark dark:text-bgWhite">
+              Markets
+            </p>
+            <SearchCrypto />
           </div>
         </>
       ) : (
-        <Spinner type="full" />
+        <div>
+          <Spinner type="full" />
+        </div>
       )}
     </div>
   );
