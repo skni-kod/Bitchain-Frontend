@@ -4,39 +4,20 @@ import { SlGlobe } from "react-icons/sl";
 import SelectCurrenciesWindows from "./SelectCurrenciesWindows";
 import { useRates } from "../../features/markets/useRates";
 import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function SelectCurrency() {
   const { getRate, rate, isSuccess } = useRates();
   const queryClient = useQueryClient();
 
-  // const fetchData = useCallback(async () => {}, [getRate]);
-
-  // useEffect(
-  //   function () {
-  //     fetchData();
-  //   },
-  //   [fetchData]
-  // );
-
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //   }, 20000);
-
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [fetchData]);
-
   useEffect(
     function () {
       getRate("tether");
     },
-    [getRate]
+    []
   );
 
   useEffect(() => {
-    // fetchData();
     if (isSuccess && rate) {
       queryClient.setQueryData(["USDT"], rate.rateUsd);
     }

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CryptoRow from "./CryptoRow";
 import { useQueryClient } from "@tanstack/react-query";
-import { Pagination, Theme, makeStyles } from "@mui/material";
+import { Pagination } from "@mui/material";
 import useDarkMode from "../../hooks/useDarkMode";
 import { useForceUpdate } from "../../hooks/useForceUpdate";
 
@@ -39,7 +39,7 @@ export default function MarketsTableRows({
   filter,
   onFilter,
 }: MarketsTableRowsProps) {
-  const { forceUpdate, state } = useForceUpdate();
+  const { forceUpdate } = useForceUpdate();
   const { isDarkMode } = useDarkMode();
   const queryClient = useQueryClient();
   const cryptoData: cryptoPrice = queryClient.getQueryData(["cryptoPrice"])!;
@@ -215,7 +215,7 @@ export default function MarketsTableRows({
       }
       forceUpdate();
     },
-    [filter, cryptoData.data, forceUpdate]
+    [filter, cryptoData.data, forceUpdate, label]
   );
 
   useEffect(() => {

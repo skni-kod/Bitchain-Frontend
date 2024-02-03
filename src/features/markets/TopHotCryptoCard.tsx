@@ -175,7 +175,6 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
           ? "Top gainer 24"
           : type === "big24" && "Top 5 Crypto"}
       </p>
-      {/* {isSuccess ? ( */}
       <>
         <div className="flex p-2 gap-2">
           <img

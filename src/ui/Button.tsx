@@ -8,7 +8,7 @@ interface ButtonProps {
   to: string;
   onClick?: () => void;
   size?: "small" | "medium" | "large";
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -25,7 +25,7 @@ export default function Button({
       <button
         className={` rounded-3xl text-sm tracking-wider m-2 w-fit ${
           !bgType
-            ? "bg-main hover:bg-mainHover"
+            ? "bg-main hover:bg-mainHover text-white"
             : "dark:hover:bg-bgDark1Hover hover:bg-bgWhite1"
         } ${
           size === "small"
@@ -46,7 +46,7 @@ export default function Button({
         to={to}
         className={`px-4 py-2 rounded-3xl text-sm tracking-wider m-2 ${
           !bgType
-            ? "bg-main hover:bg-mainHover"
+            ? "bg-main hover:bg-mainHover text-white"
             : "dark:hover:bg-bgDark1Hover hover:bg-bgWhite1"
         } ${
           size === "small"
