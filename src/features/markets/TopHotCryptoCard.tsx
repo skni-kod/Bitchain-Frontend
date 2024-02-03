@@ -73,15 +73,22 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
       if (type === "hot24") {
         popular = data.data.slice(0, 15);
       } else if (type === "top24") {
-        popular = data.data.slice(0, 2000);
+        // popular = data.data.slice(0, 2000);
+        // data.data.forEach((array) => {
+        //   // popular = popular.concat(array); // lub combinedArray.push(...array);
+        //   console.log(array);
+        // });
+        popular = data.data;
       } else if (type === "big24") {
         popular = data.data.slice(0, 3);
       }
       topCrypto.current = popular?.reduce((prevCrypto, currentCrypto) => {
+        const prevChangePercent = parseFloat(prevCrypto.changePercent24Hr);
+        const currentChangePercent = parseFloat(
+          currentCrypto.changePercent24Hr
+        );
         const pop =
-          prevCrypto?.changePercent24Hr > currentCrypto?.changePercent24Hr
-            ? prevCrypto
-            : currentCrypto;
+          prevChangePercent > currentChangePercent ? prevCrypto : currentCrypto;
         if (pop.symbol === "USDT") {
           return data.data[0];
         }
@@ -125,13 +132,13 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
           color: "#ff5700",
           enableMouseTracking: false,
           marker: {
-            enabled: false, // wyłącz wyświetlanie markerów na liniach
+            enabled: false,
           },
           dataLabels: {
-            enabled: false, // wyłącz wyświetlanie etykiet danych
+            enabled: false,
           },
           legend: {
-            enabled: false, // wyłącz wyświetlanie legendy
+            enabled: false,
           },
         },
       },
@@ -141,21 +148,21 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
         track: null,
       },
       title: {
-        text: null, // ukryj tytuł wykresu
+        text: null,
       },
       legend: {
-        enabled: false, // ukryj legendę
+        enabled: false,
       },
       xAxis: {
-        visible: false, // ukryj osie x
+        visible: false,
       },
       yAxis: {
-        visible: false, // ukryj osie y
+        visible: false,
       },
       series: [
         {
           data: series,
-          name: "Crypto Prices", // Dodaj nazwę serii danych
+          name: "Crypto Prices",
         },
       ],
     };
@@ -194,8 +201,8 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
                   ? formatCurrency(
                       +topCrypto.current!.priceUsd! / +userCurrency.rateUsd
                     )
-                  : formatCurrency(+topCrypto.current!.priceUsd!))}
-              {" "}{userCurrency ? userCurrency.symbol : "USD"}
+                  : formatCurrency(+topCrypto.current!.priceUsd!))}{" "}
+              {userCurrency ? userCurrency.symbol : "USD"}
             </p>
             <p
               className={`px-2 text-xs pt-1 ${
