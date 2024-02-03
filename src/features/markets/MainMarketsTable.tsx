@@ -3,7 +3,11 @@ import { FaStar } from "react-icons/fa";
 import MarketsTableHeader from "./MarketsTableHeader";
 import MarketsTableRows from "./MarketsTableRows";
 
-export default function MainMarketsTable() {
+interface MainMarketsTableProps {
+  label: string;
+}
+
+export default function MainMarketsTable({ label }: MainMarketsTableProps) {
   const [favorites, setFavorites] = useState<boolean>(false);
   const [filter, setFilter] = useState<string>("");
 
@@ -22,7 +26,7 @@ export default function MainMarketsTable() {
       </div>
       <div className="p-2">
         <MarketsTableHeader />
-        <MarketsTableRows />
+        <MarketsTableRows label={label}/>
       </div>
       <div></div>
     </div>

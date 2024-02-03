@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { easeInOut, motion } from "framer-motion";
 import { SlMagnifier } from "react-icons/sl";
 
-export default function SearchCrypto() {
+interface SearchCryptoProps {
+  setLabel: (value: string) => void;
+  label: string
+}
+
+export default function SearchCrypto({ setLabel, label }: SearchCryptoProps) {
   const [onFocus, setOnFocus] = useState(false);
   const motionBarVariants = {
     hidden: {
@@ -34,6 +39,8 @@ export default function SearchCrypto() {
             placeholder="Search Crypto"
             onFocus={() => setOnFocus(true)}
             onBlur={() => setOnFocus(false)}
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
           />
           <div className="absolute bottom-0 left-0 w-full h-[0.8px] bg-bgDark1 dark:bg-bgWhite1"></div>
           <motion.div

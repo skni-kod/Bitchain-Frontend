@@ -73,11 +73,6 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
       if (type === "hot24") {
         popular = data.data.slice(0, 15);
       } else if (type === "top24") {
-        // popular = data.data.slice(0, 2000);
-        // data.data.forEach((array) => {
-        //   // popular = popular.concat(array); // lub combinedArray.push(...array);
-        //   console.log(array);
-        // });
         popular = data.data;
       } else if (type === "big24") {
         popular = data.data.slice(0, 3);

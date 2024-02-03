@@ -33,9 +33,9 @@ export default function Markets() {
             <p className="text-[36px] font-bold text-bgDark dark:text-bgWhite">
               Markets
             </p>
-            <SearchCrypto />
+            <SearchCrypto setLabel={setLabel} label={label} />
           </div>
-          <MainMarketsTable />
+          <MainMarketsTable label={label}/>
         </>
       ) : (
         <div>

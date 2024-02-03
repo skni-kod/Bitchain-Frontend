@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CryptoRow from "./CryptoRow";
 import { useQueryClient } from "@tanstack/react-query";
 import { Pagination } from "@mui/material";
@@ -25,7 +25,11 @@ export interface UserCurrencyType {
   rateUsd: string;
 }
 
-export default function MarketsTableRows() {
+interface MarketsTableRowsProps {
+  label: string;
+}
+
+export default function MarketsTableRows({ label }: MarketsTableRowsProps) {
   const queryClient = useQueryClient();
   const cryptoData: cryptoPrice = queryClient.getQueryData(["cryptoPrice"])!;
   const usdtPrice: number | undefined = queryClient.getQueryData(["USDT"]);
@@ -33,7 +37,28 @@ export default function MarketsTableRows() {
     "userCurrency",
   ]);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const ITEMS_ON_PAGE = 30;
+  const data = useRef<CryptoData[]>(cryptoData.data);
+
+  useEffect(
+    function () {
+      if (label !== "") {
+        data.current = cryptoData.data.filter((value) =>
+          value.symbol.includes(label.toUpperCase())
+        );
+      } else {
+        data.current = cryptoData.data;
+      }
+
+      setTotalPages(Math.ceil(data.current.length / ITEMS_ON_PAGE));
+    },
+    [cryptoData, label]
+  );
+
+  useEffect(() => {
+    setPage(1);
+  }, [label]);
 
   const handleChangePage = (event, newPage: number) => {
     setPage(newPage);
@@ -41,7 +66,7 @@ export default function MarketsTableRows() {
 
   return (
     <div>
-      {cryptoData.data
+      {data.current
         .slice(
           (page - 1) * ITEMS_ON_PAGE,
           (page - 1) * ITEMS_ON_PAGE + ITEMS_ON_PAGE
@@ -60,7 +85,9 @@ export default function MarketsTableRows() {
             )
         )}
       <div className="flex justify-center items-center w-full my-8 text-main">
-        <Pagination count={17}  onChange={handleChangePage}/>
+        {totalPages !== 1 && (
+          <Pagination count={totalPages} onChange={handleChangePage} />
+        )}
       </div>
     </div>
   );
