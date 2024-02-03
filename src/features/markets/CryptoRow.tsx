@@ -39,7 +39,11 @@ export default function CryptoRow({
       {width > 1024 ? (
         <>
           <div className="w-[130px]">
-            <p>{formatCurrency(+crypto.priceUsd * usdtPrice!)}</p>
+            <p>
+              {crypto.priceUsd && usdtPrice
+                ? formatCurrency(+crypto.priceUsd * usdtPrice!)
+                : "--"}
+            </p>
             <p className=" text-[10px] text-gray">
               {crypto.priceUsd &&
                 (userCurrency
@@ -67,7 +71,11 @@ export default function CryptoRow({
             <p>{formatBigNumbers(crypto.volumeUsd24Hr)}</p>
           </div>
           <div className="w-[130px]">
-            <p>{formatBigNumbers(crypto.marketCapUsd)}</p>
+            <p>
+              {+crypto.marketCapUsd === 0
+                ? "--"
+                : formatBigNumbers(crypto.marketCapUsd)}
+            </p>
           </div>
           <div className="w-[130px]">
             <p>Action</p>

@@ -10,28 +10,33 @@ export default function SelectCurrency() {
   const { getRate, rate, isSuccess } = useRates();
   const queryClient = useQueryClient();
 
-  const fetchData = useCallback(async () => {
-    getRate("tether");
-  }, [getRate]);
+  // const fetchData = useCallback(async () => {}, [getRate]);
+
+  // useEffect(
+  //   function () {
+  //     fetchData();
+  //   },
+  //   [fetchData]
+  // );
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //   }, 20000);
+
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [fetchData]);
 
   useEffect(
     function () {
-      fetchData();
+      getRate("tether");
     },
-    [fetchData]
+    [getRate]
   );
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      fetchData();
-    }, 20000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [fetchData]);
-
-  useEffect(() => {
+    // fetchData();
     if (isSuccess && rate) {
       queryClient.setQueryData(["USDT"], rate.rateUsd);
     }

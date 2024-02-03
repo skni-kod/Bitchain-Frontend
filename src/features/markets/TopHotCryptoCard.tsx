@@ -187,8 +187,8 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
         <div className="flex gap-7 justify-between">
           <div>
             <p className="font-bold px-2 pt-1">
-              {topCrypto.current?.priceUsd &&
-                formatCurrency(+topCrypto.current!.priceUsd! * usdtPrice!)}
+              {(topCrypto.current?.priceUsd && usdtPrice) ?
+                formatCurrency(+topCrypto.current!.priceUsd! * usdtPrice!) : "--"}
             </p>
             <p className=" text-[10px] text-gray px-2">
               {topCrypto.current?.priceUsd &&
