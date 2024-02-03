@@ -3,6 +3,7 @@ import CryptoRow from "./CryptoRow";
 import { useQueryClient } from "@tanstack/react-query";
 import { Pagination, Theme, makeStyles } from "@mui/material";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useForceUpdate } from "../../hooks/useForceUpdate";
 
 export interface CryptoData {
   id: string;
@@ -12,6 +13,7 @@ export interface CryptoData {
   changePercent24Hr: string;
   volumeUsd24Hr: string;
   marketCapUsd: string;
+  rank: string;
 }
 
 interface cryptoPrice {
@@ -28,9 +30,16 @@ export interface UserCurrencyType {
 
 interface MarketsTableRowsProps {
   label: string;
+  filter: string;
+  onFilter: (value: string) => void;
 }
 
-export default function MarketsTableRows({ label }: MarketsTableRowsProps) {
+export default function MarketsTableRows({
+  label,
+  filter,
+  onFilter,
+}: MarketsTableRowsProps) {
+  const { forceUpdate, state } = useForceUpdate();
   const { isDarkMode } = useDarkMode();
   const queryClient = useQueryClient();
   const cryptoData: cryptoPrice = queryClient.getQueryData(["cryptoPrice"])!;
@@ -45,17 +54,168 @@ export default function MarketsTableRows({ label }: MarketsTableRowsProps) {
 
   useEffect(
     function () {
-      if (label !== "") {
-        data.current = cryptoData.data.filter((value) =>
-          value.symbol.includes(label.toUpperCase())
-        );
+      if (label) {
+        if (!filter) {
+          data.current = cryptoData.data.filter((value) =>
+            value.symbol.includes(label.toUpperCase())
+          );
+        }
       } else {
         data.current = cryptoData.data;
       }
-
       setTotalPages(Math.ceil(data.current.length / ITEMS_ON_PAGE));
     },
-    [cryptoData, label]
+    [cryptoData, label, filter]
+  );
+
+  useEffect(
+    function () {
+      onFilter("");
+    },
+    [label, onFilter]
+  );
+
+  useEffect(
+    function () {
+      if (!filter) {
+        data.current = cryptoData.data;
+      }
+      if (label) {
+        data.current = cryptoData.data.filter((value) =>
+          value.symbol.includes(label.toUpperCase())
+        );
+      }
+      switch (filter) {
+        case "priceDesc":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.priceUsd);
+            const priceB = parseFloat(b.priceUsd);
+
+            if (priceA > priceB) {
+              return -1;
+            } else if (priceA < priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case "priceAsc":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.priceUsd);
+            const priceB = parseFloat(b.priceUsd);
+
+            if (priceA < priceB) {
+              return -1;
+            } else if (priceA > priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case "percentDesc":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.changePercent24Hr);
+            const priceB = parseFloat(b.changePercent24Hr);
+
+            if (priceA > priceB) {
+              return -1;
+            } else if (priceA < priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case "percentAsc":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.changePercent24Hr);
+            const priceB = parseFloat(b.changePercent24Hr);
+
+            if (priceA < priceB) {
+              return -1;
+            } else if (priceA > priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case "volDesc":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.volumeUsd24Hr);
+            const priceB = parseFloat(b.volumeUsd24Hr);
+
+            if (priceA > priceB) {
+              return -1;
+            } else if (priceA < priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case "volAsc":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.volumeUsd24Hr);
+            const priceB = parseFloat(b.volumeUsd24Hr);
+
+            if (priceA < priceB) {
+              return -1;
+            } else if (priceA > priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case "mCapDesc":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.marketCapUsd);
+            const priceB = parseFloat(b.marketCapUsd);
+
+            if (priceA > priceB) {
+              return -1;
+            } else if (priceA < priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case "mCapAsc":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.marketCapUsd);
+            const priceB = parseFloat(b.marketCapUsd);
+
+            if (priceA < priceB) {
+              return -1;
+            } else if (priceA > priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case "":
+          data.current = data.current?.sort((a, b) => {
+            const priceA = parseFloat(a.rank);
+            const priceB = parseFloat(b.rank);
+
+            if (priceA < priceB) {
+              return -1;
+            } else if (priceA > priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+      }
+      forceUpdate();
+    },
+    [filter, cryptoData.data, forceUpdate]
   );
 
   useEffect(() => {
@@ -97,10 +257,10 @@ export default function MarketsTableRows({ label }: MarketsTableRowsProps) {
                 },
               },
               "& .Mui-selected": {
-                backgroundColor: "#ff5700",
+                backgroundColor: "#ff5701",
                 color: "common.white",
                 "&:hover": {
-                  backgroundColor: "#e84a00", // Dodaj odpowiedni kolor dla efektu hover
+                  backgroundColor: "#e84a00",
                 },
               },
             }}

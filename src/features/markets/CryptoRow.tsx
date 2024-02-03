@@ -29,6 +29,10 @@ export default function CryptoRow({
           <span className="text-slate-300">
             <FaRegStar />
           </span>
+          <img
+            className="rounded-full w-6 mx-3 hidden sm:block"
+            src={`https://assets.coincap.io/assets/icons/${crypto.symbol.toLocaleLowerCase()}@2x.png`}
+          />
           {`${crypto.symbol}/USDT`}
         </p>
       </div>

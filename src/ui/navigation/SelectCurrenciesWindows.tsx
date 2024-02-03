@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { HiXMark } from "react-icons/hi2";
 import { useRates } from "../../features/markets/useRates";
-import Spinner from "../Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {

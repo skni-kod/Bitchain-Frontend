@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAllCryptoPrice } from "../features/markets/useAllCryptoPrice";
 import TopCryptoCard from "../features/markets/TopHotCryptoCard";
 import Spinner from "../ui/Spinner";
@@ -35,7 +35,7 @@ export default function Markets() {
             </p>
             <SearchCrypto setLabel={setLabel} label={label} />
           </div>
-          <MainMarketsTable label={label}/>
+          <MainMarketsTable label={label} />
         </>
       ) : (
         <div>

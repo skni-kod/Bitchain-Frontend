@@ -25,8 +25,8 @@ export default function MainMarketsTable({ label }: MainMarketsTableProps) {
         </button>
       </div>
       <div className="p-2">
-        <MarketsTableHeader />
-        <MarketsTableRows label={label}/>
+        <MarketsTableHeader onFilter={setFilter} filter={filter}/>
+        <MarketsTableRows label={label} onFilter={setFilter} filter={filter}/>
       </div>
       <div></div>
     </div>
