@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import CryptoRow from "./CryptoRow";
 import { useQueryClient } from "@tanstack/react-query";
-import { Pagination } from "@mui/material";
+import { Pagination, Theme, makeStyles } from "@mui/material";
+import useDarkMode from "../../hooks/useDarkMode";
 
 export interface CryptoData {
   id: string;
@@ -30,6 +31,7 @@ interface MarketsTableRowsProps {
 }
 
 export default function MarketsTableRows({ label }: MarketsTableRowsProps) {
+  const { isDarkMode } = useDarkMode();
   const queryClient = useQueryClient();
   const cryptoData: cryptoPrice = queryClient.getQueryData(["cryptoPrice"])!;
   const usdtPrice: number | undefined = queryClient.getQueryData(["USDT"]);
@@ -86,7 +88,25 @@ export default function MarketsTableRows({ label }: MarketsTableRowsProps) {
         )}
       <div className="flex justify-center items-center w-full my-8 text-main">
         {totalPages !== 1 && (
-          <Pagination count={totalPages} onChange={handleChangePage} />
+          <Pagination
+            sx={{
+              "& .MuiPaginationItem-root": {
+                color: `${isDarkMode ? "#ffffff" : "#333333"}`,
+                "&:hover": {
+                  backgroundColor: `${isDarkMode ? "#2b2d35" : "#f1f5f9"}`,
+                },
+              },
+              "& .Mui-selected": {
+                backgroundColor: "#ff5700",
+                color: "common.white",
+                "&:hover": {
+                  backgroundColor: "#e84a00", // Dodaj odpowiedni kolor dla efektu hover
+                },
+              },
+            }}
+            count={totalPages}
+            onChange={handleChangePage}
+          />
         )}
       </div>
     </div>
