@@ -11,11 +11,11 @@ function Header() {
 				<p className='z-20 text-md lg:text-lg'>
 					Trade, earn and learn about crypto with us.
 				</p>
-				<div className='z-20 pt-8'>
-					<Button type='button' bgType='transparent' size='large' to='#pawel'>
+				<div className='z-20 pt-8 flex flex-wrap justify-center'>
+					<Button type='link' bgType='transparent' size='large' to='#pawel'>
 						Read about us
 					</Button>
-					<Button type='button' size='large' to='#pawel'>
+					<Button type='link' size='large' to='/signup'>
 						Get started
 					</Button>
 				</div>

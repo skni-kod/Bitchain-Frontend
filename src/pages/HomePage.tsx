@@ -2,6 +2,7 @@ import Footer from '../ui/Footer';
 import Header from '../ui/homePage/Header';
 import CardsContainer from '../ui/homePage/CardsContainer';
 import SectionContainer from '../ui/homePage/SectionContainer';
+import Accordion from '../ui/homePage/Accordion';
 
 export default function HomePage() {
 	return (
@@ -11,6 +12,10 @@ export default function HomePage() {
 				<SectionContainer
 					title='Explore Our Products'
 					element={<CardsContainer></CardsContainer>}
+				/>
+				<SectionContainer
+					title='Easy to Get Started'
+					element={<Accordion></Accordion>}
 				/>
 			</main>
 			<Footer />

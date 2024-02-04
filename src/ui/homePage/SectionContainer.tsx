@@ -7,7 +7,7 @@ interface CardProps {
 
 function SectionContainer({ title, element }: CardProps) {
 	return (
-		<div className='flex flex-col w-full'>
+		<div className='flex flex-col w-full lg:px-10 '>
 			<h2 className='text-center text-4xl'>
 				{title}
 				<span className='text-main text-5xl'>.</span>
