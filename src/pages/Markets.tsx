@@ -19,7 +19,7 @@ export default function Markets() {
 
   console.log(data);
   return (
-    <div className="w-full pt-5">
+    <div className="w-full pt-5 max-w-7xl mx-auto">
       {isFetched ? (
         <>
           <div className="flex flex-col">

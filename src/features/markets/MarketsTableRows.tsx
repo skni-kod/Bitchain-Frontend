@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Pagination } from "@mui/material";
 import useDarkMode from "../../hooks/useDarkMode";
 import { useForceUpdate } from "../../hooks/useForceUpdate";
+import { useGetFavoriteCrypto } from "./useGetFavoriteCrypto";
 
 export interface CryptoData {
   id: string;
@@ -32,7 +33,6 @@ interface MarketsTableRowsProps {
   label: string;
   filter: string;
   onFilter: (value: string) => void;
-  favoriteCrypto: string[];
   favorites: boolean;
 }
 
@@ -41,9 +41,9 @@ export default function MarketsTableRows({
   filter,
   onFilter,
   favorites,
-  favoriteCrypto,
 }: MarketsTableRowsProps) {
   const { forceUpdate } = useForceUpdate();
+  const { data: favoritesApi, isSuccess } = useGetFavoriteCrypto();
   const { isDarkMode } = useDarkMode();
   const queryClient = useQueryClient();
   const cryptoData: cryptoPrice = queryClient.getQueryData(["cryptoPrice"])!;
@@ -56,177 +56,190 @@ export default function MarketsTableRows({
   const ITEMS_ON_PAGE = 30;
   const data = useRef<CryptoData[]>(cryptoData.data);
 
+  // useEffect(
+  //   function () {
+  //     if (isSuccess) {
+  //       if (favorites) {
+  //         const favorites = data.current.filter((crypto) =>
+  //           favoritesApi.favorite_crypto_symbol.includes(crypto.symbol)
+  //         );
+  //         data.current = favorites;
+  //         forceUpdate();
+  //       }
+  //     }
+  //   },
+  //   [favorites, favoritesApi, isSuccess, forceUpdate]
+  // );
+
+  // useEffect(
+  //   function () {
+  //     onFilter("");
+  //   },
+  //   [label, onFilter]
+  // );
+
   useEffect(
     function () {
-      if (label) {
-        if (!filter) {
-          data.current = cryptoData.data.filter((value) =>
-            value.symbol.includes(label.toUpperCase())
+      let allCrypto = cryptoData.data;
+
+      if (isSuccess) {
+        if (favorites) {
+          const favorites = allCrypto.filter((crypto) =>
+            favoritesApi.favorite_crypto_symbol.includes(crypto.symbol)
           );
+          allCrypto = favorites;
         }
-      } else {
-        data.current = cryptoData.data;
-      }
-      setTotalPages(Math.ceil(data.current.length / ITEMS_ON_PAGE));
-    },
-    [cryptoData, label, filter]
-  );
-
-  useEffect(
-    function () {
-      console.log(favoriteCrypto);
-    },
-    [favorites, favoriteCrypto]
-  );
-
-  useEffect(
-    function () {
-      onFilter("");
-    },
-    [label, onFilter]
-  );
-
-  useEffect(
-    function () {
-      if (!filter) {
-        data.current = cryptoData.data;
       }
       if (label) {
-        data.current = cryptoData.data.filter((value) =>
-          value.symbol.includes(label.toUpperCase())
+        allCrypto = allCrypto.filter((crypto) =>
+          crypto.symbol.includes(label.toUpperCase())
         );
       }
-      switch (filter) {
-        case "priceDesc":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.priceUsd);
-            const priceB = parseFloat(b.priceUsd);
 
-            if (priceA > priceB) {
-              return -1;
-            } else if (priceA < priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
-        case "priceAsc":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.priceUsd);
-            const priceB = parseFloat(b.priceUsd);
+      if (filter) {
+        switch (filter) {
+          case "priceDesc":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.priceUsd);
+              const priceB = parseFloat(b.priceUsd);
 
-            if (priceA < priceB) {
-              return -1;
-            } else if (priceA > priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
-        case "percentDesc":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.changePercent24Hr);
-            const priceB = parseFloat(b.changePercent24Hr);
+              if (priceA > priceB) {
+                return -1;
+              } else if (priceA < priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+          case "priceAsc":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.priceUsd);
+              const priceB = parseFloat(b.priceUsd);
 
-            if (priceA > priceB) {
-              return -1;
-            } else if (priceA < priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
-        case "percentAsc":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.changePercent24Hr);
-            const priceB = parseFloat(b.changePercent24Hr);
+              if (priceA < priceB) {
+                return -1;
+              } else if (priceA > priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+          case "percentDesc":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.changePercent24Hr);
+              const priceB = parseFloat(b.changePercent24Hr);
 
-            if (priceA < priceB) {
-              return -1;
-            } else if (priceA > priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
-        case "volDesc":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.volumeUsd24Hr);
-            const priceB = parseFloat(b.volumeUsd24Hr);
+              if (priceA > priceB) {
+                return -1;
+              } else if (priceA < priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+          case "percentAsc":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.changePercent24Hr);
+              const priceB = parseFloat(b.changePercent24Hr);
 
-            if (priceA > priceB) {
-              return -1;
-            } else if (priceA < priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
-        case "volAsc":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.volumeUsd24Hr);
-            const priceB = parseFloat(b.volumeUsd24Hr);
+              if (priceA < priceB) {
+                return -1;
+              } else if (priceA > priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+          case "volDesc":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.volumeUsd24Hr);
+              const priceB = parseFloat(b.volumeUsd24Hr);
 
-            if (priceA < priceB) {
-              return -1;
-            } else if (priceA > priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
-        case "mCapDesc":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.marketCapUsd);
-            const priceB = parseFloat(b.marketCapUsd);
+              if (priceA > priceB) {
+                return -1;
+              } else if (priceA < priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+          case "volAsc":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.volumeUsd24Hr);
+              const priceB = parseFloat(b.volumeUsd24Hr);
 
-            if (priceA > priceB) {
-              return -1;
-            } else if (priceA < priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
-        case "mCapAsc":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.marketCapUsd);
-            const priceB = parseFloat(b.marketCapUsd);
+              if (priceA < priceB) {
+                return -1;
+              } else if (priceA > priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+          case "mCapDesc":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.marketCapUsd);
+              const priceB = parseFloat(b.marketCapUsd);
 
-            if (priceA < priceB) {
-              return -1;
-            } else if (priceA > priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
-        case "":
-          data.current = data.current?.sort((a, b) => {
-            const priceA = parseFloat(a.rank);
-            const priceB = parseFloat(b.rank);
+              if (priceA > priceB) {
+                return -1;
+              } else if (priceA < priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+          case "mCapAsc":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.marketCapUsd);
+              const priceB = parseFloat(b.marketCapUsd);
 
-            if (priceA < priceB) {
-              return -1;
-            } else if (priceA > priceB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-          break;
+              if (priceA < priceB) {
+                return -1;
+              } else if (priceA > priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+          case "":
+            allCrypto = allCrypto.sort((a, b) => {
+              const priceA = parseFloat(a.rank);
+              const priceB = parseFloat(b.rank);
+
+              if (priceA < priceB) {
+                return -1;
+              } else if (priceA > priceB) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            break;
+        }
       }
+
+      data.current = allCrypto;
+      setTotalPages(Math.ceil(data.current.length / ITEMS_ON_PAGE));
       forceUpdate();
     },
-    [filter, cryptoData.data, forceUpdate, label]
+    [
+      filter,
+      cryptoData.data,
+      forceUpdate,
+      label,
+      favorites,
+      favoritesApi.favorite_crypto_symbol,
+      isSuccess,
+    ]
   );
 
   useEffect(() => {
@@ -269,7 +282,7 @@ export default function MarketsTableRows({
               },
               "& .Mui-selected": {
                 backgroundColor: "#ff5701",
-                color: "common.white",
+                color: "#ffffff",
                 "&:hover": {
                   backgroundColor: "#e84a00",
                 },
