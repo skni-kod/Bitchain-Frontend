@@ -1,17 +1,24 @@
 import { useUserWidth } from "../../hooks/useUserWidth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegStar } from "react-icons/fa6";
 import { CryptoData, UserCurrencyType } from "./MarketsTableRows";
 import { formatBigNumbers, formatCurrency } from "../../utils/helpers";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import useDarkMode from "../../hooks/useDarkMode";
-import { addFavoriteCrypto } from "../../services/apiAuth";
+import { FaStar } from "react-icons/fa";
+import { useAddFavoriteCrypto } from "./useAddFavoriteCrypto";
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 interface CryptoRowProps {
   crypto: CryptoData;
   userCurrency: UserCurrencyType | undefined;
   usdtPrice: number | undefined;
+}
+
+interface FavoriteCrypto {
+  favorite_crypto_symbol: string[];
 }
 
 export default function CryptoRow({
@@ -20,6 +27,12 @@ export default function CryptoRow({
   usdtPrice,
 }: CryptoRowProps) {
   const width = useUserWidth();
+  const navigate = useNavigate();
+  const { addFavoriteCrypto } = useAddFavoriteCrypto();
+  const queryClient = useQueryClient();
+  const favoritesCrypto: FavoriteCrypto | undefined = queryClient.getQueryData([
+    "favoriteCrypto",
+  ]);
   const { isDarkMode } = useDarkMode();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -29,13 +42,41 @@ export default function CryptoRow({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  //Pawel musi zrobic polubione crypto
+
+  function handleAddFavoriteCrypto() {
+    if (favoritesCrypto) {
+      if (favoritesCrypto.favorite_crypto_symbol.includes(crypto.symbol)) {
+        const filtered = favoritesCrypto.favorite_crypto_symbol.filter(
+          (item) => item != crypto.symbol
+        );
+        addFavoriteCrypto(filtered);
+      } else {
+        addFavoriteCrypto([
+          ...favoritesCrypto.favorite_crypto_symbol,
+          crypto.symbol,
+        ]);
+      }
+    } else {
+      navigate("/login");
+      toast.error("Log in to your accout to add favorite crypto");
+    }
+  }
 
   return (
     <div className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right ">
       <div className="w-[260px] flex gap-2 items-center">
-        <button className="text-slate-300 hover:text-yellow-500 transition-colors duration-300 cursor-pointer" onClick={addFavoriteCrypto}>
-          <FaRegStar />
+        <button
+          className={`text-slate-300 hover:text-yellow-500 transition-colors duration-300 cursor-pointer ${
+            favoritesCrypto?.favorite_crypto_symbol.includes(crypto.symbol) &&
+            "text-yellow-500"
+          }`}
+          onClick={handleAddFavoriteCrypto}
+        >
+          {favoritesCrypto?.favorite_crypto_symbol.includes(crypto.symbol) ? (
+            <FaStar />
+          ) : (
+            <FaRegStar />
+          )}
         </button>
         <img
           className="rounded-full w-6 mx-3 hidden sm:block"

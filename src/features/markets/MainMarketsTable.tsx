@@ -38,7 +38,7 @@ export default function MainMarketsTable({ label }: MainMarketsTableProps) {
         <MarketsTableHeader onFilter={setFilter} filter={filter} />
         <MarketsTableRows
           label={label}
-          onFilter={setFilter}
+          onFavorites={setFavorites}
           filter={filter}
           favorites={favorites}
         />

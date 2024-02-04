@@ -17,7 +17,7 @@ export default function Markets() {
   //   };
   // }, [refetch]);
 
-  console.log(data);
+  // console.log(data);
   return (
     <div className="w-full pt-5 max-w-7xl mx-auto">
       {isFetched ? (

@@ -5,6 +5,8 @@ import { Pagination } from "@mui/material";
 import useDarkMode from "../../hooks/useDarkMode";
 import { useForceUpdate } from "../../hooks/useForceUpdate";
 import { useGetFavoriteCrypto } from "./useGetFavoriteCrypto";
+import { useUser } from "../Authentication/useUser";
+import { useNavigate } from "react-router";
 
 export interface CryptoData {
   id: string;
@@ -32,21 +34,23 @@ export interface UserCurrencyType {
 interface MarketsTableRowsProps {
   label: string;
   filter: string;
-  onFilter: (value: string) => void;
+  onFavorites: (value: boolean) => void;
   favorites: boolean;
 }
 
 export default function MarketsTableRows({
   label,
   filter,
-  onFilter,
+  onFavorites,
   favorites,
 }: MarketsTableRowsProps) {
   const { forceUpdate } = useForceUpdate();
   const { data: favoritesApi, isSuccess } = useGetFavoriteCrypto();
   const { isDarkMode } = useDarkMode();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const cryptoData: cryptoPrice = queryClient.getQueryData(["cryptoPrice"])!;
+  const isAuth = queryClient.getQueryData(["user"]) !== null;
   const usdtPrice: number | undefined = queryClient.getQueryData(["USDT"]);
   const userCurrency: UserCurrencyType | undefined = queryClient.getQueryData([
     "userCurrency",
@@ -56,28 +60,6 @@ export default function MarketsTableRows({
   const ITEMS_ON_PAGE = 30;
   const data = useRef<CryptoData[]>(cryptoData.data);
 
-  // useEffect(
-  //   function () {
-  //     if (isSuccess) {
-  //       if (favorites) {
-  //         const favorites = data.current.filter((crypto) =>
-  //           favoritesApi.favorite_crypto_symbol.includes(crypto.symbol)
-  //         );
-  //         data.current = favorites;
-  //         forceUpdate();
-  //       }
-  //     }
-  //   },
-  //   [favorites, favoritesApi, isSuccess, forceUpdate]
-  // );
-
-  // useEffect(
-  //   function () {
-  //     onFilter("");
-  //   },
-  //   [label, onFilter]
-  // );
-
   useEffect(
     function () {
       let allCrypto = cryptoData.data;
@@ -85,7 +67,7 @@ export default function MarketsTableRows({
       if (isSuccess) {
         if (favorites) {
           const favorites = allCrypto.filter((crypto) =>
-            favoritesApi.favorite_crypto_symbol.includes(crypto.symbol)
+            favoritesApi?.favorite_crypto_symbol.includes(crypto.symbol)
           );
           allCrypto = favorites;
         }
@@ -237,7 +219,7 @@ export default function MarketsTableRows({
       forceUpdate,
       label,
       favorites,
-      favoritesApi.favorite_crypto_symbol,
+      favoritesApi?.favorite_crypto_symbol,
       isSuccess,
     ]
   );
@@ -251,25 +233,63 @@ export default function MarketsTableRows({
   };
 
   return (
-    <div>
-      {data.current
-        .slice(
-          (page - 1) * ITEMS_ON_PAGE,
-          (page - 1) * ITEMS_ON_PAGE + ITEMS_ON_PAGE
+    <div className="min-h-[600px]">
+      {data.current.length === 0 ? (
+        isAuth ? (
+          <div className="w-full h-[600px] flex flex-col justify-center items-center gap-8">
+            <div className="flex flex-col justify-center items-center text-sm gap-4">
+              <p className="text-gray">No data available</p>
+              <p className="text-sm text-gray">
+                If you add any favorite cryptocurrency, you will see it here.{" "}
+              </p>
+            </div>
+            <button
+              onClick={() => onFavorites(false)}
+              className="bg-main text-white rounded-lg hover:bg-mainHover p-3 text-sm transition-colors duration-300"
+            >
+              Add Favorites
+            </button>
+          </div>
+        ) : (
+          <div className="w-full h-[600px] flex flex-col justify-center items-center gap-8">
+            <div className="flex flex-col justify-center items-center text-sm gap-4">
+              <p className="text-gray">No data available</p>
+              <p className="text-sm text-gray">
+                Please log in to your account to add your favorite
+                cryptocurrency.
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                onFavorites(false);
+                navigate("/login");
+              }}
+              className="bg-main text-white rounded-lg hover:bg-mainHover p-3 text-sm transition-colors duration-300"
+            >
+              Log in
+            </button>
+          </div>
         )
-        .map(
-          (crypto) =>
-            crypto.symbol !== "USDT" &&
-            crypto.symbol !== "WBTC" &&
-            crypto.symbol !== "BTCB" && (
-              <CryptoRow
-                crypto={crypto}
-                key={crypto.id}
-                usdtPrice={usdtPrice}
-                userCurrency={userCurrency}
-              />
-            )
-        )}
+      ) : (
+        data.current
+          .slice(
+            (page - 1) * ITEMS_ON_PAGE,
+            (page - 1) * ITEMS_ON_PAGE + ITEMS_ON_PAGE
+          )
+          .map(
+            (crypto) =>
+              crypto.symbol !== "USDT" &&
+              crypto.symbol !== "WBTC" &&
+              crypto.symbol !== "BTCB" && (
+                <CryptoRow
+                  crypto={crypto}
+                  key={crypto.id}
+                  usdtPrice={usdtPrice}
+                  userCurrency={userCurrency}
+                />
+              )
+          )
+      )}
       <div className="flex justify-center items-center w-full my-8 text-main">
         {totalPages !== 1 && (
           <Pagination
