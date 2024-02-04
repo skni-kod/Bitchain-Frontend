@@ -9,13 +9,13 @@ export default function Markets() {
   const { data, isSuccess: isFetched, refetch } = useAllCryptoPrice(500);
   const [label, setLabel] = useState<string>("");
 
-  useEffect(() => {
-    const intervalId = setInterval(refetch, 2000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(refetch, 2000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [refetch]);
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [refetch]);
 
   console.log(data);
   return (

@@ -157,7 +157,7 @@ export default function MarketsTableHeader({
               </span>
             </div>
           </button>
-          <div className="hidden sm:block w-[130px]">
+          <div className="hidden sm:flex justify-end items-center w-[130px] ml-6 ">
             <p className="text-right">Action</p>
           </div>
         </div>

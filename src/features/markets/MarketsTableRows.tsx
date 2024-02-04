@@ -32,12 +32,16 @@ interface MarketsTableRowsProps {
   label: string;
   filter: string;
   onFilter: (value: string) => void;
+  favoriteCrypto: string[];
+  favorites: boolean;
 }
 
 export default function MarketsTableRows({
   label,
   filter,
   onFilter,
+  favorites,
+  favoriteCrypto,
 }: MarketsTableRowsProps) {
   const { forceUpdate } = useForceUpdate();
   const { isDarkMode } = useDarkMode();
@@ -66,6 +70,13 @@ export default function MarketsTableRows({
       setTotalPages(Math.ceil(data.current.length / ITEMS_ON_PAGE));
     },
     [cryptoData, label, filter]
+  );
+
+  useEffect(
+    function () {
+      console.log(favoriteCrypto);
+    },
+    [favorites, favoriteCrypto]
   );
 
   useEffect(

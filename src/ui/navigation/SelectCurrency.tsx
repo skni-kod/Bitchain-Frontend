@@ -2,26 +2,10 @@ import Modal from "../Modal";
 import IconButton from "../IconButton";
 import { SlGlobe } from "react-icons/sl";
 import SelectCurrenciesWindows from "./SelectCurrenciesWindows";
-import { useRates } from "../../features/markets/useRates";
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useTether } from "../../features/markets/useTether";
 
 export default function SelectCurrency() {
-  const { getRate, rate, isSuccess } = useRates();
-  const queryClient = useQueryClient();
-
-  useEffect(
-    function () {
-      getRate("tether");
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (isSuccess && rate) {
-      queryClient.setQueryData(["USDT"], rate.rateUsd);
-    }
-  }, [isSuccess, rate, queryClient]);
+  const { data } = useTether();
 
   return (
     <div>
