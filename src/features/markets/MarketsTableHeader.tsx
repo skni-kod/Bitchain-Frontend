@@ -143,16 +143,24 @@ export default function MarketsTableHeader({
         </>
       ) : (
         <div className="flex ">
-          <button
+         <button
             className="w-[130px] flex justify-end gap-2 p-2 ml-3"
             onClick={() => onChangeFilter("price")}
           >
             <p className="text-right">Price(USDT)</p>
             <div className="flex flex-col justify-center items-center ">
-              <span className="block w-fit rotate-180 text-[11px] translate-y-[1px] ">
+              <span
+                className={`block w-fit rotate-180 text-[11px] translate-y-[1px] ${
+                  filter === "priceAsc" && "text-main"
+                }`}
+              >
                 <VscTriangleDown />
               </span>
-              <span className="block w-fit text-[11px] -translate-y-[1px]">
+              <span
+                className={`block w-fit text-[11px] -translate-y-[1px] ${
+                  filter === "priceDesc" && "text-main"
+                }`}
+              >
                 <VscTriangleDown />
               </span>
             </div>
