@@ -17,8 +17,17 @@ export default {
         bgDark1: "#141519", //kolor tla elementu
         bgDark1Hover: "#2b2d35", //kolor tla elementu ale hover
 
-        //&-rose-600 - to jest czerwony wszedzie
+        gray: "#8f8a88"
+
+        //&-rose-600 - to jest czerwony czasem
         //&-slate-300 - taki wyszarzony font
+
+        //&-slate-200 - szary border light mode
+        //&-stone-700 - szary border dark mode
+        
+        //&-green-500 - zielony 
+        //&-red-500 - czerwony wszedzie
+        //&-yellow-500 - rzułty
       },
       screens: {
         xs: "320px",

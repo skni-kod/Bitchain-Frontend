@@ -47,6 +47,11 @@ export function validatePassword(password: string) {
 	else return true;
 }
 
+export function validateRepeatPassword(password: string, repeatPassword: string) {
+	if (password !== repeatPassword) return "Passwords don't match";
+	else return true;
+}
+
 export function validateEmail(email: string) {
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 	if (!emailRegex.test(email)) return 'Incorrect e-mail';

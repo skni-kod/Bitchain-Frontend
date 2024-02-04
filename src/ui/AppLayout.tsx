@@ -1,3 +1,4 @@
+
 import { Outlet } from 'react-router-dom';
 import Navigation from './navigation/Navigation';
 
@@ -14,4 +15,4 @@ export default function AppLayout() {
 			</div>
 		</div>
 	);
-}
+
