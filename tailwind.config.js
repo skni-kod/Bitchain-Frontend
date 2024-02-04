@@ -34,6 +34,10 @@ export default {
       },
       gridTemplateRows: {
         "layout": ' auto'
+      },
+      backgroundImage: {
+        'hero-pattern': "url('/header.jpg')",
+       
       }
     },
   },

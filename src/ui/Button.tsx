@@ -1,7 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 interface ButtonProps {
+
   children: React.ReactNode;
   type: "link" | "button";
   bgType?: "transparent";
@@ -9,17 +10,19 @@ interface ButtonProps {
   onClick?: () => void;
   size?: "small" | "medium" | "large";
   disabled?: boolean;
+
 }
 
 export default function Button({
-  children,
-  bgType,
-  type,
-  to,
-  onClick,
-  size = "small",
-  disabled,
+	children,
+	bgType,
+	type,
+	to,
+	onClick,
+	size = 'small',
+	disabled,
 }: ButtonProps) {
+
   if (type === "button") {
     return (
       <button
@@ -61,4 +64,5 @@ export default function Button({
       </NavLink>
     );
   }
+
 }
