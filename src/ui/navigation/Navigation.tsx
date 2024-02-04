@@ -20,10 +20,10 @@ import LogOutButton from "./LogOutButton";
 import Button from "../Button";
 import { useUserWidth } from "../../hooks/useUserWidth";
 import { useUser } from "../../features/Authentication/useUser";
+import SelectCurrency from "./SelectCurrency";
 
 const Navigation: React.FC = () => {
   const { data, userAuthenticated } = useUser();
-  console.log(data, userAuthenticated);
   const width = useUserWidth();
 
   return (
@@ -32,7 +32,7 @@ const Navigation: React.FC = () => {
       className="relative flex h-16 w-full justify-between items-center bg-white dark:bg-bgDark dark:text-white border-b-[1px] border-solid border-slate-100 dark:border-bgDark1Hover text-sm px-6 z-50 transition-colors duration-300 "
     >
       <Logo />
-      {width > 820 && (
+      {width > 855 && (
         <div className="flex justify-center items-center h-full mx-auto pl-[90px]">
           <DropdownButton text={"Buy Crypto"} type={"dropdown"}>
             <Dropdown onCloseFunction={undefined as never}>
@@ -183,6 +183,7 @@ const Navigation: React.FC = () => {
             </>
           ))}
         <DarkModeButton />
+        <SelectCurrency />
         {width < 820 && <ToggleMobileNavBurger />}
       </div>
     </div>
