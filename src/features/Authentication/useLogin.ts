@@ -13,7 +13,7 @@ export function useLogin() {
     onSuccess: (data) => {
       toast.success("Logged successfully");
       queryClient.setQueryData(["user"], data);
-      navigate("/homepage")
+      navigate(-1)
     },
     onError: (err) => {
       const error = JSON.parse(err.message)
