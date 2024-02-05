@@ -5,7 +5,6 @@ import { Pagination } from "@mui/material";
 import useDarkMode from "../../hooks/useDarkMode";
 import { useForceUpdate } from "../../hooks/useForceUpdate";
 import { useGetFavoriteCrypto } from "./useGetFavoriteCrypto";
-import { useUser } from "../Authentication/useUser";
 import { useNavigate } from "react-router";
 
 export interface CryptoData {

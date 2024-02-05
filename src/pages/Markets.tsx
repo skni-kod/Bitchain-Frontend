@@ -4,20 +4,12 @@ import TopCryptoCard from "../features/markets/TopHotCryptoCard";
 import Spinner from "../ui/Spinner";
 import SearchCrypto from "../features/markets/SearchCrypto";
 import MainMarketsTable from "../features/markets/MainMarketsTable";
+import BottonAdMarkets from "../features/markets/BottonAdMarkets";
 
 export default function Markets() {
   const { data, isSuccess: isFetched, refetch } = useAllCryptoPrice(500);
   const [label, setLabel] = useState<string>("");
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(refetch, 2000);
-
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [refetch]);
-
-  // console.log(data);
   return (
     <div className="w-full pt-5 max-w-7xl mx-auto">
       {isFetched ? (
@@ -36,6 +28,7 @@ export default function Markets() {
             <SearchCrypto setLabel={setLabel} label={label} />
           </div>
           <MainMarketsTable label={label} />
+          <BottonAdMarkets/>
         </>
       ) : (
         <div>
