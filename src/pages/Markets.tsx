@@ -5,6 +5,7 @@ import Spinner from "../ui/Spinner";
 import SearchCrypto from "../features/markets/SearchCrypto";
 import MainMarketsTable from "../features/markets/MainMarketsTable";
 import BottonAdMarkets from "../features/markets/BottonAdMarkets";
+import Footer from "../ui/Footer";
 
 export default function Markets() {
   const { data, isSuccess: isFetched } = useAllCryptoPrice(500);
@@ -29,6 +30,7 @@ export default function Markets() {
           </div>
           <MainMarketsTable label={label} />
           <BottonAdMarkets />
+          <Footer />
         </>
       ) : (
         <div className="h-screen w-full flex justify-center items-center">
