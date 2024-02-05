@@ -7,7 +7,7 @@ import MainMarketsTable from "../features/markets/MainMarketsTable";
 import BottonAdMarkets from "../features/markets/BottonAdMarkets";
 
 export default function Markets() {
-  const { data, isSuccess: isFetched, refetch } = useAllCryptoPrice(500);
+  const { data, isSuccess: isFetched } = useAllCryptoPrice(500);
   const [label, setLabel] = useState<string>("");
 
   return (
@@ -28,10 +28,10 @@ export default function Markets() {
             <SearchCrypto setLabel={setLabel} label={label} />
           </div>
           <MainMarketsTable label={label} />
-          <BottonAdMarkets/>
+          <BottonAdMarkets />
         </>
       ) : (
-        <div>
+        <div className="h-screen w-full flex justify-center items-center">
           <Spinner type="full" />
         </div>
       )}
