@@ -155,8 +155,8 @@ function Chart({ crypto }: ChartProps) {
 	return (
 		<div
 			className={`${
-				crypto?.rank === '1' ? 'w-full' : 'md800:w-1/2 w-full'
-			}  rounded-xl p-10 min-w-[220px]`}
+				crypto?.rank === '1' ? 'w-full' : 'md800:w-[49%] w-full'
+			}  rounded-xl p-10 min-w-[220px] border-[1px] border-bgDark1Hover`}
 		>
 			<div className='flex flex-row justify-between items-center'>
 				<div className='flex flex-wrap items-center gap-2'>
