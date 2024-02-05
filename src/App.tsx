@@ -70,7 +70,7 @@ function App() {
               duration: 3000,
             },
             error: {
-              duration: 5000,
+              duration: 3000,
             },
             style: {
               zIndex: 1000,
