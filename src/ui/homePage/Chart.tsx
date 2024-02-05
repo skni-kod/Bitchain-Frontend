@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSpecificCryptoInfo } from '../../features/markets/useSpecificCryptoInfo';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
@@ -19,17 +19,29 @@ interface ChartProps {
 
 function Chart({ crypto }: ChartProps) {
 	const { getSpecificCryptoInfo, data } = useSpecificCryptoInfo();
-
+	const [choosenInterval, setChoosenInterval] = useState<'m5' | 'h1' | 'd1'>(
+		'm5'
+	);
 	useEffect(() => {
 		const today = new Date().getTime();
-		const twentyFourHoursAgo = today - 24 * 3600000;
+		let startTime: number = today - 24 * 3600000;
+		if (choosenInterval === 'm5') {
+			startTime = today - 24 * 3600000;
+		}
+		if (choosenInterval === 'h1') {
+			startTime = today - 24 * 3600000 * 30;
+		}
+		if (choosenInterval === 'd1') {
+			startTime = today - 24 * 3600000 * 90;
+		}
+
 		getSpecificCryptoInfo({
 			id: crypto?.id,
-			interval: 'm15',
-			start: twentyFourHoursAgo,
+			interval: choosenInterval || 'm5',
+			start: startTime,
 			end: today,
 		});
-	}, [getSpecificCryptoInfo, crypto]);
+	}, [getSpecificCryptoInfo, crypto, choosenInterval]);
 
 	const series = data?.data.map((item) => [item.time, +item.priceUsd]);
 
@@ -72,11 +84,18 @@ function Chart({ crypto }: ChartProps) {
 				const yValue = typeof this.y === 'number' ? this.y : 0;
 				const xValue = typeof this.x === 'number' ? this.x : 0;
 				return `
-				<p style="display:block; margin-left: 15px; font-size: 1rem; font-weight: bold;">${Highcharts.numberFormat(
+				<p style="display:block; margin-left: 15px; font-size: 1.2rem; font-weight: bold;">${Highcharts.numberFormat(
 					yValue,
 					2
 				)}</p></br>
-				<p style="font-size: 1rem; ">${Highcharts.dateFormat('%H:%M', xValue || 0)}</p>
+				<p  ">${Highcharts.dateFormat(
+					choosenInterval === 'm5'
+						? '%H:%M'
+						: choosenInterval === 'h1'
+						? '%d.%m.%Y %H:%M'
+						: '%d.%m.%Y',
+					xValue || 0
+				)}</p>
 			  `;
 			},
 		},
@@ -91,6 +110,14 @@ function Chart({ crypto }: ChartProps) {
 		legend: {
 			enabled: false,
 		},
+		fillColor: {
+			linearGradient: {
+				x1: 0,
+				y1: 0,
+				x2: 0,
+				y2: 1,
+			},
+		},
 	};
 
 	const cryptoValue = Number(crypto?.priceUsd).toFixed(2);
@@ -101,25 +128,50 @@ function Chart({ crypto }: ChartProps) {
 	return (
 		<div
 			className={`${
-				crypto?.rank === '1' ? 'w-full' : 'sm:w-1/2 w-full'
+				crypto?.rank === '1' ? 'w-full' : 'md800:w-1/2 w-full'
 			}  rounded-xl p-10 min-w-[220px]`}
 		>
 			<div className='flex flex-row justify-between items-center'>
-				<img
-					className='rounded-full w-10'
-					src={`https://assets.coincap.io/assets/icons/${crypto?.symbol?.toLocaleLowerCase()}@2x.png`}
-				/>
-				<p className='text-lg'>{`${crypto?.symbol}/USD`}</p>
+				<div className='flex flex-wrap items-center gap-2'>
+					<img
+						className='rounded-full w-10'
+						src={`https://assets.coincap.io/assets/icons/${crypto?.symbol?.toLocaleLowerCase()}@2x.png`}
+					/>
+					<p className='text-lg'>{`${crypto?.symbol}/USD`}</p>
+				</div>
+				<div className='flex flex-wrap gap-1 justify-end'>
+					<p
+						className={`${
+							choosenInterval === 'm5' && 'bg-bgDark1Hover'
+						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer`}
+						onClick={() => setChoosenInterval('m5')}
+					>
+						1D
+					</p>
+					<p
+						className={`${
+							choosenInterval === 'h1' && 'bg-bgDark1Hover'
+						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer`}
+						onClick={() => setChoosenInterval('h1')}
+					>
+						1M
+					</p>
+					<p
+						className={`${
+							choosenInterval === 'd1' && 'bg-bgDark1Hover'
+						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer`}
+						onClick={() => setChoosenInterval('d1')}
+					>
+						3M
+					</p>
+				</div>
 			</div>
-			<HighchartsReact
-				options={options}
-				highcharts={Highcharts}
-			></HighchartsReact>
+			<HighchartsReact options={options} highcharts={Highcharts} />
 			<div>
 				<p className='text-2xl'>{cryptoValue}</p>
 				{cryptoChange > 0 && (
 					<p className='flex text-lg items-center gap-2 text-green-500'>
-						+{cryptoChange}
+						+{cryptoChange}%
 						<span>
 							<FaArrowTrendUp />
 						</span>
@@ -127,11 +179,14 @@ function Chart({ crypto }: ChartProps) {
 				)}
 				{cryptoChange < 0 && (
 					<p className='flex text-lg items-center gap-2 text-red-500'>
-						{cryptoChange}
+						{cryptoChange}%
 						<span>
 							<FaArrowTrendDown />
 						</span>
 					</p>
+				)}
+				{cryptoChange === 0 && (
+					<p className='flex text-lg items-center gap-2'>{cryptoChange}%</p>
 				)}
 			</div>
 		</div>
