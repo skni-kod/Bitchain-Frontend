@@ -29,14 +29,18 @@ function AccordionElement({
 		<Accordion
 			expanded={expanded === `panel${num}`}
 			onChange={(event, isExpanded) => handleChange(isExpanded, `panel${num}`)}
-            sx={{paddingX: "1rem"}}
 		>
 			<AccordionSummary
 				id={`panel${num}-header`}
 				aria-controls={`panel${num}-content`}
-				expandIcon={<FaArrowDown />}
+				expandIcon={
+					<span className='text-bgDark1Hover dark:text-bgWhite'>
+						<FaArrowDown />
+					</span>
+				}
 				sx={{
-                    padding: "0.5rem",
+					padding: '0.5rem',
+					paddingX: '1.5rem',
 					'&:hover': { color: '#ff5700' },
 					'&:focus': { color: '#ff5700' },
 				}}
