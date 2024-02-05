@@ -3,12 +3,17 @@ import { ReactNode } from 'react';
 interface CardProps {
 	title: string;
 	element: ReactNode;
+	isBlack?: boolean;
 }
 
-function SectionContainer({ title, element }: CardProps) {
+function SectionContainer({ title, element, isBlack }: CardProps) {
 	return (
-		<div className='flex flex-col w-full lg:px-10 '>
-			<h2 className='text-center text-4xl'>
+		<div
+			className={`flex max-w-7xl mx-auto flex-col w-full lg:px-10 ${
+				isBlack && 'text-white pb-8'
+			}`}
+		>
+			<h2 className='text-center text-4xl px-4'>
 				{title}
 				<span className='text-main text-5xl'>.</span>
 			</h2>

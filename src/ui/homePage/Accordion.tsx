@@ -1,23 +1,12 @@
-import {
-	Accordion,
-	AccordionDetails,
-	AccordionSummary,
-	ThemeProvider,
-	Typography,
-	createTheme,
-} from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
-import { FaArrowDown } from 'react-icons/fa';
 import useDarkMode from '../../hooks/useDarkMode';
+import AccordionElement from './AccordionElement';
 
 function AccordionUsage() {
 	const { isDarkMode } = useDarkMode();
 	const [expanded, setExpanded] = useState<string | false>(false);
 	const [mode, setMode] = useState<'light' | 'dark'>('light');
-
-	function handleChange(isExpanded: boolean, panel: string) {
-		setExpanded(isExpanded ? panel : false);
-	}
 
 	useEffect(() => {
 		setMode(isDarkMode ? 'dark' : 'light');
@@ -36,134 +25,79 @@ function AccordionUsage() {
 	return (
 		<div className='px-5'>
 			<ThemeProvider theme={theme}>
-				<Accordion
-					expanded={expanded === 'panel1'}
-					onChange={(event, isExpanded) => handleChange(isExpanded, 'panel1')}
+				<AccordionElement
+					num={1}
+					theme='What is Bitchain'
+					expanded={expanded}
+					setExpanded={setExpanded}
+                    
 				>
-					<AccordionSummary
-						id='panel1-header'
-						aria-controls='panel1-content'
-						expandIcon={<FaArrowDown />}
-					>
-						<Typography>What is a cryptocurrency exchange</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<Typography>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Voluptatibus odio ipsum consequuntur ratione eligendi debitis! Est
-							repellendus reiciendis vitae totam beatae fuga exercitationem
-							fugiat quisquam eaque modi ipsum, tempora, quis quod amet ea quia
-							tempore cupiditate hic quam recusandae sunt.
-						</Typography>
-					</AccordionDetails>
-				</Accordion>
-				<Accordion
-					expanded={expanded === 'panel2'}
-					onChange={(event, isExpanded) => handleChange(isExpanded, 'panel2')}
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
+					quisquam, qui deserunt natus! Provident laborum, doloremque, non
+					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
+					quidem optio impedit, modi reiciendis!
+				</AccordionElement>
+				<AccordionElement
+					num={2}
+					theme='What products does Bitchain provide'
+					expanded={expanded}
+					setExpanded={setExpanded}
 				>
-					<AccordionSummary
-						id='panel2-header'
-						aria-controls='panel2-content'
-						expandIcon={<FaArrowDown />}
-					>
-						<Typography>What products does Bitchain provide</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<Typography>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Voluptatibus odio ipsum consequuntur ratione eligendi debitis! Est
-							repellendus reiciendis vitae totam beatae fuga exercitationem
-							fugiat quisquam eaque modi ipsum, tempora, quis quod amet ea quia
-							tempore cupiditate hic quam recusandae sunt.
-						</Typography>
-					</AccordionDetails>
-				</Accordion>
-				<Accordion
-					expanded={expanded === 'panel3'}
-					onChange={(event, isExpanded) => handleChange(isExpanded, 'panel3')}
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
+					quisquam, qui deserunt natus! Provident laborum, doloremque, non
+					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
+					quidem optio impedit, modi reiciendis!
+				</AccordionElement>
+				<AccordionElement
+					num={3}
+					theme='How to buy Bitcoin and other cryptocurrencies on Bitchain'
+					expanded={expanded}
+					setExpanded={setExpanded}
 				>
-					<AccordionSummary
-						id='panel3-header'
-						aria-controls='panel3-content'
-						expandIcon={<FaArrowDown />}
-					>
-						<Typography>
-							How to buy Bitcoin and other cryptocurrencies on Bitchain
-						</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<Typography>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Voluptatibus odio ipsum consequuntur ratione eligendi debitis! Est
-							repellendus reiciendis vitae totam beatae fuga exercitationem
-							fugiat quisquam eaque modi ipsum, tempora, quis quod amet ea quia
-							tempore cupiditate hic quam recusandae sunt.
-						</Typography>
-					</AccordionDetails>
-				</Accordion>
-				<Accordion
-					expanded={expanded === 'panel4'}
-					onChange={(event, isExpanded) => handleChange(isExpanded, 'panel4')}
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
+					quisquam, qui deserunt natus! Provident laborum, doloremque, non
+					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
+					quidem optio impedit, modi reiciendis!
+				</AccordionElement>
+				<AccordionElement
+					num={4}
+					theme='How to track cryptocurrency prices'
+					expanded={expanded}
+					setExpanded={setExpanded}
 				>
-					<AccordionSummary
-						id='panel4-header'
-						aria-controls='panel4-content'
-						expandIcon={<FaArrowDown />}
-					>
-						<Typography>How to track cryptocurrency prices</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<Typography>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Voluptatibus odio ipsum consequuntur ratione eligendi debitis! Est
-							repellendus reiciendis vitae totam beatae fuga exercitationem
-							fugiat quisquam eaque modi ipsum, tempora, quis quod amet ea quia
-							tempore cupiditate hic quam recusandae sunt.
-						</Typography>
-					</AccordionDetails>
-				</Accordion>
-				<Accordion
-					expanded={expanded === 'panel5'}
-					onChange={(event, isExpanded) => handleChange(isExpanded, 'panel5')}
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
+					quisquam, qui deserunt natus! Provident laborum, doloremque, non
+					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
+					quidem optio impedit, modi reiciendis!
+				</AccordionElement>
+				<AccordionElement
+					num={5}
+					theme='How to trade cryptocurrencies on Bitchain'
+					expanded={expanded}
+					setExpanded={setExpanded}
 				>
-					<AccordionSummary
-						id='panel5-header'
-						aria-controls='panel5-content'
-						expandIcon={<FaArrowDown />}
-					>
-						<Typography>How to trade cryptocurrencies on Bitchain</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<Typography>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Voluptatibus odio ipsum consequuntur ratione eligendi debitis! Est
-							repellendus reiciendis vitae totam beatae fuga exercitationem
-							fugiat quisquam eaque modi ipsum, tempora, quis quod amet ea quia
-							tempore cupiditate hic quam recusandae sunt.
-						</Typography>
-					</AccordionDetails>
-				</Accordion>
-				<Accordion
-					expanded={expanded === 'panel6'}
-					onChange={(event, isExpanded) => handleChange(isExpanded, 'panel6')}
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
+					quisquam, qui deserunt natus! Provident laborum, doloremque, non
+					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
+					quidem optio impedit, modi reiciendis!
+				</AccordionElement>
+				<AccordionElement
+					num={6}
+					theme='How to learn trading on Bitchain'
+					expanded={expanded}
+					setExpanded={setExpanded}
 				>
-					<AccordionSummary
-						id='panel6-header'
-						aria-controls='panel6-content'
-						expandIcon={<FaArrowDown />}
-					>
-						<Typography>How to earn from crypto on Bitchain</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<Typography>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Voluptatibus odio ipsum consequuntur ratione eligendi debitis! Est
-							repellendus reiciendis vitae totam beatae fuga exercitationem
-							fugiat quisquam eaque modi ipsum, tempora, quis quod amet ea quia
-							tempore cupiditate hic quam recusandae sunt.
-						</Typography>
-					</AccordionDetails>
-				</Accordion>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
+					quisquam, qui deserunt natus! Provident laborum, doloremque, non
+					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
+					quidem optio impedit, modi reiciendis!
+				</AccordionElement>
 			</ThemeProvider>
 		</div>
 	);
