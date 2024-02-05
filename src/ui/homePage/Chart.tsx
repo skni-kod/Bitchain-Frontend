@@ -44,10 +44,23 @@ function Chart({ crypto }: ChartProps) {
 	}, [getSpecificCryptoInfo, crypto, choosenInterval]);
 
 	const series = data?.data.map((item) => [item.time, +item.priceUsd]);
+	let minValue;
+	let maxValue
+	if (series && series.length > 0) {
+		minValue = series.reduce(
+			(min, current) => (current[1] < min ? current[1] : min),
+			series[0][1]
+		);
+		maxValue = series.reduce(
+			(max, current) => (current[1] > max ? current[1] : max),
+			series[0][1]
+		);
+	}
 
 	const options = {
 		chart: {
-			type: 'line',
+			type: 'area',
+			// styledMode: true,
 			backgroundColor: 'rgba(0, 0, 0, 0)',
 			height: `${Number(crypto?.rank) === 0 ? '250px' : '125px'}`,
 		},
@@ -55,24 +68,34 @@ function Chart({ crypto }: ChartProps) {
 			{
 				data: series,
 				name: crypto?.name,
+				fillColor: {
+					linearGradient: {
+						x1: 0,
+						y1: 0,
+						x2: 0,
+						y2: 0.9,
+					},
+					stops: [
+						[0, 'rgba(255, 87, 0, 0.3)'],
+						[1, 'rgba(10, 11, 13,0.5)'],
+					],
+				},
+				color: '#ff5700',
 			},
 		],
 		plotOptions: {
 			series: {
 				color: '#ff5700',
-				enableMouseTracking: true,
+
 				marker: {
 					enabled: false,
 				},
 				dataLabels: {
 					enabled: false,
 				},
-				legend: {
-					enabled: true,
-				},
 			},
 		},
-		credits: { enabled: false },
+
 		tooltip: {
 			backgroundColor: '#f0f0f0',
 			borderColor: 'black',
@@ -84,10 +107,10 @@ function Chart({ crypto }: ChartProps) {
 				const yValue = typeof this.y === 'number' ? this.y : 0;
 				const xValue = typeof this.x === 'number' ? this.x : 0;
 				return `
-				<p style="display:block; margin-left: 15px; font-size: 1.2rem; font-weight: bold;">${Highcharts.numberFormat(
-					yValue,
-					2
-				)}</p></br>
+					<p style="display:block; margin-left: 15px; font-size: 1.2rem; font-weight: bold;">${Highcharts.numberFormat(
+						yValue,
+						2
+					)}</p></br>
 				<p  ">${Highcharts.dateFormat(
 					choosenInterval === 'm5'
 						? '%H:%M'
@@ -96,27 +119,21 @@ function Chart({ crypto }: ChartProps) {
 						: '%d.%m.%Y',
 					xValue || 0
 				)}</p>
-			  `;
+					`;
 			},
 		},
+		credits: { enabled: false },
 		xAxis: {
 			visible: false,
-			crosshair: true,
 		},
 		yAxis: {
 			visible: false,
+			min: minValue,
+			max: maxValue,
 		},
 		title: { text: null },
 		legend: {
 			enabled: false,
-		},
-		fillColor: {
-			linearGradient: {
-				x1: 0,
-				y1: 0,
-				x2: 0,
-				y2: 1,
-			},
 		},
 	};
 
