@@ -164,7 +164,7 @@ function Chart({ crypto }: ChartProps) {
 						className='rounded-full w-10'
 						src={`https://assets.coincap.io/assets/icons/${crypto?.symbol?.toLocaleLowerCase()}@2x.png`}
 					/>
-					<p className='text-lg'>{`${crypto?.symbol}/${userCurrency?.symbol}`}</p>
+					<p className='text-lg'>{`${crypto?.symbol}/${userCurrency?.symbol ? userCurrency?.symbol : 'USD'}`}</p>
 				</div>
 				<div className='flex flex-wrap gap-1 justify-end'>
 					<p
