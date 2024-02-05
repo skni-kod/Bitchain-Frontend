@@ -3,6 +3,8 @@ import { useSpecificCryptoInfo } from '../../features/markets/useSpecificCryptoI
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 import { FaArrowTrendDown, FaArrowTrendUp } from 'react-icons/fa6';
+import { UserCurrencyType } from '../../features/markets/MarketsTableRows';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface Crypto {
 	id: string;
@@ -22,30 +24,13 @@ function Chart({ crypto }: ChartProps) {
 	const [choosenInterval, setChoosenInterval] = useState<'m5' | 'h1' | 'd1'>(
 		'm5'
 	);
-	useEffect(() => {
-		const today = new Date().getTime();
-		let startTime: number = today - 24 * 3600000;
-		if (choosenInterval === 'm5') {
-			startTime = today - 24 * 3600000;
-		}
-		if (choosenInterval === 'h1') {
-			startTime = today - 24 * 3600000 * 30;
-		}
-		if (choosenInterval === 'd1') {
-			startTime = today - 24 * 3600000 * 90;
-		}
-
-		getSpecificCryptoInfo({
-			id: crypto?.id,
-			interval: choosenInterval || 'm5',
-			start: startTime,
-			end: today,
-		});
-	}, [getSpecificCryptoInfo, crypto, choosenInterval]);
-
+	const queryClient = useQueryClient();
+	const userCurrency: UserCurrencyType | undefined = queryClient.getQueryData([
+		'userCurrency',
+	]);
 	const series = data?.data.map((item) => [item.time, +item.priceUsd]);
 	let minValue;
-	let maxValue
+	let maxValue;
 	if (series && series.length > 0) {
 		minValue = series.reduce(
 			(min, current) => (current[1] < min ? current[1] : min),
@@ -56,17 +41,24 @@ function Chart({ crypto }: ChartProps) {
 			series[0][1]
 		);
 	}
+	const cryptoValue = Number(crypto?.priceUsd).toFixed(2);
+	const cryptoConverted = userCurrency?.rateUsd
+		? (Number(cryptoValue) / Number(userCurrency?.rateUsd)).toFixed(2)
+		: cryptoValue;
+	const cryptoChange: number = Number(
+		Number(crypto?.changePercent24Hr).toFixed(2)
+	);
 
 	const options = {
 		chart: {
 			type: 'area',
-			// styledMode: true,
 			backgroundColor: 'rgba(0, 0, 0, 0)',
 			height: `${Number(crypto?.rank) === 0 ? '250px' : '125px'}`,
 		},
 		series: [
 			{
 				data: series,
+				spline: true,
 				name: crypto?.name,
 				fillColor: {
 					linearGradient: {
@@ -108,7 +100,9 @@ function Chart({ crypto }: ChartProps) {
 				const xValue = typeof this.x === 'number' ? this.x : 0;
 				return `
 					<p style="display:block; margin-left: 15px; font-size: 1.2rem; font-weight: bold;">${Highcharts.numberFormat(
-						yValue,
+						userCurrency?.rateUsd
+							? Number(yValue) / Number(userCurrency?.rateUsd)
+							: yValue,
 						2
 					)}</p></br>
 				<p  ">${Highcharts.dateFormat(
@@ -137,10 +131,26 @@ function Chart({ crypto }: ChartProps) {
 		},
 	};
 
-	const cryptoValue = Number(crypto?.priceUsd).toFixed(2);
-	const cryptoChange: number = Number(
-		Number(crypto?.changePercent24Hr).toFixed(2)
-	);
+	useEffect(() => {
+		const today = new Date().getTime();
+		let startTime: number = today - 24 * 3600000;
+		if (choosenInterval === 'm5') {
+			startTime = today - 24 * 3600000;
+		}
+		if (choosenInterval === 'h1') {
+			startTime = today - 24 * 3600000 * 30;
+		}
+		if (choosenInterval === 'd1') {
+			startTime = today - 24 * 3600000 * 90;
+		}
+
+		getSpecificCryptoInfo({
+			id: crypto?.id,
+			interval: choosenInterval || 'm5',
+			start: startTime,
+			end: today,
+		});
+	}, [getSpecificCryptoInfo, crypto, choosenInterval]);
 
 	return (
 		<div
@@ -154,7 +164,7 @@ function Chart({ crypto }: ChartProps) {
 						className='rounded-full w-10'
 						src={`https://assets.coincap.io/assets/icons/${crypto?.symbol?.toLocaleLowerCase()}@2x.png`}
 					/>
-					<p className='text-lg'>{`${crypto?.symbol}/USD`}</p>
+					<p className='text-lg'>{`${crypto?.symbol}/${userCurrency?.symbol}`}</p>
 				</div>
 				<div className='flex flex-wrap gap-1 justify-end'>
 					<p
@@ -185,7 +195,7 @@ function Chart({ crypto }: ChartProps) {
 			</div>
 			<HighchartsReact options={options} highcharts={Highcharts} />
 			<div>
-				<p className='text-2xl'>{cryptoValue}</p>
+				<p className='text-2xl'>{cryptoConverted}</p>
 				{cryptoChange > 0 && (
 					<p className='flex text-lg items-center gap-2 text-green-500'>
 						+{cryptoChange}%
