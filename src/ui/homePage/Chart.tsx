@@ -162,7 +162,7 @@ function Chart({ crypto }: ChartProps) {
 		>
 			<div className='flex gap-1 flex-row justify-between items-center'>
 				<NavLink
-					to={`/spot&${crypto?.symbol}USDT`}
+					to={`/spot?pair=${crypto?.symbol}USDT`}
 					className='flex flex-wrap items-center gap-2 hover:text-mainHover'
 				>
 					<img
