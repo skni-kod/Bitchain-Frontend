@@ -26,6 +26,8 @@ const Navigation: React.FC = () => {
   const { data, userAuthenticated } = useUser();
   const width = useUserWidth();
 
+  console.log(data?.image);
+
   return (
     <div
       id="nav"
