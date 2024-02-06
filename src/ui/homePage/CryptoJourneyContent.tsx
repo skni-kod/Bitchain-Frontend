@@ -45,7 +45,9 @@ function CryptoJourneyContent() {
 				<Button type='link' bgType='transparent' to='/about'>
 					Read about the project
 				</Button>
-				<Button type='link' to='/signup'>Get Started</Button>
+				<Button type='link' to='/signup'>
+					Get Started
+				</Button>
 			</div>
 		</div>
 	);

@@ -51,7 +51,7 @@ function CryptoJourneyContainer({
 								type === 'textOnLeft'
 									? 'translateX(150px)'
 									: 'translateX(-150px)'
-						}`,
+					}`,
 					opacity: inView ? 1 : 0,
 					transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s',
 				}}
