@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSpecificCryptoInfo } from '../../features/markets/useSpecificCryptoInfo';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
@@ -7,6 +7,7 @@ import { UserCurrencyType } from '../../features/markets/MarketsTableRows';
 import { useQueryClient } from '@tanstack/react-query';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
+import { useInView } from 'framer-motion';
 
 interface Crypto {
 	id: string;
@@ -22,6 +23,9 @@ interface ChartProps {
 }
 
 function Chart({ crypto }: ChartProps) {
+	const ref = useRef(null);
+	const inView = useInView(ref);
+
 	const { getSpecificCryptoInfo, data } = useSpecificCryptoInfo();
 	const [choosenInterval, setChoosenInterval] = useState<'m5' | 'h1' | 'd1'>(
 		'm5'
@@ -156,6 +160,12 @@ function Chart({ crypto }: ChartProps) {
 
 	return (
 		<div
+			ref={ref}
+			style={{
+				transform: inView ? 'none' : 'translateY(150px)',
+				opacity: inView ? 1 : 0,
+				transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s',
+			}}
 			className={`${
 				crypto?.rank === '1' ? 'w-full' : 'md800:w-[49%] w-full'
 			}  rounded-xl p-10 min-w-[220px] border-[1px] border-bgDark1Hover`}
