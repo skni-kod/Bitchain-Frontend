@@ -22,6 +22,7 @@ import Register from "./pages/Register";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import Details from "./pages/Details";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +44,7 @@ function App() {
               <Route path="homepage" element={<HomePage />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="quickbuy" element={<QuickBuy />} />
+              <Route path="details" element={<Details />} />
               <Route path="p2p" element={<P2p />} />
               <Route path="markets" element={<Markets />} />
               <Route path="spot" element={<Spot />} />

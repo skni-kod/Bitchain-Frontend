@@ -126,7 +126,7 @@ export default function CryptoRow({
       </div>
       <div className="w-[130px] justify-center items-center gap-2 ml-3 hidden sm:flex">
         <Link
-          to={`/details/${crypto.name.replace(".", "-").toLowerCase()}/`}
+          to={`/details?crypto=${crypto.id.replace(".", "-").toLowerCase()}`}
           className="p-2 text-xs text-main hover:text-mainHover "
         >
           Details
@@ -165,7 +165,7 @@ export default function CryptoRow({
           >
             <MenuItem onClick={handleClose}>
               <Link
-                to={`/spot?${crypto.symbol}USDT`}
+                to={`/spot?pair=${crypto.symbol}USDT`}
                 className="text-xs tracking-wider  transition-colors duration-300 text-bgDark dark:text-bgWhite hover:text-main dark:hover:text-main w-full h-full p-2"
               >
                 {`${crypto.symbol}/USDT`} pair at{" "}
