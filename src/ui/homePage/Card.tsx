@@ -18,7 +18,7 @@ const Variants = {
 
 function Card({ icon, title, children, link, delay = 0 }: ProductCardProps) {
 	const ref = useRef(null);
-	const isInView = useInView(ref);
+	const isInView = useInView(ref, { once: true });
 
 	return (
 		<motion.div

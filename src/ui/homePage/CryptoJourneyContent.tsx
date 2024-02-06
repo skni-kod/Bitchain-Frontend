@@ -3,7 +3,7 @@ import CryptoJourneyContainer from './CryptoJourneyContainer';
 
 function CryptoJourneyContent() {
 	return (
-		<div className='flex justify-center flex-col gap-10'>
+		<div className='flex justify-center flex-col '>
 			<CryptoJourneyContainer
 				type='textOnLeft'
 				imageSrc='/bitcoin.png'

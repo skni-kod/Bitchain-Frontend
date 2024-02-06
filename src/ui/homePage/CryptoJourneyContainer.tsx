@@ -15,7 +15,7 @@ function CryptoJourneyContainer({
 	type,
 }: ContainerProps) {
 	const ref = useRef(null);
-	const inView = useInView(ref);
+	const inView = useInView(ref, { once: true });
 
 	return (
 		<div
@@ -42,7 +42,7 @@ function CryptoJourneyContainer({
 			</div>
 
 			<div
-				className='flex justify-center items-center lg:w-2/6'
+				className='flex justify-center items-center lg:w-2/6 py-6'
 				ref={ref}
 				style={{
 					transform: inView
@@ -57,7 +57,7 @@ function CryptoJourneyContainer({
 				}}
 			>
 				<img
-					className='w-[160px] drop-shadow-[0_35px_35px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_35px_35px_rgba(255,255,255,0.15)]'
+					className='w-[160px] drop-shadow-[0_5px_20px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_5px_15px_rgba(255,255,255,0.15)]'
 					src={imageSrc}
 					alt={imageAlt}
 				/>

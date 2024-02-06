@@ -24,7 +24,7 @@ interface ChartProps {
 
 function Chart({ crypto }: ChartProps) {
 	const ref = useRef(null);
-	const inView = useInView(ref);
+	const inView = useInView(ref, { once: true });
 
 	const { getSpecificCryptoInfo, data } = useSpecificCryptoInfo();
 	const [choosenInterval, setChoosenInterval] = useState<'m5' | 'h1' | 'd1'>(

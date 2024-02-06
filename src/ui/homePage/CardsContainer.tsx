@@ -5,7 +5,7 @@ import Card from './Card';
 
 function CardsContainer() {
 	return (
-		<div className='flex gap-5 flex-row flex-wrap md800:px-14 justify-left lg:justify-around align-top w-full overflow-x-hidden'>
+		<div className='flex gap-5 flex-row flex-wrap md800:px-14 pb-8 justify-left lg:justify-around align-top w-full overflow-x-hidden'>
 			<Card icon={<FaChartArea />} title='Spot' link='/spot'>
 				Over 500+ coins available. Buy and sell quickly with automatic
 				calculation of average cost and PnL.
