@@ -12,7 +12,7 @@ function Header() {
 					Trade, earn and learn about crypto with us.
 				</p>
 				<div className='z-20 pt-8 flex flex-wrap justify-center'>
-					<Button type='link' bgType='transparent' size='large' to='#pawel'>
+					<Button type='link' bgType='headerLink' size='large' to='#pawel'>
 						Read about us
 					</Button>
 					<Button type='link' size='large' to='/signup'>

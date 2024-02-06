@@ -1,4 +1,5 @@
 import { useAllCryptoPrice } from '../../features/markets/useAllCryptoPrice';
+import Button from '../Button';
 import Chart from './Chart';
 
 function ChartsContainer() {
@@ -10,7 +11,12 @@ function ChartsContainer() {
 
 			<div className='flex flex-wrap justify-between w-full gap-5 md800:gap-2'>
 				<Chart crypto={data?.data[1]}></Chart>
-				<Chart crypto={data?.data[2]}></Chart>
+				<Chart crypto={data?.data[4]}></Chart>
+			</div>
+			<div className='flex justify-center pt-6 pb-4'>
+				<Button to='/markets' type='link' size='large'>
+					Trade
+				</Button>
 			</div>
 		</div>
 	);

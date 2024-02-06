@@ -5,7 +5,7 @@ import { GiLever } from 'react-icons/gi';
 
 function CardsContainer() {
 	return (
-		<div className='flex gap-5 flex-row flex-wrap justify-left lg:justify-around align-top w-full'>
+		<div className='flex gap-5 flex-row flex-wrap md800:px-14 justify-left lg:justify-around align-top w-full'>
 			<Card icon={<FaChartArea />} title='Spot' link='/spot'>
 				Over 500+ coins available. Buy and sell quickly with automatic
 				calculation of average cost and PnL.

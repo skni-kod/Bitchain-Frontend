@@ -14,7 +14,7 @@ export default function HomePage() {
 					title='Explore Our Products'
 					element={<CardsContainer></CardsContainer>}
 				/>
-				<div className='w-full bg-bgDark pb-12'>
+				<div className='w-full bg-bgDark '>
 					<SectionContainer
 						title='Capture Every Trading Opportunity'
 						element={<ChartsContainer />}

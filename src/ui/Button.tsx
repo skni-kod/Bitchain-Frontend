@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 interface ButtonProps {
 	children: React.ReactNode;
 	type: 'link' | 'button';
-	bgType?: 'transparent';
+	bgType?: 'transparent' | 'headerLink';
 	to: string;
 	onClick?: () => void;
 	size?: 'small' | 'medium' | 'large';
@@ -26,7 +26,11 @@ export default function Button({
 				className={` rounded-3xl text-sm tracking-wider m-2 w-fit ${
 					!bgType
 						? 'bg-main hover:bg-mainHover text-white'
-						: 'dark:hover:bg-bgDark1Hover hover:bg-bgWhite1'
+						: bgType === 'headerLink'
+						? ''
+						: bgType === 'transparent'
+						? 'dark:hover:bg-bgDark1Hover hover:bg-bgWhite1'
+						: ''
 				} ${
 					size === 'small'
 						? 'px-4 py-2'
@@ -47,13 +51,19 @@ export default function Button({
 				className={`block px-4 py-2 rounded-3xl text-sm tracking-wider m-2 ${
 					!bgType
 						? 'bg-main hover:bg-mainHover text-white'
-						: 'dark:hover:bg-bgDark1Hover hover:bg-bgWhite1 hover:text-black dark:hover:text-white'
+						: bgType === 'headerLink'
+						? 'bg-bgWhite text-black hover:bg-bgWhite1 '
+						: bgType === 'transparent'
+						? 'dark:hover:bg-bgDark1Hover hover:bg-bgWhite1'
+						: ''
 				} ${
 					size === 'small'
 						? 'px-4 py-2'
 						: size === 'medium'
 						? 'px-6 py-3'
-						: size === 'large' && 'px-10 py-6'
+						: size === 'large'
+						? ' px-6 py-3'
+						: ''
 				}transition-colors duration-300`}
 				onClick={onClick}
 			>

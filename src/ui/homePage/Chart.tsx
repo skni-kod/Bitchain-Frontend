@@ -5,6 +5,8 @@ import Highcharts from 'highcharts';
 import { FaArrowTrendDown, FaArrowTrendUp } from 'react-icons/fa6';
 import { UserCurrencyType } from '../../features/markets/MarketsTableRows';
 import { useQueryClient } from '@tanstack/react-query';
+import { FaExternalLinkAlt } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 interface Crypto {
 	id: string;
@@ -158,14 +160,24 @@ function Chart({ crypto }: ChartProps) {
 				crypto?.rank === '1' ? 'w-full' : 'md800:w-[49%] w-full'
 			}  rounded-xl p-10 min-w-[220px] border-[1px] border-bgDark1Hover`}
 		>
-			<div className='flex flex-row justify-between items-center'>
-				<div className='flex flex-wrap items-center gap-2'>
+			<div className='flex gap-1 flex-row justify-between items-center'>
+				<NavLink
+					to={`/spot&${crypto?.symbol}USDT`}
+					className='flex flex-wrap items-center gap-2 hover:text-mainHover'
+				>
 					<img
 						className='rounded-full w-10'
 						src={`https://assets.coincap.io/assets/icons/${crypto?.symbol?.toLocaleLowerCase()}@2x.png`}
 					/>
-					<p className='text-lg'>{`${crypto?.symbol}/${userCurrency?.symbol ? userCurrency?.symbol : 'USD'}`}</p>
-				</div>
+					<p className='flex items-center gap-1 text-lg'>
+						{`${crypto?.symbol}/${
+							userCurrency?.symbol ? userCurrency?.symbol : 'USD'
+						}`}
+						<span className='text-sm'>
+							<FaExternalLinkAlt />
+						</span>
+					</p>
+				</NavLink>
 				<div className='flex flex-wrap gap-1 justify-end'>
 					<p
 						className={`${
