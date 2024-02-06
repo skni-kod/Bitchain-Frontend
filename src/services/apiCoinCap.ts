@@ -62,3 +62,21 @@ export async function getRates(id: string = "tether") {
     throw new Error(`GetSpecificCryptoInfo error: ${response.status}`);
   }
 }
+
+export async function getCryptoAssets(id: string | null= "bitcoin") {
+  const link = `https://api.coincap.io/v2/assets/${id}`;
+
+  const response = await fetch(link, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    throw new Error(`GetCryptoAssets error: ${response.status}`);
+  }
+}
