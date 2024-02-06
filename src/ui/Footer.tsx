@@ -7,7 +7,7 @@ function Footer() {
   const { isDarkMode } = useDarkMode();
 
   return (
-    <footer className="py-8 text-gray flex justify-center items-center gap-6 dark:bg-bgDark border-solid bord er-t-[1px] border-slate-200 dark:border-stone-700 pl-16  max-w-7xl">
+    <footer className="py-8 text-gray flex justify-center items-center gap-6 dark:bg-bgDark max-w-7xl">
       <div className="flex gap-2 justify-center items-center">
         <img className="h-5" src="/logo-icon-gray.svg" alt="" />
         <p>{date} BitChain Project</p>
