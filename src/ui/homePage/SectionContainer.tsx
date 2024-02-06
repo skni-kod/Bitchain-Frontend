@@ -9,7 +9,7 @@ interface CardProps {
 function SectionContainer({ title, element, isBlack }: CardProps) {
 	return (
 		<div
-			className={`flex max-w-7xl mx-auto flex-col w-full lg:px-10 ${
+			className={`flex max-w-7xl mx-auto flex-col w-full lg:px-10 py-16 ${
 				isBlack && 'text-white pb-8'
 			}`}
 		>
