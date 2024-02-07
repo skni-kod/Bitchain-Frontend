@@ -28,5 +28,5 @@ export function useRegister() {
 		},
 	});
 
-	return { register, isRegisterPending };
+	return { register, isRegisterPending};
 }

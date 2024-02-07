@@ -1,5 +1,5 @@
 import ContentContainer from '../ui/ContentContainer';
-import SettingsTitle from '../features/userSettings/settingsTitle';
+import SettingsTitle from '../features/userSettings/SettingsTitle';
 import SettingsTable from '../features/userSettings/SettingsTable';
 
 export default function Settings() {
