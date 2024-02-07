@@ -23,6 +23,7 @@ export function useSpecificCryptoInfo() {
 	const { mutate: getSpecificCryptoInfo, isSuccess } = useMutation({
 		mutationFn: getSpecificCryptoInfoApi,
 		onSuccess: (data) => {
+			console.log(data);
 			setData(data);
 		},
 	});
