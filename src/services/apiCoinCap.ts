@@ -28,7 +28,12 @@ export async function getSpecificCryptoInfo({
   start,
   end,
 }: mutateProps) {
-  const link = `https://api.coincap.io/v2/assets/${id}/history?interval=${interval}&start=${start}&end=${end}`;
+  let link;
+  if (start === 0) {
+    link = `https://api.coincap.io/v2/assets/${id}/history?interval=${interval}`;
+  } else {
+    link = `https://api.coincap.io/v2/assets/${id}/history?interval=${interval}&start=${start}&end=${end}`;
+  }
 
   const response = await fetch(link, {
     method: "GET",
@@ -63,7 +68,7 @@ export async function getRates(id: string = "tether") {
   }
 }
 
-export async function getCryptoAssets(id: string | null= "bitcoin") {
+export async function getCryptoAssets(id: string | null = "bitcoin") {
   const link = `https://api.coincap.io/v2/assets/${id}`;
 
   const response = await fetch(link, {
