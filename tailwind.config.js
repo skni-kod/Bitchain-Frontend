@@ -31,6 +31,7 @@ export default {
 			},
 			screens: {
 				xs: '320px',
+				md400: '400px',
 				md600: '600px',
 				md800: '800px',
 			},
