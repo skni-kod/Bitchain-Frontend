@@ -151,12 +151,13 @@ export default function CryptoDetailsChart({
         const yValue = typeof this.y === "number" ? this.y : 0;
         const xValue = typeof this.x === "number" ? this.x : 0;
         return `
-                <p style="display:block; margin-left: 15px; font-size: 1.2rem; font-weight: bold;">${Highcharts.numberFormat(
-                  userCurrency?.rateUsd
-                    ? Number(yValue) / Number(userCurrency?.rateUsd)
-                    : yValue,
-                  2
-                )}</p></br>
+                <p style="display:block; margin-left: 15px; font-size: 1.2rem; font-weight: bold;">${
+                  userCurrency
+                    ? formatCurrency(
+                        +crypto.data.priceUsd / userCurrency.rateUsd
+                      )
+                    : formatCurrency(+crypto.data.priceUsd)
+                }</p></br>
             <p  ">${Highcharts.dateFormat(
               choosenInterval === "m5"
                 ? "%H:%M"

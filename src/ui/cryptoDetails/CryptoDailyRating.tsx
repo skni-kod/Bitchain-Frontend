@@ -18,7 +18,7 @@ export default function CryptoDailyRating({ crypto }: CryptoDailyRatingProps) {
   }, [crypto.data.symbol, refetch]);
 
   return (
-    <div className="h-screen p-4">
+    <div className=" p-4 mt-8">
       <p className="text-lg text-bgDark dark:text-bgWhite">
         How do you feel about {crypto.data.name} today?
       </p>
