@@ -17,6 +17,7 @@ import {
 	validatePassword,
 	validateRepeatPassword,
 } from '../Authentication/isInputCorrect';
+import toast from 'react-hot-toast';
 
 interface EditingPopUpProps {
 	SetClickeModify: (ClickModify: string | null) => void;
@@ -25,7 +26,7 @@ interface EditingPopUpProps {
 
 function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	const { updateUser, isUpdatePending } = useUpdateUser();
-	const { updateAvatar, data } = useUpdateImage();
+	const { updateAvatar } = useUpdateImage();
 	const { data: userData } = useUser();
 	const { getUser } = useGetNewUserData();
 
@@ -98,10 +99,12 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		if (field === 'Avatar') {
-
-			updateAvatar({ image: data.avatar[0]});
-			console.log(data?.avatar[0]);
-			return null;
+			const file = data.avatar[0]
+			if (!file.type.startsWith('image/')) {
+				toast.error('Invalid type of file');
+				return null;
+			}
+			updateAvatar({ image: data.avatar[0] });
 		} else if (field === 'Password') {
 			return null;
 		} else {
