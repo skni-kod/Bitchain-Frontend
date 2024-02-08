@@ -11,7 +11,7 @@ import { easeInOut, motion } from 'framer-motion';
 interface FormInputProps {
 	placeholder: string;
 	icon: React.ReactNode;
-	type?: 'password' | 'text' | 'email' | 'date';
+	type?: 'password' | 'text' | 'email' | 'date' | 'file';
 	error:
 		| string
 		| FieldError
