@@ -84,7 +84,7 @@ export default function CryptoDetailsChart({
       start: startTime,
       end: today,
     });
-  }, [getSpecificCryptoInfo, crypto, choosenInterval]);
+  }, [getSpecificCryptoInfo, crypto.data.id, choosenInterval]);
 
   useEffect(
     function () {
@@ -92,11 +92,11 @@ export default function CryptoDetailsChart({
         const first = series[0];
         const last = series[series.length - 1];
         percentage.current = +formatCurrency((+last[1] / +first[1] - 1) * 100);
-        console.log(percentage.current);
-        // forceUpdate();
+        forceUpdate();
       }
     },
-    [series]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isSuccess, choosenInterval, forceUpdate]
   );
 
   const options = {
@@ -137,9 +137,9 @@ export default function CryptoDetailsChart({
 
     tooltip: {
       crosshairs: {
-        width: 1, // Szerokość linii krzyżowych
-        color: "red", // Kolor linii krzyżowych
-        dashStyle: "dash", // Styl linii krzyżowych (dash oznacza przerywaną linię)
+        width: 1,
+        color: "red",
+        dashStyle: "dash",
       },
       backgroundColor: "#ffffff",
       borderColor: "black",
@@ -180,6 +180,9 @@ export default function CryptoDetailsChart({
           } else {
             return Highcharts.dateFormat("%d.%m", this.value as number);
           }
+        },
+        style: {
+          color: `${isDarkMode ? "#f0f0f0" : "#0a0b0d"}`,
         },
       },
     },
