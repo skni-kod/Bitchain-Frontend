@@ -11,9 +11,11 @@ import { FiEdit2 } from 'react-icons/fi';
 import { GoPerson } from 'react-icons/go';
 import { CiLock } from 'react-icons/ci';
 import { useUser } from '../Authentication/useUser';
+import { useUpdateImage } from './useUpdateImage';
 import {
 	validateEmail,
 	validatePassword,
+	validateRepeatPassword,
 } from '../Authentication/isInputCorrect';
 
 interface EditingPopUpProps {
@@ -23,6 +25,7 @@ interface EditingPopUpProps {
 
 function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	const { updateUser, isUpdatePending } = useUpdateUser();
+	const { updateAvatar, data } = useUpdateImage();
 	const { data: userData } = useUser();
 	const { getUser } = useGetNewUserData();
 
@@ -94,8 +97,17 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	const inputPlaceholder = field === 'Password' ? 'New Password' : field;
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		const [key, value] = Object.entries(data)[0];
-		updateUser({ fieldToUpdate: key, valueToUpdate: value });
+		if (field === 'Avatar') {
+
+			updateAvatar({ image: data.avatar[0]});
+			console.log(data?.avatar[0]);
+			return null;
+		} else if (field === 'Password') {
+			return null;
+		} else {
+			const [key, value] = Object.entries(data)[0];
+			updateUser({ fieldToUpdate: key, valueToUpdate: value });
+		}
 		getUser();
 		SetClickeModify(null);
 	};
@@ -142,6 +154,22 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 							register={register}
 							validateFunction={() => validateFunc(getValues()?.[inputId])}
 						/>
+						{field === 'Password' && (
+							<FormInput
+								id='repeatPassword'
+								placeholder='Repeat password'
+								icon={<CiLock />}
+								type='password'
+								error={errors?.repeatPassword?.message}
+								register={register}
+								validateFunction={() =>
+									validateRepeatPassword(
+										getValues().password,
+										getValues().repeatPassword
+									)
+								}
+							/>
+						)}
 					</div>
 
 					<div className='w-full flex justify-center items-center '>

@@ -1,21 +1,19 @@
 import { useMutation } from '@tanstack/react-query';
-import { updateUser as updateUserApi } from '../../services/apiAuth';
+import { updateAvatar as updateAvatarApi } from '../../services/apiAuth';
 import toast from 'react-hot-toast';
 
-export function useUpdateUser() {
+export function useUpdateImage() {
 	const {
-		mutate: updateUser,
+		mutate: updateAvatar,
 		isPending: isUpdatePending,
 		data,
 	} = useMutation({
-		mutationFn: (variables: {
-			fieldToUpdate: string;
-			valueToUpdate: string;
-		}) => {
-			return updateUserApi(variables);
+		mutationFn: (variables: { image: File }) => {
+			return updateAvatarApi(variables);
 		},
 		onSuccess: (data) => {
 			toast.success('Upadated successfully');
+			console.log(data);
 		},
 		onError: (err) => {
 			const error = JSON.parse(err.message);
@@ -23,5 +21,5 @@ export function useUpdateUser() {
 		},
 	});
 
-	return { data, updateUser, isUpdatePending };
+	return { data, updateAvatar, isUpdatePending };
 }

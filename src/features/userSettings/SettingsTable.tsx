@@ -3,15 +3,6 @@ import { useUser } from '../Authentication/useUser';
 import { useState } from 'react';
 import EditingPopUp from './EditingPopUp';
 
-// interface User {
-// 	email: string;
-// 	full_name: string;
-// 	nick_name: string;
-// 	date_of_birth: string;
-// 	pesel: string;
-// 	image: string;
-// }
-
 function SettingsTable() {
 	const [clickedModify, setClickedModify] = useState<string | null>(null);
 	const { data } = useUser();

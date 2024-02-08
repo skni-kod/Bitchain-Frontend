@@ -21,6 +21,10 @@ interface updateUserProps {
 	valueToUpdate: string;
 }
 
+interface updateAvatarProps {
+	image: File;
+}
+
 export async function getUser() {
 	const token = localStorage.getItem('accessToken');
 	if (!token) {
@@ -68,6 +72,30 @@ export async function updateUser({
 		body: JSON.stringify({
 			[fieldToUpdate]: valueToUpdate,
 		}),
+	});
+	if (response.ok) {
+		const data = await response.json();
+		return data;
+	} else {
+		const bodyText = await response.text();
+		throw new Error(`${bodyText}`);
+	}
+}
+
+export async function updateAvatar({ image }: updateAvatarProps) {
+	const token = localStorage.getItem('accessToken');
+	if (!token) {
+		return null;
+	}
+	const formData = new FormData();
+	formData.append('image', image);
+
+	const response = await fetch(API_KEY + '/api/user/me/image/', {
+		method: 'PATCH',
+		headers: {
+			Authorization: `Token ${token}`,
+		},
+		body: formData,
 	});
 	if (response.ok) {
 		const data = await response.json();

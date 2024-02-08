@@ -9,7 +9,6 @@ export function useGetNewUserData() {
 			return getUserApi();
 		},
 		onSuccess: (data) => {
-			queryClient.setQueryData(['user'], data);
 			queryClient.invalidateQueries({ queryKey: ['user'] });
 		},
 	});
