@@ -6,6 +6,8 @@ import CryptoDetailsChart from "../ui/cryptoDetails/CryptoDetailsChart";
 import Spinner from "../ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import CryptoDailyRating from "../ui/cryptoDetails/CryptoDailyRating";
+import CryptoDetailsBuy from "../ui/cryptoDetails/CryptoDetailsBuy";
+import { useUserWidth } from "../hooks/useUserWidth";
 
 type CryptoData = {
   changePercent24Hr: string;
@@ -30,23 +32,52 @@ export type CryptoDataObject = {
 export default function Details() {
   const [searchParams]: [URLSearchParams, SetURLSearchParams] =
     useSearchParams();
+  const width = useUserWidth();
   const cryptoName = searchParams.get("crypto");
   const { data: cryptoInfo, isSuccess } = useCryptoAsset(cryptoName);
   const queryClient = useQueryClient();
   const userCurrency = queryClient.getQueryData(["userCurrency"]);
 
   return (
-    <div className="w-full pt-5 max-w-7xl mx-auto">
+    <div className="w-full pt-7 max-w-7xl mx-auto px-3">
       {isSuccess ? (
-        <div>
-          <DetailsHeader
-            crypto={cryptoInfo as CryptoDataObject}
-            userCurrency={userCurrency as userCurrency}
-          />
-          <CryptoDetailsChart
-            crypto={cryptoInfo as CryptoDataObject}
-            userCurrency={userCurrency as userCurrency}
-          />
+        <div className="w-full">
+          {width > 1024 ? (
+            <div className="grid grid-cols-[auto_300px] w-full">
+              <div className="pr-5">
+                <DetailsHeader
+                  crypto={cryptoInfo as CryptoDataObject}
+                  userCurrency={userCurrency as userCurrency}
+                />
+                <CryptoDetailsChart
+                  crypto={cryptoInfo as CryptoDataObject}
+                  userCurrency={userCurrency as userCurrency}
+                />
+              </div>
+
+              <div className="mt-16">
+                <CryptoDetailsBuy
+                  crypto={cryptoInfo as CryptoDataObject}
+                  userCurrency={userCurrency as userCurrency}
+                />
+              </div>
+            </div>
+          ) : (
+            <>
+              <DetailsHeader
+                crypto={cryptoInfo as CryptoDataObject}
+                userCurrency={userCurrency as userCurrency}
+              />
+              <CryptoDetailsBuy
+                crypto={cryptoInfo as CryptoDataObject}
+                userCurrency={userCurrency as userCurrency}
+              />
+              <CryptoDetailsChart
+                crypto={cryptoInfo as CryptoDataObject}
+                userCurrency={userCurrency as userCurrency}
+              />
+            </>
+          )}
           <CryptoDailyRating />
         </div>
       ) : (
