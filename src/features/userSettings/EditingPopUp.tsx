@@ -18,6 +18,8 @@ import {
 	validateRepeatPassword,
 } from '../Authentication/isInputCorrect';
 import toast from 'react-hot-toast';
+import { FileUploader } from 'react-drag-drop-files';
+import { useState } from 'react';
 
 interface EditingPopUpProps {
 	SetClickeModify: (ClickModify: string | null) => void;
@@ -29,6 +31,7 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	const { updateAvatar } = useUpdateImage();
 	const { data: userData } = useUser();
 	const { getUser } = useGetNewUserData();
+	const [file, setFile] = useState(null);
 
 	const {
 		register,
@@ -97,14 +100,19 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 			: '';
 	const inputPlaceholder = field === 'Password' ? 'New Password' : field;
 
+	const handleChange = (file) => {
+		setFile(file);
+		console.log(file);
+	};
+
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		if (field === 'Avatar') {
-			const file = data.avatar[0]
-			if (!file.type.startsWith('image/')) {
-				toast.error('Invalid type of file');
-				return null;
+			if (file !== null) {
+				const filee = file;
+				updateAvatar({ image: filee });
+			} else {
+				toast.error('Choose a file');
 			}
-			updateAvatar({ image: data.avatar[0] });
 		} else if (field === 'Password') {
 			return null;
 		} else {
@@ -137,7 +145,7 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 					className='flex flex-wrap justify-between py-10'
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<div className='w-full flex-col flex justify-center '>
+					<div className='w-full flex-col flex justify-center'>
 						{field === 'Password' && (
 							<FormInput
 								placeholder='Your password'
@@ -148,15 +156,25 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 								register={register}
 							/>
 						)}
-						<FormInput
-							placeholder={inputPlaceholder}
-							id={inputId}
-							icon={inputIcon}
-							type={inputType}
-							error={errors?.[inputId]?.message}
-							register={register}
-							validateFunction={() => validateFunc(getValues()?.[inputId])}
-						/>
+						{field === 'Avatar' ? (
+							<div className='mb-10 ' >
+								<FileUploader
+									handleChange={handleChange}
+									name='file'
+									types={['JPG', 'PNG', 'GIF']}
+								/>
+							</div>
+						) : (
+							<FormInput
+								placeholder={inputPlaceholder}
+								id={inputId}
+								icon={inputIcon}
+								type={inputType}
+								error={errors?.[inputId]?.message}
+								register={register}
+								validateFunction={() => validateFunc(getValues()?.[inputId])}
+							/>
+						)}
 						{field === 'Password' && (
 							<FormInput
 								id='repeatPassword'
