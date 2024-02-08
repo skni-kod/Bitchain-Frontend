@@ -53,7 +53,7 @@ export default function CryptoDetailsBuy({
             <label htmlFor="amount">Buy</label>
             <div className="flex justify-between mt-2">
               <input
-                type="text"
+                type="number"
                 id="amount"
                 className="border-none bg-transparent outline-none text-lg w-1/2"
                 value={amount}
@@ -89,7 +89,7 @@ export default function CryptoDetailsBuy({
               userCurrency ? userCurrency.symbol : "USD"
             }&to=${crypto.data.symbol}`}
             state={{ amount: amount }}
-            className="w-full bg-main hover:bg-mainHover text-white p-3 flex justify-center items-center rounded-lg "
+            className="w-full bg-main hover:bg-mainHover text-white p-3 flex justify-center items-center rounded-lg transition-colors duration-300"
           >
             Buy {crypto.data.symbol}
           </Link>

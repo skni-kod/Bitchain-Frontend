@@ -76,9 +76,9 @@ export default function Details() {
                 crypto={cryptoInfo as CryptoDataObject}
                 userCurrency={userCurrency as userCurrency}
               />
+              <CryptoDailyRating crypto={cryptoInfo as CryptoDataObject} />
             </>
           )}
-          <CryptoDailyRating />
         </div>
       ) : (
         <Spinner type="full" />

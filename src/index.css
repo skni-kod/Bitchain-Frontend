@@ -1,41 +1,52 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 body {
-	/* position: relative; */
-	font-family: 'Roboto', sans-serif;
+  /* position: relative; */
+  font-family: "Roboto", sans-serif;
 }
 
 button {
-	outline: none;
+  outline: none;
 }
 
 .logo-light {
-	width: 100%;
-	height: 100%;
-	background-image: url('/logo-white.png');
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  background-image: url("/logo-white.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .logo-dark {
-	width: 100%;
-	height: 100%;
-	background-image: url('/logo-black.png');
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  background-image: url("/logo-black.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 ::-webkit-scrollbar {
-	background-color: transparent;
-	width: 5px;
+  background-color: transparent;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: #ff5700;
-	width: 5px;
-	border-radius: 8px;
+  background-color: #ff5700;
+  width: 5px;
+  border-radius: 8px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  appearance: textfield;
 }
