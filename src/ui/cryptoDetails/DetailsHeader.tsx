@@ -38,7 +38,7 @@ export default function DetailsHeader({
           </p>
         </div>
       </div>
-      <div className="flex justify-center flex-col md:flex-row items-start md:items-center gap-3 text-bgDark dark:text-white my-10 ">
+      <div className="flex justify-center flex-col md:flex-row items-start md:items-center gap-3 text-bgDark dark:text-white mt-10 md:mt-0">
         <p className="hidden md:block text-sm text-slate-400 dark:text-stone-700">
           Currency:
         </p>
@@ -54,7 +54,7 @@ export default function DetailsHeader({
             <SelectCurrenciesWindows onCloseModal={undefined as never} />
           </Modal.Window>
         </Modal>
-        <div className="hidden w-[300px] lg:block"></div>
+        {/* <div className="hidden w-[300px] lg:block"></div> */}
       </div>
     </div>
   );
