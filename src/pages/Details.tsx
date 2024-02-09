@@ -10,6 +10,7 @@ import CryptoDetailsBuy from "../ui/cryptoDetails/CryptoDetailsBuy";
 import { useUserWidth } from "../hooks/useUserWidth";
 import PriceOfTheDay from "../ui/cryptoDetails/PriceOfTheDay";
 import Footer from "../ui/Footer";
+import PriceHistory from "../ui/cryptoDetails/PriceHistory";
 
 type CryptoData = {
   changePercent24Hr: string;
@@ -60,6 +61,10 @@ export default function Details() {
                   crypto={cryptoInfo as CryptoDataObject}
                   userCurrency={userCurrency as userCurrency}
                 />
+                <PriceHistory
+                  crypto={cryptoInfo as CryptoDataObject}
+                  userCurrency={userCurrency as userCurrency}
+                />
               </div>
 
               <div className="mt-16">
@@ -85,6 +90,10 @@ export default function Details() {
               />
               <CryptoDailyRating crypto={cryptoInfo as CryptoDataObject} />
               <PriceOfTheDay
+                crypto={cryptoInfo as CryptoDataObject}
+                userCurrency={userCurrency as userCurrency}
+              />
+              <PriceHistory
                 crypto={cryptoInfo as CryptoDataObject}
                 userCurrency={userCurrency as userCurrency}
               />

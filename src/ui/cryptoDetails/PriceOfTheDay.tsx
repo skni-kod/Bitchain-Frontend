@@ -22,8 +22,8 @@ export default function PriceOfTheDay({
         The live price of {crypto.data.name} is{" "}
         {userCurrency ? userCurrency.currencySymbol : "$"}{" "}
         {userCurrency
-          ? formatCurrency(+crypto.data.priceUsd / userCurrency.rateUsd)
-          : formatCurrency(+crypto.data.priceUsd)}{" "}
+          ? formatCurrency(+crypto.data.priceUsd / userCurrency.rateUsd, 5)
+          : formatCurrency(+crypto.data.priceUsd, 5)}{" "}
         per ({crypto.data.symbol} / {userCurrency ? userCurrency.symbol : "USD"}
         ) with a current market cap of{" "}
         {userCurrency ? userCurrency.currencySymbol : "$"}{" "}
@@ -37,9 +37,9 @@ export default function PriceOfTheDay({
           : formatBigNumbers(+crypto.data.volumeUsd24Hr)}{" "}
         {crypto.data.name} is {formatCurrency(+crypto.data.changePercent24Hr)}%
         in the last 24 hours with a circulating supply of{" "}
-        {formatBigNumbers(crypto.data.supply)}
+        {formatBigNumbers(+crypto.data.supply)}
       </p>
-      <p className="text-bgDark dark:text-bgWhite">
+      <p className="text-bgDark dark:text-bgWhite py-5">
         To see more about {crypto.data.name} visit{" "}
         <Link
           to={crypto.data.explorer}
