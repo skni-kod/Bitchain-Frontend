@@ -153,10 +153,8 @@ export default function CryptoDetailsChart({
         return `
                 <p style="display:block; margin-left: 15px; font-size: 1.2rem; font-weight: bold;">${
                   userCurrency
-                    ? formatCurrency(
-                        +crypto.data.priceUsd / userCurrency.rateUsd
-                      )
-                    : formatCurrency(+crypto.data.priceUsd)
+                    ? formatCurrency(+yValue / userCurrency.rateUsd, 5)
+                    : formatCurrency(+yValue, 5)
                 }</p></br>
             <p  ">${Highcharts.dateFormat(
               choosenInterval === "m5"

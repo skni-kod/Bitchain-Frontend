@@ -8,6 +8,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import CryptoDailyRating from "../ui/cryptoDetails/CryptoDailyRating";
 import CryptoDetailsBuy from "../ui/cryptoDetails/CryptoDetailsBuy";
 import { useUserWidth } from "../hooks/useUserWidth";
+import PriceOfTheDay from "../ui/cryptoDetails/PriceOfTheDay";
+import Footer from "../ui/Footer";
 
 type CryptoData = {
   changePercent24Hr: string;
@@ -53,6 +55,11 @@ export default function Details() {
                   crypto={cryptoInfo as CryptoDataObject}
                   userCurrency={userCurrency as userCurrency}
                 />
+                <CryptoDailyRating crypto={cryptoInfo as CryptoDataObject} />
+                <PriceOfTheDay
+                  crypto={cryptoInfo as CryptoDataObject}
+                  userCurrency={userCurrency as userCurrency}
+                />
               </div>
 
               <div className="mt-16">
@@ -77,8 +84,13 @@ export default function Details() {
                 userCurrency={userCurrency as userCurrency}
               />
               <CryptoDailyRating crypto={cryptoInfo as CryptoDataObject} />
+              <PriceOfTheDay
+                crypto={cryptoInfo as CryptoDataObject}
+                userCurrency={userCurrency as userCurrency}
+              />
             </>
           )}
+          <Footer />
         </div>
       ) : (
         <Spinner type="full" />
