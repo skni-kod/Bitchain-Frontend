@@ -58,7 +58,6 @@ export default function CryptoDetailsChart({
         [1, "rgba(255, 255, 255,1 )"],
       ];
 
-  console.log(cryptoTimePrice);
   useEffect(() => {
     const today = new Date().getTime();
     let startTime: number = today - 24 * 3600000;
