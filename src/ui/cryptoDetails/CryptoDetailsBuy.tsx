@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CryptoDataObject } from "../../pages/Details";
 import { userCurrency } from "./DetailsHeader";
-import { easeIn, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { formatCurrency } from "../../utils/helpers";
 import { Link } from "react-router-dom";
 
@@ -57,7 +57,9 @@ export default function CryptoDetailsBuy({
                 id="amount"
                 className="border-none bg-transparent outline-none text-lg w-1/2"
                 value={amount}
-                onChange={(e) => setAmount(+e.target.value)}
+                onChange={(e) =>
+                  +e.target.value < 100000 && setAmount(+e.target.value)
+                }
               />
               <div className="flex gap-2 items-center bg-bgWhite1 dark:bg-bgDark1 rounded-full px-3 py-2">
                 <img

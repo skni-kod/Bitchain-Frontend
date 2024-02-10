@@ -1,5 +1,9 @@
 import DetailsHeader, { userCurrency } from "../ui/cryptoDetails/DetailsHeader";
-import { SetURLSearchParams, useSearchParams } from "react-router-dom";
+import {
+  SetURLSearchParams,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom";
 import { useCryptoAsset } from "../hooks/useCryptoAsset";
 import CryptoDetailsChart from "../ui/cryptoDetails/CryptoDetailsChart";
 import Spinner from "../ui/Spinner";
@@ -12,6 +16,8 @@ import Footer from "../ui/Footer";
 import PriceHistory from "../ui/cryptoDetails/PriceHistory";
 import MarketInformation from "../ui/cryptoDetails/MarketInformation";
 import TrendingCryptos from "../features/CryptoDetails/TrendingCryptos";
+import { useForceUpdate } from "../hooks/useForceUpdate";
+import { useEffect } from "react";
 
 type CryptoData = {
   changePercent24Hr: string;
@@ -36,11 +42,20 @@ export type CryptoDataObject = {
 export default function Details() {
   const [searchParams]: [URLSearchParams, SetURLSearchParams] =
     useSearchParams();
+  const location = useLocation();
+  const { forceUpdate } = useForceUpdate();
   const width = useUserWidth();
   const cryptoName = searchParams.get("crypto");
   const { data: cryptoInfo, isSuccess } = useCryptoAsset(cryptoName);
   const queryClient = useQueryClient();
   const userCurrency = queryClient.getQueryData(["userCurrency"]);
+
+  useEffect(
+    function () {
+      forceUpdate();
+    },
+    [forceUpdate, location]
+  );
 
   return (
     <div className="w-full pt-7 max-w-7xl mx-auto px-3">

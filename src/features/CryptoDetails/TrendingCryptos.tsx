@@ -24,13 +24,9 @@ export default function TrendingCryptos({
     function () {
       let cryptoData = data;
 
-      console.log(cryptoData);
-
       if (cryptoData) {
         cryptoData = cryptoData.data.slice(0, 20);
         cryptoData as CryptoData[];
-
-        console.log(cryptoData);
 
         trending.current = cryptoData.sort((a: CryptoData, b: CryptoData) => {
           const priceA = parseFloat(a.changePercent24Hr);
@@ -46,8 +42,6 @@ export default function TrendingCryptos({
         });
         trending.current = trending.current?.slice(0, 8);
       }
-
-      console.log(trending.current);
     },
     [isSuccess, data]
   );
@@ -117,6 +111,7 @@ export default function TrendingCryptos({
               <TrendingCryptoItem
                 item={item}
                 userCurrency={userCurrency as userCurrency}
+                key={item.id}
               />
             ))}
           </div>
@@ -128,6 +123,7 @@ export default function TrendingCryptos({
               <TrendingCryptoItem
                 item={item}
                 userCurrency={userCurrency as userCurrency}
+                key={item.id}
               />
             ))}
           </div>
@@ -139,6 +135,7 @@ export default function TrendingCryptos({
               <TrendingCryptoItem
                 item={item}
                 userCurrency={userCurrency as userCurrency}
+                key={item.id}
               />
             ))}
           </div>

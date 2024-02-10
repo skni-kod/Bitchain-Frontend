@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { CryptoData } from "../markets/TopHotCryptoCard";
 import { formatCurrency } from "../../utils/helpers";
