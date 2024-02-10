@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSpecificCryptoInfo } from "../../features/markets/useSpecificCryptoInfo";
 import { userCurrency } from "./DetailsHeader";
 import { CryptoDataObject } from "../../pages/Details";
@@ -14,6 +14,22 @@ interface CryptoDetailsChartProps {
   userCurrency: userCurrency;
 }
 
+type HistoryItem = {
+  priceUsd: string;
+  time: number;
+};
+
+type HistoryData = {
+  data: HistoryItem[];
+};
+
+type TimeFrameHistory = {
+  ago7DaysHistory: HistoryData;
+  ago30DaysHistory: HistoryData;
+  ago90DaysHistory: HistoryData;
+  ago365DaysHistory: HistoryData;
+};
+
 export default function CryptoDetailsChart({
   crypto,
   userCurrency,
@@ -27,6 +43,9 @@ export default function CryptoDetailsChart({
   const { forceUpdate } = useForceUpdate();
   const queryClient = useQueryClient();
   const { isDarkMode } = useDarkMode();
+  const timeFramesData: TimeFrameHistory | undefined = queryClient.getQueryData(
+    ["priceHistory"]
+  );
   const usdtPrice: number | undefined = queryClient.getQueryData(["USDT"]);
   const [choosenInterval, setChoosenInterval] = useState<
     "m5" | "m30" | "h1" | "h6" | "h12"
@@ -87,15 +106,45 @@ export default function CryptoDetailsChart({
 
   useEffect(
     function () {
-      if (series) {
-        const first = series[0];
-        const last = series[series.length - 1];
-        percentage.current = +formatCurrency((+last[1] / +first[1] - 1) * 100);
+      if (timeFramesData) {
+        if (choosenInterval === "m5") {
+          percentage.current = +formatCurrency(+crypto.data.changePercent24Hr);
+        } else if (choosenInterval === "m30") {
+          percentage.current = +formatCurrency(
+            (+crypto.data.priceUsd /
+              +timeFramesData?.ago7DaysHistory.data[0].priceUsd -
+              1) *
+              100
+          );
+        } else if (choosenInterval === "h1") {
+          percentage.current = +formatCurrency(
+            (+crypto.data.priceUsd /
+              +timeFramesData?.ago30DaysHistory.data[0].priceUsd -
+              1) *
+              100
+          );
+        } else if (choosenInterval === "h6") {
+          percentage.current = +formatCurrency(
+            (+crypto.data.priceUsd /
+              +timeFramesData?.ago90DaysHistory.data[0].priceUsd -
+              1) *
+              100
+          );
+        } else if (choosenInterval === "h12") {
+          percentage.current = +formatCurrency(
+            (+crypto.data.priceUsd /
+              +timeFramesData?.ago365DaysHistory.data[0].priceUsd -
+              1) *
+              100
+          );
+        }
+
         forceUpdate();
+      } else {
+        percentage.current = 0;
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isSuccess, choosenInterval, forceUpdate]
+    [isSuccess, choosenInterval, forceUpdate, timeFramesData, crypto.data]
   );
 
   const options = {
@@ -206,7 +255,7 @@ export default function CryptoDetailsChart({
         </p>
         <p
           className={`text-xl ${
-            +percentage.current > 0 ? "text-green-500" : "text-red-500"
+            +percentage.current < 0 ? "text-red-500" : "text-green-500"
           }`}
         >
           {percentage.current &&
