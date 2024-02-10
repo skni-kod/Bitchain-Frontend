@@ -11,6 +11,7 @@ import PriceOfTheDay from "../ui/cryptoDetails/PriceOfTheDay";
 import Footer from "../ui/Footer";
 import PriceHistory from "../ui/cryptoDetails/PriceHistory";
 import MarketInformation from "../ui/cryptoDetails/MarketInformation";
+import TrendingCryptos from "../features/CryptoDetails/TrendingCryptos";
 
 type CryptoData = {
   changePercent24Hr: string;
@@ -46,7 +47,7 @@ export default function Details() {
       {isSuccess ? (
         <div className="w-full">
           {width > 1024 ? (
-            <div className="grid grid-cols-[auto_300px] w-full">
+            <div className="grid grid-cols-[auto_350px] w-full">
               <div className="pr-5">
                 <DetailsHeader
                   crypto={cryptoInfo as CryptoDataObject}
@@ -76,6 +77,7 @@ export default function Details() {
                   crypto={cryptoInfo as CryptoDataObject}
                   userCurrency={userCurrency as userCurrency}
                 />
+                <TrendingCryptos userCurrency={userCurrency as userCurrency} />
               </div>
             </div>
           ) : (
@@ -105,12 +107,15 @@ export default function Details() {
                 crypto={cryptoInfo as CryptoDataObject}
                 userCurrency={userCurrency as userCurrency}
               />
+              <TrendingCryptos userCurrency={userCurrency as userCurrency} />
             </>
           )}
           <Footer />
         </div>
       ) : (
-        <Spinner type="full" />
+        <div className="h-screen w-full flex justify-center items-center">
+          <Spinner type="full" />
+        </div>
       )}
     </div>
   );

@@ -41,6 +41,7 @@ export default function MarketInformation({
             border: "none",
             "&:before": {
               display: "none",
+              height: "0px",
             },
           }}
         >
@@ -100,6 +101,10 @@ export default function MarketInformation({
             backgroundColor: `${!isDarkMode ? "#ffffff" : "#0a0b0d"}`,
             boxShadow: "none",
             border: "none",
+            "&:before": {
+              display: "none",
+              height: "0px",
+            },
           }}
         >
           <AccordionSummary
@@ -164,6 +169,10 @@ export default function MarketInformation({
             backgroundColor: `${!isDarkMode ? "#ffffff" : "#0a0b0d"}`,
             boxShadow: "none",
             border: "none",
+            "&:before": {
+              display: "none",
+              height: "0px",
+            },
           }}
         >
           <AccordionSummary
@@ -177,9 +186,6 @@ export default function MarketInformation({
             sx={{
               minHeight: "0px",
               height: "48px",
-              "&.Mui-expanded": {
-                minHeight: "0px",
-              },
             }}
           >
             <Typography
@@ -228,6 +234,10 @@ export default function MarketInformation({
             backgroundColor: `${!isDarkMode ? "#ffffff" : "#0a0b0d"}`,
             boxShadow: "none",
             border: "none",
+            "&:before": {
+              display: "none",
+              height: "0px",
+            },
           }}
         >
           <AccordionSummary
@@ -295,6 +305,10 @@ export default function MarketInformation({
             backgroundColor: `${!isDarkMode ? "#ffffff" : "#0a0b0d"}`,
             boxShadow: "none",
             border: "none",
+            "&:before": {
+              display: "none",
+              height: "0px",
+            },
           }}
         >
           <AccordionSummary

@@ -1,6 +1,3 @@
-import { inArray } from "highcharts";
-import toast from "react-hot-toast";
-
 const API_KEY = "http://localhost:8000";
 
 export async function addDailyVote(action: string, symbol: string) {
@@ -8,10 +5,8 @@ export async function addDailyVote(action: string, symbol: string) {
   let votes;
   if (localVote) {
     const item = localVote.split(",");
-    console.log(item);
 
     const inArray = item.includes(symbol);
-    console.log(inArray);
     votes = localVote + "," + symbol;
     if (inArray) {
       throw new Error("Voted");
@@ -56,7 +51,6 @@ export async function getDailyVotes(symbol: string) {
   );
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     return data;
   } else {
     const bodyText = await response.text();

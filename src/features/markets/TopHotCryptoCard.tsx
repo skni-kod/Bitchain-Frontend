@@ -6,7 +6,7 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import { NavLink } from "react-router-dom";
 
-interface CryptoData {
+export interface CryptoData {
   id: string;
   name: string;
   symbol: string;
@@ -15,7 +15,7 @@ interface CryptoData {
   volumeUsd24Hr: string;
 }
 
-interface data {
+export interface AllCryptoData {
   data: CryptoData[];
   timestramp: number;
 }
@@ -47,7 +47,7 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
   const { getSpecificCryptoInfo, data: topCryptoPrices } =
     useSpecificCryptoInfo();
   const queryClient = useQueryClient();
-  const data: data = queryClient.getQueryData(["cryptoPrice"])!;
+  const data: AllCryptoData = queryClient.getQueryData(["cryptoPrice"])!;
   let hot24Data: CryptoInfoData | undefined;
   if (type === "hot24") {
     hot24Data = queryClient.getQueryData(["hot24"]);
@@ -186,8 +186,9 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
         <div className="flex gap-7 justify-between">
           <div>
             <p className="font-bold px-2 pt-1">
-              {(topCrypto.current?.priceUsd && usdtPrice) ?
-                formatCurrency(+topCrypto.current!.priceUsd! * usdtPrice!) : "--"}
+              {topCrypto.current?.priceUsd && usdtPrice
+                ? formatCurrency(+topCrypto.current!.priceUsd! * usdtPrice!)
+                : "--"}
             </p>
             <p className=" text-[10px] text-gray px-2">
               {topCrypto.current?.priceUsd &&
