@@ -47,7 +47,7 @@ export default function PriceHistory({
       {data ? (
         <>
           <div className="flex justify-between items-center p-4 rounded-lg mt-5">
-            <p className="text-[14px]">Today</p>
+            <p className="text-[14px] text-gray">Today</p>
             <div className="flex justify-center items-center gap-10 ml-2 ">
               <p
                 className={`text-[14px] sm:block sm:w-[120px] text-center ${
@@ -83,7 +83,7 @@ export default function PriceHistory({
             </div>
           </div>
           <div className="flex justify-between items-center p-4 rounded-lg mt-5">
-            <p className="text-[14px]">7 Days</p>
+            <p className="text-[14px] text-gray">7 Days</p>
             <div className="flex justify-center items-center gap-10 ml-2 ">
               <p
                 className={`text-[14px] sm:block sm:w-[120px] text-center ${
@@ -136,7 +136,7 @@ export default function PriceHistory({
           </div>
 
           <div className="flex justify-between items-center p-4 rounded-lg mt-5">
-            <p className="text-[14px]">30 Days</p>
+            <p className="text-[14px] text-gray">30 Days</p>
             <div className="flex justify-center items-center gap-10 ml-2 ">
               <p
                 className={`text-[14px] sm:block sm:w-[120px] text-center ${
@@ -189,7 +189,7 @@ export default function PriceHistory({
           </div>
 
           <div className="flex justify-between items-center  p-4 rounded-lg mt-5">
-            <p className="text-[14px]">60 Days</p>
+            <p className="text-[14px] text-gray">60 Days</p>
             <div className="flex justify-center items-center gap-10 ml-2 ">
               <p
                 className={`text-[14px] sm:block sm:w-[120px] text-center ${
@@ -242,7 +242,7 @@ export default function PriceHistory({
           </div>
 
           <div className="flex justify-between items-center  p-4 rounded-lg mt-5">
-            <p className="text-[14px]">90 Days</p>
+            <p className="text-[14px] text-gray">90 Days</p>
             <div className="flex justify-center items-center gap-10 ml-2 ">
               <p
                 className={`text-[14px] sm:block sm:w-[120px] text-center ${
@@ -295,7 +295,7 @@ export default function PriceHistory({
           </div>
 
           <div className="flex justify-between items-center  p-4 rounded-lg mt-5">
-            <p className="text-[14px]">365 Days</p>
+            <p className="text-[14px] text-gray">365 Days</p>
             <div className="flex justify-center items-center gap-10 ml-2 ">
               <p
                 className={`text-[14px] sm:block sm:w-[120px] text-center ${
