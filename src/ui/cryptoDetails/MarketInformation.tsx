@@ -263,14 +263,14 @@ export default function MarketInformation({
                 marginRight: "8px",
               }}
             >
-              <p className="text-right">
+              <span className="text-right">
                 {formatBigNumbers(+crypto.data.supply)}{" "}
                 {!crypto.data.maxSupply
                   ? ""
                   : `- ${formatCurrency(
                       (+crypto.data.supply / +crypto.data.maxSupply) * 100
                     )}%`}
-              </p>
+              </span>
             </Typography>
           </AccordionSummary>
 

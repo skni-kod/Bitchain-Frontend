@@ -1,6 +1,27 @@
+import { inArray } from "highcharts";
+import toast from "react-hot-toast";
+
 const API_KEY = "http://localhost:8000";
 
 export async function addDailyVote(action: string, symbol: string) {
+  const localVote: string | null = localStorage.getItem("votes");
+  let votes;
+  if (localVote) {
+    const item = localVote.split(",");
+    console.log(item);
+
+    const inArray = item.includes(symbol);
+    console.log(inArray);
+    votes = localVote + "," + symbol;
+    if (inArray) {
+      throw new Error("Voted");
+    }
+  } else {
+    votes = symbol;
+  }
+
+  localStorage.setItem("votes", votes);
+
   const response = await fetch(
     API_KEY + `/api/crypto-reviews/symbol/${symbol}/`,
     {

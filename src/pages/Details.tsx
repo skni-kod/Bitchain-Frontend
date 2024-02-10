@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import DetailsHeader, { userCurrency } from "../ui/cryptoDetails/DetailsHeader";
 import { SetURLSearchParams, useSearchParams } from "react-router-dom";
 import { useCryptoAsset } from "../hooks/useCryptoAsset";

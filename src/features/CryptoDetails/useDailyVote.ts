@@ -15,7 +15,10 @@ export function useDailyVote() {
       addDailyVoteApi(action, symbol),
     onSuccess: () => {
       toast.success("You have successfuly voted");
-        queryClient.invalidateQueries()
+      queryClient.invalidateQueries();
+    },
+    onError: () => {
+      toast.error("You have successfully voted. Please come back tomorrow");
     },
   });
 
