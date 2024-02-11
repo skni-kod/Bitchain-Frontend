@@ -1,5 +1,9 @@
 import DetailsHeader, { userCurrency } from "../ui/cryptoDetails/DetailsHeader";
-import { SetURLSearchParams, useSearchParams } from "react-router-dom";
+import {
+  SetURLSearchParams,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom";
 import { useCryptoAsset } from "../hooks/useCryptoAsset";
 import CryptoDetailsChart from "../ui/cryptoDetails/CryptoDetailsChart";
 import Spinner from "../ui/Spinner";
@@ -12,6 +16,7 @@ import Footer from "../ui/Footer";
 import PriceHistory from "../ui/cryptoDetails/PriceHistory";
 import MarketInformation from "../ui/cryptoDetails/MarketInformation";
 import TrendingCryptos from "../features/CryptoDetails/TrendingCryptos";
+import { useForceUpdate } from "../hooks/useForceUpdate";
 import { useEffect, useState } from "react";
 
 type CryptoData = {
@@ -37,30 +42,45 @@ export type CryptoDataObject = {
 export default function Details() {
   const [searchParams]: [URLSearchParams, SetURLSearchParams] =
     useSearchParams();
+  const location = useLocation();
+  const { forceUpdate } = useForceUpdate();
   const width = useUserWidth();
   const cryptoName = searchParams.get("crypto");
-  const {
-    data: cryptoInfo,
-    refetch,
-    isSuccess,
-    isRefetching,
-  } = useCryptoAsset(cryptoName, false);
+  const { data: cryptoInfo, isSuccess } = useCryptoAsset(cryptoName);
   const queryClient = useQueryClient();
   const userCurrency = queryClient.getQueryData(["userCurrency"]);
-
-  const [firstLoad, setFirstLoad] = useState<boolean>(true);
+  const [firstLoad, setFirstLoad] = useState<string>();
+  const [loadingCrypto, setLoadingCrypto] = useState<boolean>(false);
 
   useEffect(
     function () {
-      refetch();
-      setFirstLoad(true);
+      forceUpdate();
     },
-    [firstLoad, refetch]
+    [forceUpdate, location]
   );
+
+  // useEffect(
+  //   function () {
+  //     // if (cryptoInfo?.data?.id) {
+  //     //   setLoadingCrypto(false);
+  //     // }
+  //     setLoadingCrypto(true);
+  //     if (cryptoInfo?.data?.id === firstLoad) {
+  //       setLoadingCrypto(false);
+  //     }
+  //   },
+  //   [firstLoad, cryptoInfo?.data?.id]
+  // );
+
+  // useEffect(
+  //   function () {
+  //   },
+  //   [firstLoad, cryptoInfo]
+  // );
 
   return (
     <div className="w-full pt-7 max-w-7xl mx-auto px-3">
-      {isSuccess && !isRefetching && firstLoad ? (
+      {isSuccess && !loadingCrypto ? (
         <div className="w-full">
           {width > 1024 ? (
             <div className="grid grid-cols-[auto_350px] w-full">

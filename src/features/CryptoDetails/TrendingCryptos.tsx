@@ -8,7 +8,7 @@ import { useForceUpdate } from "../../hooks/useForceUpdate";
 
 interface TrendingCryptosProps {
   userCurrency: userCurrency;
-  onFirstLoad: (s: boolean) => void;
+  onFirstLoad: (s: string) => void;
 }
 
 export default function TrendingCryptos({
@@ -24,7 +24,7 @@ export default function TrendingCryptos({
 
   useEffect(
     function () {
-      let cryptoData = data;
+      const cryptoData = data;
 
       if (cryptoData) {
         trending.current = cryptoData.data.slice(0, 20);
