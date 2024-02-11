@@ -1,9 +1,5 @@
 import DetailsHeader, { userCurrency } from "../ui/cryptoDetails/DetailsHeader";
-import {
-  SetURLSearchParams,
-  useLocation,
-  useSearchParams,
-} from "react-router-dom";
+import { SetURLSearchParams, useSearchParams } from "react-router-dom";
 import { useCryptoAsset } from "../hooks/useCryptoAsset";
 import CryptoDetailsChart from "../ui/cryptoDetails/CryptoDetailsChart";
 import Spinner from "../ui/Spinner";
@@ -16,8 +12,7 @@ import Footer from "../ui/Footer";
 import PriceHistory from "../ui/cryptoDetails/PriceHistory";
 import MarketInformation from "../ui/cryptoDetails/MarketInformation";
 import TrendingCryptos from "../features/CryptoDetails/TrendingCryptos";
-import { useForceUpdate } from "../hooks/useForceUpdate";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type CryptoData = {
   changePercent24Hr: string;
@@ -42,24 +37,30 @@ export type CryptoDataObject = {
 export default function Details() {
   const [searchParams]: [URLSearchParams, SetURLSearchParams] =
     useSearchParams();
-  const location = useLocation();
-  const { forceUpdate } = useForceUpdate();
   const width = useUserWidth();
   const cryptoName = searchParams.get("crypto");
-  const { data: cryptoInfo, isSuccess } = useCryptoAsset(cryptoName);
+  const {
+    data: cryptoInfo,
+    refetch,
+    isSuccess,
+    isRefetching,
+  } = useCryptoAsset(cryptoName, false);
   const queryClient = useQueryClient();
   const userCurrency = queryClient.getQueryData(["userCurrency"]);
 
+  const [firstLoad, setFirstLoad] = useState<boolean>(true);
+
   useEffect(
     function () {
-      forceUpdate();
+      refetch();
+      setFirstLoad(true);
     },
-    [forceUpdate, location]
+    [firstLoad, refetch]
   );
 
   return (
     <div className="w-full pt-7 max-w-7xl mx-auto px-3">
-      {isSuccess ? (
+      {isSuccess && !isRefetching && firstLoad ? (
         <div className="w-full">
           {width > 1024 ? (
             <div className="grid grid-cols-[auto_350px] w-full">
@@ -92,7 +93,10 @@ export default function Details() {
                   crypto={cryptoInfo as CryptoDataObject}
                   userCurrency={userCurrency as userCurrency}
                 />
-                <TrendingCryptos userCurrency={userCurrency as userCurrency} />
+                <TrendingCryptos
+                  userCurrency={userCurrency as userCurrency}
+                  onFirstLoad={setFirstLoad}
+                />
               </div>
             </div>
           ) : (
@@ -122,7 +126,10 @@ export default function Details() {
                 crypto={cryptoInfo as CryptoDataObject}
                 userCurrency={userCurrency as userCurrency}
               />
-              <TrendingCryptos userCurrency={userCurrency as userCurrency} />
+              <TrendingCryptos
+                userCurrency={userCurrency as userCurrency}
+                onFirstLoad={setFirstLoad}
+              />
             </>
           )}
           <Footer />

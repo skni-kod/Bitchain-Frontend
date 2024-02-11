@@ -8,10 +8,12 @@ import { useForceUpdate } from "../../hooks/useForceUpdate";
 
 interface TrendingCryptosProps {
   userCurrency: userCurrency;
+  onFirstLoad: (s: boolean) => void;
 }
 
 export default function TrendingCryptos({
   userCurrency,
+  onFirstLoad,
 }: TrendingCryptosProps) {
   const { data, isSuccess } = useAllCryptoPrice(500, 0, false);
   const { forceUpdate } = useForceUpdate();
@@ -25,21 +27,23 @@ export default function TrendingCryptos({
       let cryptoData = data;
 
       if (cryptoData) {
-        cryptoData = cryptoData.data.slice(0, 20);
+        trending.current = cryptoData.data.slice(0, 20);
         cryptoData as CryptoData[];
 
-        trending.current = cryptoData.sort((a: CryptoData, b: CryptoData) => {
-          const priceA = parseFloat(a.changePercent24Hr);
-          const priceB = parseFloat(b.changePercent24Hr);
+        trending.current = trending.current?.sort(
+          (a: CryptoData, b: CryptoData) => {
+            const priceA = parseFloat(a.changePercent24Hr);
+            const priceB = parseFloat(b.changePercent24Hr);
 
-          if (priceA > priceB) {
-            return -1;
-          } else if (priceA < priceB) {
-            return 1;
-          } else {
-            return 0;
+            if (priceA > priceB) {
+              return -1;
+            } else if (priceA < priceB) {
+              return 1;
+            } else {
+              return 0;
+            }
           }
-        });
+        );
         trending.current = trending.current?.slice(0, 8);
       }
     },
@@ -51,7 +55,7 @@ export default function TrendingCryptos({
       const cryptoData = data as AllCryptoData;
 
       if (cryptoData) {
-        gainer.current = cryptoData.data.sort((a, b) => {
+        gainer.current = cryptoData.data.concat().sort((a, b) => {
           const priceA = parseFloat(a.changePercent24Hr);
           const priceB = parseFloat(b.changePercent24Hr);
 
@@ -74,7 +78,7 @@ export default function TrendingCryptos({
       const cryptoData = data as AllCryptoData;
 
       if (cryptoData) {
-        loser.current = cryptoData.data.sort((a, b) => {
+        loser.current = cryptoData.data.concat().sort((a, b) => {
           const priceA = parseFloat(a.changePercent24Hr);
           const priceB = parseFloat(b.changePercent24Hr);
 
@@ -112,6 +116,7 @@ export default function TrendingCryptos({
                 item={item}
                 userCurrency={userCurrency as userCurrency}
                 key={item.id}
+                onFirstLoad={onFirstLoad}
               />
             ))}
           </div>
@@ -124,6 +129,7 @@ export default function TrendingCryptos({
                 item={item}
                 userCurrency={userCurrency as userCurrency}
                 key={item.id}
+                onFirstLoad={onFirstLoad}
               />
             ))}
           </div>
@@ -136,6 +142,7 @@ export default function TrendingCryptos({
                 item={item}
                 userCurrency={userCurrency as userCurrency}
                 key={item.id}
+                onFirstLoad={onFirstLoad}
               />
             ))}
           </div>

@@ -6,15 +6,18 @@ import { userCurrency } from "../../ui/cryptoDetails/DetailsHeader";
 interface TrendingCryptoItemProps {
   item: CryptoData;
   userCurrency: userCurrency;
+  onFirstLoad: (s: boolean) => void;
 }
 
 export default function TrendingCryptoItem({
   item,
   userCurrency,
+  onFirstLoad,
 }: TrendingCryptoItemProps) {
   return (
     <Link
       to={`/details?crypto=${item.id}`}
+      onClick={() => onFirstLoad(false)}
       className="flex justify-between items-center p-2 my-1 text-bgDark dark:text-bgWhite bg-white dark:bg-bgDark hover:bg-bgWhite dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 "
     >
       <div className="flex justify-center items-center">

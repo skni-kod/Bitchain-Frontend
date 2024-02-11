@@ -11,6 +11,7 @@ export interface CryptoData {
   name: string;
   symbol: string;
   priceUsd: string;
+  rank: string;
   changePercent24Hr: string;
   volumeUsd24Hr: string;
 }
