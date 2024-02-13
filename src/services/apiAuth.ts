@@ -55,7 +55,52 @@ export async function getUser() {
 	}
 }
 
-export async function checkPassword(password : string) {
+// export async function deleteAccount() {
+// 	const token = localStorage.getItem('accessToken');
+// 	if (!token) {
+// 		return null;
+// 	}
+// 	const response = await fetch(API_KEY + '/api/user/me/', {
+// 		method: 'DELETE',
+// 		headers: {
+// 			Authorization: `Token ${token}`,
+// 		},
+// 	});
+// 	if (response.ok) {
+// 		const data = await response.json();
+// 		return data;
+// 	} else {
+// 		const bodyText = await response.text();
+// 		throw new Error(`${bodyText}`);
+// 	}
+// }
+
+export async function deleteAccount(password: string) {
+	const data = await checkPassword(password);
+	if (!data.password_maches) {
+		throw new Error('Invalid password');
+	}
+
+	const token = localStorage.getItem('accessToken');
+	if (!token) {
+		return null;
+	}
+	const response = await fetch(API_KEY + '/api/user/me/', {
+		method: 'DELETE',
+		headers: {
+			Authorization: `Token ${token}`,
+		},
+	});
+
+	if (response.ok) {
+		return null;
+	} else {
+		const bodyText = await response.text();
+		throw new Error(`${bodyText}`);
+	}
+}
+
+export async function checkPassword(password: string) {
 	const token = localStorage.getItem('accessToken');
 	if (!token) {
 		return null;
@@ -73,7 +118,6 @@ export async function checkPassword(password : string) {
 
 	if (response.ok) {
 		const data = await response.json();
-		
 		return data;
 	} else {
 		const bodyText = await response.text();

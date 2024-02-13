@@ -21,6 +21,7 @@ import toast from 'react-hot-toast';
 import { FileUploader } from 'react-drag-drop-files';
 import { useState } from 'react';
 import { useCheckPassword } from './useCheckPassword';
+import { useDeleteAccount } from './useDeleteAccount';
 
 interface EditingPopUpProps {
 	SetClickeModify: (ClickModify: string | null) => void;
@@ -37,6 +38,7 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	} = useCheckPassword();
 	const { data: userData } = useUser();
 	const { getUser } = useGetNewUserData();
+	const { deleteAccount } = useDeleteAccount();
 	const [file, setFile] = useState<File | null>(null);
 
 	const {
@@ -124,10 +126,8 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 				updateUser({ fieldToUpdate: 'password', valueToUpdate: data.password });
 			}
 		} else if (field === 'Delete account') {
-			checkPassword(data.old_password);
-			if (passwordData.password_maches) {
-				console.log(data.old_password); // hook deleting account
-			}
+			// checkPassword(data.old_password);
+			deleteAccount(data.old_password);
 		} else {
 			const [key, value] = Object.entries(data)[0];
 			updateUser({ fieldToUpdate: key, valueToUpdate: value });
