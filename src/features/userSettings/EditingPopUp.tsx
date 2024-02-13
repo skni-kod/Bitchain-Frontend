@@ -20,6 +20,7 @@ import {
 import toast from 'react-hot-toast';
 import { FileUploader } from 'react-drag-drop-files';
 import { useState } from 'react';
+import { useCheckPassword } from './useCheckPassword';
 
 interface EditingPopUpProps {
 	SetClickeModify: (ClickModify: string | null) => void;
@@ -29,9 +30,14 @@ interface EditingPopUpProps {
 function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	const { updateUser, isUpdatePending } = useUpdateUser();
 	const { updateAvatar } = useUpdateImage();
+	const {
+		checkPassword,
+		isPending: isCheckingPasswordPending,
+		data: passwordData,
+	} = useCheckPassword();
 	const { data: userData } = useUser();
 	const { getUser } = useGetNewUserData();
-	const [file, setFile] = useState(null);
+	const [file, setFile] = useState<File | null>(null);
 
 	const {
 		register,
@@ -100,9 +106,8 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 			: '';
 	const inputPlaceholder = field === 'Password' ? 'New Password' : field;
 
-	const handleChange = (file) => {
+	const handleChange = (file: File) => {
 		setFile(file);
-		console.log(file);
 	};
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -114,7 +119,11 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 				toast.error('Choose a file');
 			}
 		} else if (field === 'Password') {
-			return null;
+			checkPassword(data.old_password);
+			// console.log(passwordData.password_maches);
+			if(passwordData.password_maches){
+				updateUser({ fieldToUpdate: "password", valueToUpdate: data.password });
+			}
 		} else {
 			const [key, value] = Object.entries(data)[0];
 			updateUser({ fieldToUpdate: key, valueToUpdate: value });
@@ -124,8 +133,8 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	};
 
 	return (
-		<div className='fixed h-screen w-screen z-50 top-16 left-0 flex justify-center items-center px-4 bg-bgDark/20 md400:px-10 md600:px-20 md-800'>
-			<div className='flex flex-col py-5 px-5 w-full bg-white dark:bg-bgDark1 rounded-lg md800:w-1/2 max-w-3xl'>
+		<div className='fixed h-screen w-screen z-50 top-0 left-0 flex justify-center items-center px-4 bg-bgDark/20 md400:px-10 md600:px-20 md-800'>
+			<div className='flex flex-col py-5 px-8  w-full bg-white dark:bg-bgDark1 rounded-lg md800:w-1/2 max-w-3xl'>
 				<div className='flex flex-row justify-between w-full '>
 					<p className='flex items-center text-xl'>Settings</p>
 					<Button
@@ -157,7 +166,7 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 							/>
 						)}
 						{field === 'Avatar' ? (
-							<div className='mb-10 ' >
+							<div className='mb-10 '>
 								<FileUploader
 									handleChange={handleChange}
 									name='file'

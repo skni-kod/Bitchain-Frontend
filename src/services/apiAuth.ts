@@ -55,6 +55,32 @@ export async function getUser() {
 	}
 }
 
+export async function checkPassword(password : string) {
+	const token = localStorage.getItem('accessToken');
+	if (!token) {
+		return null;
+	}
+	const response = await fetch(API_KEY + '/api/user/me/check-password/', {
+		method: 'POST',
+		headers: {
+			Authorization: `Token ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			password: password,
+		}),
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		
+		return data;
+	} else {
+		const bodyText = await response.text();
+		throw new Error(`${bodyText}`);
+	}
+}
+
 export async function updateUser({
 	fieldToUpdate,
 	valueToUpdate,
