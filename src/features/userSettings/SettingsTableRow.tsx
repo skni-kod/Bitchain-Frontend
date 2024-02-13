@@ -44,6 +44,7 @@ function SettingsTableRow({
 						onClick={() => {
 							setClickedModify && setClickedModify(children);
 						}}
+						bgType={modifiable.btnText === 'Delete' ? 'important' : undefined}
 					>
 						{modifiable.btnText}
 					</Button>

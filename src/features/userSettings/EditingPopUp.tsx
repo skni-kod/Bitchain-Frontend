@@ -221,7 +221,12 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 					</div>
 
 					<div className='w-full flex justify-center items-center '>
-						<Button size='medium' to='' type='button'>
+						<Button
+							size='medium'
+							to=''
+							type='button'
+							bgType={field === 'Delete account' ? 'important' : undefined}
+						>
 							{isUpdatePending || isCheckingPasswordPending ? (
 								<Spinner type='button' />
 							) : field === 'Delete account' ? (
