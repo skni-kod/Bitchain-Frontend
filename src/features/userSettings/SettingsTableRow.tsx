@@ -5,8 +5,13 @@ interface SettingsTableRowProps {
 	isProtected?: boolean;
 	avatar?: string;
 	content?: string;
-	modifiable?: boolean;
+	modifiable?: false | modifableTrueProps;
 	setClickedModify?: (clickedModify: string) => void;
+}
+
+interface modifableTrueProps {
+	isModifable: true;
+	btnText: string;
 }
 
 function SettingsTableRow({
@@ -14,7 +19,7 @@ function SettingsTableRow({
 	isProtected,
 	avatar,
 	content,
-	modifiable = true,
+	modifiable = { isModifable: true, btnText: 'Modify' },
 	setClickedModify,
 }: SettingsTableRowProps) {
 	return (
@@ -40,7 +45,7 @@ function SettingsTableRow({
 							setClickedModify && setClickedModify(children);
 						}}
 					>
-						Modify
+						{modifiable.btnText}
 					</Button>
 				)}
 			</div>

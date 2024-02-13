@@ -21,6 +21,7 @@ interface FormInputProps {
 	register: UseFormRegister<FieldValues>;
 	id: string;
 	validateFunction?: () => boolean | string;
+	additionalStyles?: string;
 }
 
 export default function FormInput({
@@ -31,6 +32,7 @@ export default function FormInput({
 	id,
 	register,
 	validateFunction,
+	additionalStyles,
 }: FormInputProps) {
 	const [onFocus, setOnFocus] = useState(false);
 	const motionBarVariants = {
@@ -44,7 +46,7 @@ export default function FormInput({
 
 	return (
 		<div
-			className={`relative flex justify-between items-start w-full min-h-[85px]  flex-col dark:text-white gap-2 text-bgDark1 overflow-x-hidden`}
+			className={`relative flex justify-between items-start w-full min-h-[85px] ${additionalStyles}  flex-col dark:text-white gap-2 text-bgDark1 overflow-x-hidden`}
 		>
 			<div
 				className={`relative flex justify-center items-center w-full  dark:text-white  text-bgDark1 overflow-x-hidden`}

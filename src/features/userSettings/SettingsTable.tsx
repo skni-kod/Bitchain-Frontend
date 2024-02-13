@@ -51,6 +51,12 @@ function SettingsTable() {
 				<SettingsTableRow content={data?.date_of_birth} modifiable={false}>
 					Date of Birth
 				</SettingsTableRow>
+				<SettingsTableRow
+					modifiable={{ isModifable: true, btnText: 'Delete' }}
+					setClickedModify={setClickedModify}
+				>
+					Delete account
+				</SettingsTableRow>
 			</div>
 			{clickedModify && (
 				<EditingPopUp

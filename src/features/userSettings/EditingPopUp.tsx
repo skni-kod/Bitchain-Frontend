@@ -120,9 +120,13 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 			}
 		} else if (field === 'Password') {
 			checkPassword(data.old_password);
-			// console.log(passwordData.password_maches);
-			if(passwordData.password_maches){
-				updateUser({ fieldToUpdate: "password", valueToUpdate: data.password });
+			if (passwordData.password_maches) {
+				updateUser({ fieldToUpdate: 'password', valueToUpdate: data.password });
+			}
+		} else if (field === 'Delete account') {
+			checkPassword(data.old_password);
+			if (passwordData.password_maches) {
+				console.log(data.old_password); // hook deleting account
 			}
 		} else {
 			const [key, value] = Object.entries(data)[0];
@@ -133,8 +137,8 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	};
 
 	return (
-		<div className='fixed h-screen w-screen z-50 top-0 left-0 flex justify-center items-center px-4 bg-bgDark/20 md400:px-10 md600:px-20 md-800'>
-			<div className='flex flex-col py-5 px-8  w-full bg-white dark:bg-bgDark1 rounded-lg md800:w-1/2 max-w-3xl'>
+		<div className='fixed h-screen w-screen z-50 top-0 left-0 flex justify-center items-center px-4 bg-bgDark/20 md400:px-10 md600:px-20 '>
+			<div className='flex flex-col py-5 px-8  w-full bg-white dark:bg-bgDark1 rounded-lg md800:w-4/5 max-w-3xl'>
 				<div className='flex flex-row justify-between w-full '>
 					<p className='flex items-center text-xl'>Settings</p>
 					<Button
@@ -163,6 +167,17 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 								type='password'
 								error={errors?.old_password?.message}
 								register={register}
+								additionalStyles='pb-[75px] md600:pb-[40px]'
+							/>
+						)}
+						{field === 'Delete account' && (
+							<FormInput
+								placeholder='Your password'
+								id='old_password'
+								icon={<CiLock />}
+								type='password'
+								error={errors?.old_password?.message}
+								register={register}
 							/>
 						)}
 						{field === 'Avatar' ? (
@@ -173,7 +188,7 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 									types={['JPG', 'PNG', 'GIF']}
 								/>
 							</div>
-						) : (
+						) : field !== 'Delete account' ? (
 							<FormInput
 								placeholder={inputPlaceholder}
 								id={inputId}
@@ -182,7 +197,10 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 								error={errors?.[inputId]?.message}
 								register={register}
 								validateFunction={() => validateFunc(getValues()?.[inputId])}
+								additionalStyles='pb-[75px] md600:pb-[40px]'
 							/>
+						) : (
+							''
 						)}
 						{field === 'Password' && (
 							<FormInput
@@ -204,7 +222,13 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 
 					<div className='w-full flex justify-center items-center '>
 						<Button size='medium' to='' type='button'>
-							{isUpdatePending ? <Spinner type='button' /> : 'Modify'}
+							{isUpdatePending || isCheckingPasswordPending ? (
+								<Spinner type='button' />
+							) : field === 'Delete account' ? (
+								field
+							) : (
+								'Modify'
+							)}
 						</Button>
 					</div>
 				</form>
