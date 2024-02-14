@@ -20,6 +20,9 @@ export function useRegister() {
 		onSuccess: (data) => {
 			toast.success('Logged successfully');
 			queryClient.setQueryData(['user'], data);
+			setTimeout(() => {
+				location.reload();
+			}, 100);
 			navigate('/homepage');
 		},
 		onError: (err) => {
