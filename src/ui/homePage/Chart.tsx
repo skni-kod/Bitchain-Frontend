@@ -173,7 +173,7 @@ function Chart({ crypto }: ChartProps) {
 			<div className='flex gap-1 flex-row justify-between items-center'>
 				<NavLink
 					to={`/spot?pair=${crypto?.symbol}USDT`}
-					className='flex flex-wrap items-center gap-2 hover:text-mainHover'
+					className='flex flex-wrap items-center gap-2 hover:text-mainHover transition-colors duration-300'
 				>
 					<img
 						className='rounded-full w-10'
@@ -188,11 +188,11 @@ function Chart({ crypto }: ChartProps) {
 						</span>
 					</p>
 				</NavLink>
-				<div className='flex flex-wrap gap-1 justify-end'>
+				<div className='flex flex-wrap gap-1 justify-end '>
 					<p
 						className={`${
 							choosenInterval === 'm5' && 'bg-bgDark1Hover'
-						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer`}
+						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer transition-colors duration-300`}
 						onClick={() => setChoosenInterval('m5')}
 					>
 						1D
@@ -200,7 +200,7 @@ function Chart({ crypto }: ChartProps) {
 					<p
 						className={`${
 							choosenInterval === 'h1' && 'bg-bgDark1Hover'
-						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer`}
+						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer transition-colors duration-300`}
 						onClick={() => setChoosenInterval('h1')}
 					>
 						1M
@@ -208,7 +208,7 @@ function Chart({ crypto }: ChartProps) {
 					<p
 						className={`${
 							choosenInterval === 'd1' && 'bg-bgDark1Hover'
-						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer`}
+						} px-3 rounded-3xl text-bgWhite text-lg hover:bg-bgDark1Hover hover:cursor-pointer transition-colors duration-300`}
 						onClick={() => setChoosenInterval('d1')}
 					>
 						3M

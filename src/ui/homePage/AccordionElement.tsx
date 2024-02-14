@@ -43,6 +43,7 @@ function AccordionElement({
 					paddingX: '1.5rem',
 					'&:hover': { color: '#ff5700' },
 					'&:focus': { color: '#ff5700' },
+					transition: 'color 0.3s',
 				}}
 			>
 				<Typography>{theme}</Typography>
