@@ -19,6 +19,7 @@ interface registerProps {
 interface updateUserProps {
 	fieldToUpdate: string;
 	valueToUpdate: string;
+	password?: string;
 }
 
 interface updateAvatarProps {
@@ -54,26 +55,6 @@ export async function getUser() {
 		throw new Error(`Get user error: ${response.status}`);
 	}
 }
-
-// export async function deleteAccount() {
-// 	const token = localStorage.getItem('accessToken');
-// 	if (!token) {
-// 		return null;
-// 	}
-// 	const response = await fetch(API_KEY + '/api/user/me/', {
-// 		method: 'DELETE',
-// 		headers: {
-// 			Authorization: `Token ${token}`,
-// 		},
-// 	});
-// 	if (response.ok) {
-// 		const data = await response.json();
-// 		return data;
-// 	} else {
-// 		const bodyText = await response.text();
-// 		throw new Error(`${bodyText}`);
-// 	}
-// }
 
 export async function deleteAccount(password: string) {
 	const data = await checkPassword(password);
@@ -128,11 +109,20 @@ export async function checkPassword(password: string) {
 export async function updateUser({
 	fieldToUpdate,
 	valueToUpdate,
+	password,
 }: updateUserProps) {
+	if (fieldToUpdate === 'password' && password) {
+		const data = await checkPassword(password);
+		if (!data.password_maches) {
+			toast.error('Invalid password');
+			throw new Error('Invalid password');
+		}
+	}
 	const token = localStorage.getItem('accessToken');
 	if (!token) {
 		return null;
 	}
+
 	const response = await fetch(API_KEY + '/api/user/me/', {
 		method: 'PATCH',
 		headers: {

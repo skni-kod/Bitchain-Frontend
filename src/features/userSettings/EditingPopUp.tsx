@@ -20,7 +20,6 @@ import {
 import toast from 'react-hot-toast';
 import { FileUploader } from 'react-drag-drop-files';
 import { useState } from 'react';
-import { useCheckPassword } from './useCheckPassword';
 import { useDeleteAccount } from './useDeleteAccount';
 
 interface EditingPopUpProps {
@@ -31,11 +30,6 @@ interface EditingPopUpProps {
 function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	const { updateUser, isUpdatePending } = useUpdateUser();
 	const { updateAvatar } = useUpdateImage();
-	const {
-		checkPassword,
-		isPending: isCheckingPasswordPending,
-		data: passwordData,
-	} = useCheckPassword();
 	const { data: userData } = useUser();
 	const { getUser } = useGetNewUserData();
 	const { deleteAccount } = useDeleteAccount();
@@ -121,12 +115,12 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 				toast.error('Choose a file');
 			}
 		} else if (field === 'Password') {
-			checkPassword(data.old_password);
-			if (passwordData.password_maches) {
-				updateUser({ fieldToUpdate: 'password', valueToUpdate: data.password });
-			}
+			updateUser({
+				fieldToUpdate: 'password',
+				valueToUpdate: data.password,
+				password: data.old_password,
+			});
 		} else if (field === 'Delete account') {
-			// checkPassword(data.old_password);
 			deleteAccount(data.old_password);
 		} else {
 			const [key, value] = Object.entries(data)[0];
@@ -227,7 +221,7 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 							type='button'
 							bgType={field === 'Delete account' ? 'important' : undefined}
 						>
-							{isUpdatePending || isCheckingPasswordPending ? (
+							{isUpdatePending ? (
 								<Spinner type='button' />
 							) : field === 'Delete account' ? (
 								field

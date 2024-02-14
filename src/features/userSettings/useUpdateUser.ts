@@ -11,10 +11,11 @@ export function useUpdateUser() {
 		mutationFn: (variables: {
 			fieldToUpdate: string;
 			valueToUpdate: string;
+			password?: string;
 		}) => {
 			return updateUserApi(variables);
 		},
-		onSuccess: (data) => {
+		onSuccess: () => {
 			toast.success('Upadated successfully');
 		},
 		onError: (err) => {
