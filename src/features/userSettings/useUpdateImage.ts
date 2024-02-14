@@ -11,9 +11,8 @@ export function useUpdateImage() {
 		mutationFn: (variables: { image: File }) => {
 			return updateAvatarApi(variables);
 		},
-		onSuccess: (data) => {
+		onSuccess: () => {
 			toast.success('Upadated successfully');
-			console.log(data);
 		},
 		onError: (err) => {
 			const error = JSON.parse(err.message);

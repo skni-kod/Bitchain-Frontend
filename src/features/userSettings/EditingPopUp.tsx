@@ -18,9 +18,10 @@ import {
 	validateRepeatPassword,
 } from '../Authentication/isInputCorrect';
 import toast from 'react-hot-toast';
-import { FileUploader } from 'react-drag-drop-files';
+// import { FileUploader } from 'react-drag-drop-files';
 import { useState } from 'react';
 import { useDeleteAccount } from './useDeleteAccount';
+import FileUploader from './FileUploader';
 
 interface EditingPopUpProps {
 	SetClickeModify: (ClickModify: string | null) => void;
@@ -42,14 +43,11 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 		getValues,
 	} = useForm<FieldValues>();
 
-	const validateFunc = (input: string | number) => {
+	const validateFunc = (input: string | number, oldPassword?: string) => {
 		if (field === 'E-mail') {
 			if (input === userData?.email)
 				return 'You entered the same email address';
 			return validateEmail(String(input));
-		}
-		if (field === 'Avatar') {
-			return true;
 		}
 		if (field === 'Nickname') {
 			if (input === userData?.nick_name) return 'You entered the same Nickname';
@@ -61,6 +59,8 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 			return true;
 		}
 		if (field === 'Password') {
+			if (input === oldPassword)
+				return 'The new password must be different from the old one';
 			return validatePassword(String(input));
 		}
 		return true;
@@ -109,8 +109,7 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		if (field === 'Avatar') {
 			if (file !== null) {
-				const filee = file;
-				updateAvatar({ image: filee });
+				updateAvatar({ image: file });
 			} else {
 				toast.error('Choose a file');
 			}
@@ -178,8 +177,8 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 							<div className='mb-10 '>
 								<FileUploader
 									handleChange={handleChange}
-									name='file'
-									types={['JPG', 'PNG', 'GIF']}
+									file={file}
+									types={['JPG', 'PNG', 'GIF', "JPEG"]}
 								/>
 							</div>
 						) : field !== 'Delete account' ? (
@@ -190,7 +189,9 @@ function EditingPopUp({ SetClickeModify, field }: EditingPopUpProps) {
 								type={inputType}
 								error={errors?.[inputId]?.message}
 								register={register}
-								validateFunction={() => validateFunc(getValues()?.[inputId])}
+								validateFunction={() =>
+									validateFunc(getValues()?.[inputId], getValues().old_password)
+								}
 								additionalStyles='pb-[75px] md600:pb-[40px]'
 							/>
 						) : (

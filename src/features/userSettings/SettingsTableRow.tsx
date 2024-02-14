@@ -30,7 +30,7 @@ function SettingsTableRow({
 					<img
 						src={avatar}
 						alt='avatar'
-						className='h-[52px] w-[52px] rounded-full border-[1px] border-slate-200 dark:bg-stone-700'
+						className='h-[52px] w-[52px] rounded-full border-[1px] border-slate-200 dark:border-stone-700'
 					/>
 				) : (
 					<p className='flex items-center'>
