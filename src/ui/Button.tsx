@@ -29,7 +29,7 @@ export default function Button({
 						: bgType === 'headerLink'
 						? ''
 						: bgType === 'important'
-						? ' text-white bg-red-500'
+						? ' text-red-500 border-red-500 border-2 hover:bg-red-500 hover:text-white hover:border-red-500 '
 						: bgType === 'transparent'
 						? 'dark:hover:bg-bgDark1Hover hover:bg-bgWhite1'
 						: ''
