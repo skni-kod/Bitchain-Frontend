@@ -4,9 +4,11 @@ Command: npx gltfjsx@6.2.16 public/models/404PageBitcoin.glb -t
 */
 
 import * as THREE from 'three';
-import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
+import { RefObject, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Group } from 'three';
 
 type GLTFResult = GLTF & {
 	nodes: {
@@ -20,20 +22,29 @@ type GLTFResult = GLTF & {
 		['gold main']: THREE.MeshStandardMaterial;
 		['gold img']: THREE.MeshStandardMaterial;
 	};
-	animations: GLTFAction[];
+	// animations: GLTFAction[];
 };
 
-type ContextType = Record<
-	string,
-	React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>
->;
+// type ContextType = Record<
+// 	string,
+// 	React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>
+// >;
 
 export function Bitcoin(props: JSX.IntrinsicElements['group']) {
 	const { nodes, materials } = useGLTF(
 		'./models/404PageBitcoin.glb'
 	) as GLTFResult;
+	const BtcRef: RefObject<Group> = useRef<Group>(null);
+
+	useFrame((state) => {
+		if (BtcRef.current) {
+			BtcRef.current.rotation.y += Math.cos(state.clock.elapsedTime * 0.5) / 30;
+			// BtcRef.current.position.y += Math.sin(state.clock.elapsedTime) / 100;
+			// BtcRef.current.rotation.z += Math.cos(state.clock.elapsedTime) / 200;
+		}
+	});
 	return (
-		<group {...props} dispose={null}>
+		<group ref={BtcRef} {...props} dispose={null}>
 			<group
 				position={[0, 5.674, 0]}
 				rotation={[Math.PI / 2, 0, 0]}
