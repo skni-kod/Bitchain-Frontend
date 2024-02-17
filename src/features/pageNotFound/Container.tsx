@@ -1,10 +1,10 @@
 import { Canvas } from '@react-three/fiber';
-import Experience from './Experience';
+import ThreeContainer from './ThreeContainer';
 
 function Container() {
 	return (
 		<Canvas>
-			<Experience></Experience>
+			<ThreeContainer></ThreeContainer>
 		</Canvas>
 	);
 }
