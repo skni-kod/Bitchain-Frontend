@@ -11,6 +11,9 @@ button {
 	outline: none;
 }
 
+canvas {
+	width: 279.2px;
+}
 
 .logo-light {
 	width: 100%;

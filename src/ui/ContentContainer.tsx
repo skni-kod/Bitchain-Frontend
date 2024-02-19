@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Footer from './Footer';
 
 interface ContentContainerProps {
-	children: ReactNode;
+	children?: ReactNode;
 }
 
 function ContentContainer({ children }: ContentContainerProps) {
