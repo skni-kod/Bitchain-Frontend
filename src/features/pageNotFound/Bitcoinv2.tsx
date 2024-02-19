@@ -8,7 +8,7 @@ import { Shadow, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { RefObject, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Group, DirectionalLight } from 'three';
+import { Group } from 'three';
 
 type GLTFResult = GLTF & {
 	nodes: {
@@ -24,7 +24,6 @@ type GLTFResult = GLTF & {
 		orangeMain: THREE.MeshStandardMaterial;
 		['gold img']: THREE.MeshStandardMaterial;
 	};
-	// animations: GLTFAction[]
 };
 
 // type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
@@ -40,11 +39,9 @@ export function Bitcoinv2(props: JSX.IntrinsicElements['group']) {
 			BtcRef.current.rotation.y += Math.cos(state.clock.elapsedTime * 0.5) / 30;
 			BtcRef.current.position.y += Math.sin(state.clock.elapsedTime) / 100;
 
-			// Aktualizacja skali cienia w zależności od pozycji elementu Bitcoinv2
 			const newPositionY = BtcRef.current.position.y;
-			const shadowScale = Math.abs(newPositionY * 2) + 4; // Przykładowe skalowanie
+			const shadowScale = Math.abs(newPositionY * 2) + 4; 
 
-			// Ustawienie nowej skali cienia
 			shadowScaleRef.current = shadowScale;
 			shadowRef.current.scale.set(shadowScale, shadowScale - 3, 5);
 		}
@@ -64,7 +61,7 @@ export function Bitcoinv2(props: JSX.IntrinsicElements['group']) {
 				/>
 				<Shadow
 					rotation={[-Math.PI / 2, 0, 0]}
-					scale={[9, 3.5, 5]} // Początkowa skala cienia
+					scale={[9, 3.5, 5]} 
 					position={[-12, -6, 0]}
 				/>
 				<mesh
@@ -76,7 +73,7 @@ export function Bitcoinv2(props: JSX.IntrinsicElements['group']) {
 				/>
 				<Shadow
 					rotation={[-Math.PI / 2, 0, 0]}
-					scale={[9, 4, 5]} // Początkowa skala cienia
+					scale={[9, 4, 5]} 
 					position={[12, -6, 0]}
 				/>
 				<group position={[0, 1, 0]} ref={BtcRef}>
@@ -108,18 +105,13 @@ export function Bitcoinv2(props: JSX.IntrinsicElements['group']) {
 				<Shadow
 					ref={shadowRef}
 					rotation={[-Math.PI / 2, 0, 0]}
-					scale={[shadowScaleRef.current, shadowScaleRef.current, 5]} // Początkowa skala cienia
+					scale={[shadowScaleRef.current, shadowScaleRef.current, 5]} 
 					position={[0, -6, 0]}
 				/>
 			</group>
 			<group>
-				{/* <axesHelper args={[10]} /> */}
-				{/* <directionalLight position={[0, 1, 2]} intensity={10} /> */}
 				<directionalLight position={[0, 0, 3]} intensity={5} />
-
-				{/* <directionalLight position={[0, -1, 10]} intensity={5} /> */}
-				{/* <directionalLight position={[0, -10, 0]} intensity={10} /> */}
-				{/* <directionalLight position={[0, 10, 0]} intensity={10} /> */}
+				<pointLight position={[0, 0, 3]} intensity={1} />
 				<pointLight position={[-10, 5, 0]} intensity={10} />
 				<pointLight position={[0, 5, 0]} intensity={10} />
 				<pointLight position={[10, 5, 0]} intensity={10} />
