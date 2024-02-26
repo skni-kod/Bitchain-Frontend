@@ -1,4 +1,3 @@
-import React from "react";
 import { CryptoDataObject } from "../../pages/Details";
 import { userCurrency } from "./DetailsHeader";
 import { formatBigNumbers, formatCurrency } from "../../utils/helpers";

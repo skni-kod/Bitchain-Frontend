@@ -1,9 +1,5 @@
 import DetailsHeader, { userCurrency } from "../ui/cryptoDetails/DetailsHeader";
-import {
-  SetURLSearchParams,
-  useLocation,
-  useSearchParams,
-} from "react-router-dom";
+import { SetURLSearchParams, useSearchParams } from "react-router-dom";
 import { useCryptoAsset } from "../hooks/useCryptoAsset";
 import CryptoDetailsChart from "../ui/cryptoDetails/CryptoDetailsChart";
 import Spinner from "../ui/Spinner";
@@ -42,7 +38,6 @@ export type CryptoDataObject = {
 export default function Details() {
   const [searchParams]: [URLSearchParams, SetURLSearchParams] =
     useSearchParams();
-  const location = useLocation();
   const { forceUpdate } = useForceUpdate();
   const width = useUserWidth();
   const cryptoName = searchParams.get("crypto");
@@ -54,13 +49,9 @@ export default function Details() {
 
   useEffect(
     function () {
-      // forceUpdate();
       setLoadingCrypto(firstLoad !== cryptoInfo?.data?.name);
-      console.log(firstLoad);
-      console.log(cryptoInfo);
-      console.log(loadingCrypto);
     },
-    [forceUpdate, location, cryptoInfo, firstLoad]
+    [forceUpdate, cryptoInfo, firstLoad]
   );
 
   useEffect(
@@ -69,25 +60,6 @@ export default function Details() {
     },
     [firstLoad]
   );
-
-  // useEffect(
-  //   function () {
-  //     // if (cryptoInfo?.data?.id) {
-  //     //   setLoadingCrypto(false);
-  //     // }
-  //     setLoadingCrypto(true);
-  //     if (cryptoInfo?.data?.id === firstLoad) {
-  //       setLoadingCrypto(false);
-  //     }
-  //   },
-  //   [firstLoad, cryptoInfo?.data?.id]
-  // );
-
-  // useEffect(
-  //   function () {
-  //   },
-  //   [firstLoad, cryptoInfo]
-  // );
 
   return (
     <div className="w-full pt-7 max-w-7xl mx-auto px-3">

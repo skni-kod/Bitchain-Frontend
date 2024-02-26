@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { userCurrency } from "./DetailsHeader";
 import { CryptoDataObject } from "../../pages/Details";
 import { usePriceHistory } from "../../features/CryptoDetails/usePriceHistory";
@@ -16,7 +16,7 @@ export default function PriceHistory({
   crypto,
   userCurrency,
 }: PriceHistoryProps) {
-  const { data, isSuccess } = usePriceHistory(crypto.data.id);
+  const { data } = usePriceHistory(crypto.data.id);
   const { forceUpdate } = useForceUpdate();
   const queryClient = useQueryClient();
 

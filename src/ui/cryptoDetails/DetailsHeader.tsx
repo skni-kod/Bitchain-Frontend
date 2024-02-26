@@ -1,4 +1,3 @@
-import React from "react";
 import { CryptoDataObject } from "../../pages/Details";
 import Modal from "../Modal";
 import SelectCurrenciesWindows from "../navigation/SelectCurrenciesWindows";
@@ -54,7 +53,6 @@ export default function DetailsHeader({
             <SelectCurrenciesWindows onCloseModal={undefined as never} />
           </Modal.Window>
         </Modal>
-        {/* <div className="hidden w-[300px] lg:block"></div> */}
       </div>
     </div>
   );
