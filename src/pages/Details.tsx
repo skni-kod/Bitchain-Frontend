@@ -54,9 +54,20 @@ export default function Details() {
 
   useEffect(
     function () {
-      forceUpdate();
+      // forceUpdate();
+      setLoadingCrypto(firstLoad !== cryptoInfo?.data?.name);
+      console.log(firstLoad);
+      console.log(cryptoInfo);
+      console.log(loadingCrypto);
     },
-    [forceUpdate, location]
+    [forceUpdate, location, cryptoInfo, firstLoad]
+  );
+
+  useEffect(
+    function () {
+      setLoadingCrypto(false);
+    },
+    [firstLoad]
   );
 
   // useEffect(
@@ -80,7 +91,7 @@ export default function Details() {
 
   return (
     <div className="w-full pt-7 max-w-7xl mx-auto px-3">
-      {isSuccess && !loadingCrypto ? (
+      {isSuccess && loadingCrypto ? (
         <div className="w-full">
           {width > 1024 ? (
             <div className="grid grid-cols-[auto_350px] w-full">
