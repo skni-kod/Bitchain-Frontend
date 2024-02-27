@@ -30,13 +30,9 @@ function AccordionUsage() {
 					theme='What is Bitchain'
 					expanded={expanded}
 					setExpanded={setExpanded}
-                    
 				>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
-					quisquam, qui deserunt natus! Provident laborum, doloremque, non
-					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
-					quidem optio impedit, modi reiciendis!
+					Bitchain is a learning cryptocurrency exchange created by group of
+					good friends, inspired by platforms like Binance and BingX.
 				</AccordionElement>
 				<AccordionElement
 					num={2}
@@ -44,11 +40,10 @@ function AccordionUsage() {
 					expanded={expanded}
 					setExpanded={setExpanded}
 				>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
-					quisquam, qui deserunt natus! Provident laborum, doloremque, non
-					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
-					quidem optio impedit, modi reiciendis!
+					Bitchain provides various products and services related to
+					cryptocurrency trading and education. This includes features such as
+					buying and selling cryptocurrencies, tracking cryptocurrency prices,
+					and learning trading strategies.
 				</AccordionElement>
 				<AccordionElement
 					num={3}
@@ -56,11 +51,10 @@ function AccordionUsage() {
 					expanded={expanded}
 					setExpanded={setExpanded}
 				>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
-					quisquam, qui deserunt natus! Provident laborum, doloremque, non
-					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
-					quidem optio impedit, modi reiciendis!
+					To buy Bitcoin and other cryptocurrencies on Bitchain, users can
+					navigate to the trading section, select the desired cryptocurrency
+					pair, and place a buy order by specifying the amount and price at
+					which they want to buy.
 				</AccordionElement>
 				<AccordionElement
 					num={4}
@@ -68,11 +62,9 @@ function AccordionUsage() {
 					expanded={expanded}
 					setExpanded={setExpanded}
 				>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
-					quisquam, qui deserunt natus! Provident laborum, doloremque, non
-					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
-					quidem optio impedit, modi reiciendis!
+					Users can track cryptocurrency prices on Bitchain by accessing the
+					price tracking tool or dashboard, where they can view real-time or
+					historical price data for different cryptocurrencies.
 				</AccordionElement>
 				<AccordionElement
 					num={5}
@@ -80,11 +72,10 @@ function AccordionUsage() {
 					expanded={expanded}
 					setExpanded={setExpanded}
 				>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
-					quisquam, qui deserunt natus! Provident laborum, doloremque, non
-					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
-					quidem optio impedit, modi reiciendis!
+					To trade cryptocurrencies on Bitchain, users need to create an
+					account, deposit funds into their account, navigate to the trading
+					section, select the desired cryptocurrency pair, and place buy or sell
+					orders based on their trading strategy.
 				</AccordionElement>
 				<AccordionElement
 					num={6}
@@ -92,11 +83,10 @@ function AccordionUsage() {
 					expanded={expanded}
 					setExpanded={setExpanded}
 				>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-					voluptates sunt cumque sed odit, molestiae labore, temporibus ea ipsum
-					quisquam, qui deserunt natus! Provident laborum, doloremque, non
-					nostrum odio asperiores praesentium amet blanditiis sapiente veniam
-					quidem optio impedit, modi reiciendis!
+					Bitchain offers various educational resources and tools to help users
+					learn trading. This may include tutorials, articles, videos, demo
+					trading accounts, and access to community forums where users can
+					discuss trading strategies and share knowledge with other traders.
 				</AccordionElement>
 			</ThemeProvider>
 		</div>

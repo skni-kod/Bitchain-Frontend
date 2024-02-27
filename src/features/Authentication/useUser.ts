@@ -1,12 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { getUser } from "../../services/apiAuth";
+import { useQuery } from '@tanstack/react-query';
+import { getUser as getUserApi } from '../../services/apiAuth';
 
 export function useUser() {
-  const { data, isPending } = useQuery({
-    queryFn: getUser,
-    queryKey: ["user"],
-  });
-  const userAuthenticated = data !== null;
+	const { data, isPending } = useQuery({
+		queryFn: getUserApi,
+		queryKey: ['user'],
+	});
 
-  return {data, isPending, userAuthenticated}
+	const userAuthenticated = data !== null;
+
+	return { data, isPending, userAuthenticated };
 }

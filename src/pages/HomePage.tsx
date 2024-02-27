@@ -10,7 +10,7 @@ export default function HomePage() {
 	return (
 		<>
 			<Header />
-			<main className='dark:text-white text-bgDark  w-full  mx-auto flex  flex-col justify-center items-center'>
+			<main className='dark:text-white text-bgDark w-full mx-auto flex flex-col justify-center items-center'>
 				<SectionContainer
 					title='Starty Your Crypto Journey'
 					element={<CryptoJourneyContent></CryptoJourneyContent>}

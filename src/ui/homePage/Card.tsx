@@ -39,7 +39,7 @@ function Card({ icon, title, children, link, delay = 0 }: ProductCardProps) {
 			<p>{children}</p>
 			<NavLink
 				to={link}
-				className='flex flex-row items-center text-lg hover:text-main'
+				className='flex flex-row items-center text-lg hover:text-main transition-colors duration-300'
 			>
 				Learn more
 				<span className='ml-2'>

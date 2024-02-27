@@ -41,7 +41,7 @@ function CryptoJourneyContent() {
 				</p>
 			</CryptoJourneyContainer>
 
-			<div className='flex flex-wrap justify-center'>
+			<div className='flex flex-wrap justify-center mt-16'>
 				<Button type='link' bgType='transparent' to='/about'>
 					Read about the project
 				</Button>

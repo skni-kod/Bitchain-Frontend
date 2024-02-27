@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 interface ButtonProps {
 	children: React.ReactNode;
 	type: 'link' | 'button';
-	bgType?: 'transparent' | 'headerLink';
+	bgType?: 'transparent' | 'headerLink' | 'important';
 	to: string;
 	onClick?: () => void;
 	size?: 'small' | 'medium' | 'large';
@@ -28,6 +28,8 @@ export default function Button({
 						? 'bg-main hover:bg-mainHover text-white'
 						: bgType === 'headerLink'
 						? ''
+						: bgType === 'important'
+						? ' text-red-500 border-red-500 border-2 hover:bg-red-500 hover:text-white hover:border-red-500 '
 						: bgType === 'transparent'
 						? 'dark:hover:bg-bgDark1Hover hover:bg-bgWhite1'
 						: ''

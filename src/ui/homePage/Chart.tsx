@@ -158,6 +158,7 @@ function Chart({ crypto }: ChartProps) {
     });
   }, [getSpecificCryptoInfo, crypto, choosenInterval]);
 
+
   return (
     <div
       ref={ref}
@@ -240,6 +241,7 @@ function Chart({ crypto }: ChartProps) {
       </div>
     </div>
   );
+
 }
 
 export default Chart;
