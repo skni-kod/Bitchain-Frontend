@@ -1,7 +1,8 @@
-import { Outlet } from 'react-router-dom';
-import Navigation from './navigation/Navigation';
+import { Outlet } from "react-router-dom";
+import Navigation from "./navigation/Navigation";
 
 export default function AppLayout() {
+
 	return (
 		<div
 			id='app'
@@ -13,4 +14,5 @@ export default function AppLayout() {
 			</div>
 		</div>
 	);
+
 }
