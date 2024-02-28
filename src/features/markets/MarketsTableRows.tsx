@@ -300,7 +300,7 @@ export default function MarketsTableRows({
                 },
               },
               "& .Mui-selected": {
-                backgroundColor: "#ff5701",
+                backgroundColor: `${isDarkMode ? "#ff5702" : "#ff5701"}`,
                 color: "#ffffff",
                 "&:hover": {
                   backgroundColor: "#e84a00",
