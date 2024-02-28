@@ -293,17 +293,17 @@ export default function MarketsTableRows({
         {totalPages !== 1 && (
           <Pagination
             sx={{
+              "& .Mui-selected": {
+                backgroundColor: "#ff5700 !important",
+                color: "#ffffff !important",
+                "&:hover": {
+                  backgroundColor: "#e84a00",
+                },
+              },
               "& .MuiPaginationItem-root": {
                 color: `${isDarkMode ? "#ffffff" : "#333333"}`,
                 "&:hover": {
                   backgroundColor: `${isDarkMode ? "#2b2d35" : "#f1f5f9"}`,
-                },
-              },
-              "& .Mui-selected": {
-                backgroundColor: `${isDarkMode ? "#ff5702" : "#ff5701"}`,
-                color: "#ffffff",
-                "&:hover": {
-                  backgroundColor: "#e84a00",
                 },
               },
             }}
