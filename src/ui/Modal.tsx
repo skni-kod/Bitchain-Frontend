@@ -2,10 +2,11 @@ import React, {
   cloneElement,
   createContext,
   useContext,
+  useRef,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import { HiXMark } from "react-icons/hi2";
+import { motion } from "framer-motion";
 
 type ModalContextType = {
   openName: string;
@@ -58,14 +59,19 @@ function Window({ children, name }: WindowProps) {
 
   return createPortal(
     <div className="fixed h-screen w-screen z-50">
-      <div className="h-full w-full bg-bgDark opacity-20"></div>
-      <div className="fixed top-1/2 left-1/2 bg-white dark:bg-bgDark1 -translate-y-1/2 -translate-x-1/2 z-[51] rounded-lg p-6  ">
+      <div className="h-full w-full bg-bgDark opacity-20" onClick={close}></div>
+      <motion.div
+        className="fixed top-1/2 left-1/2 bg-white dark:bg-bgDark1 -translate-y-1/2 -translate-x-1/2 z-[51] rounded-lg p-6  "
+        animate={{ translateY: "-50%", translateX: "-50%", opacity: 1 }}
+        initial={{ translateY: "-40%", translateX: "-50%", opacity: 0 }}
+        transition={{ ease: "easeInOut", duration: 0.3 }}
+      >
         <div>
           {cloneElement(children as React.ReactElement, {
             onCloseModal: close,
           })}
         </div>
-      </div>
+      </motion.div>
     </div>,
     document.body
   );
