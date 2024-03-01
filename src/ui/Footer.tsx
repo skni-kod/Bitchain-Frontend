@@ -8,7 +8,7 @@ function Footer() {
 	const { isDarkMode } = useDarkMode();
 
 	return (
-		<footer className='relative mt-16 pt-6 pb-8 px-10 mx-auto flex justify-center flex-wrap  dark:bg-bgDark max-w-7xl text-gray'>
+		<footer className='relative mt-16 pt-6 pb-8 px-10 mx-auto flex justify-center flex-wrap  dark:bg-bgDark max-w-7xl w-full  text-gray'>
       <div className='absolute w-5/6 h-[1px] left-1/2 -translate-x-1/2 -top-5 bg-main'></div>
 			<div className='flex flex-col items-center gap-5 w-full'>
 				<img
@@ -25,8 +25,8 @@ function Footer() {
 					className='w-32'
 				/>
 			</div>
-			<div className='relative mt-16'>
-				<div className='absolute w-5/6 h-[1px] left-1/2 -translate-x-1/2 -top-6 bg-main'></div>
+			<div className='relative mt-20'>
+				<div className='absolute w-5/6 h-[1px] left-1/2 -translate-x-1/2 -top-8 bg-main'></div>
 				<p className='text-center '>
 					All Rights Reserved &copy; {date} BitChain{' '}
 				</p>
