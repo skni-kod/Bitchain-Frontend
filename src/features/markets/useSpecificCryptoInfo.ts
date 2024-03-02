@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { getSpecificCryptoInfo as getSpecificCryptoInfoApi } from "../../services/apiCoinCap";
 import { useState } from "react";
+import { CryptoInfoData } from "./TopHotCryptoCard";
 
 export interface mutateProps {
   id: string;
@@ -9,17 +10,8 @@ export interface mutateProps {
   end: number;
 }
 
-interface dataPart {
-  priceUsd: string;
-  time: number;
-}
-
-interface data {
-  data: dataPart[];
-}
-
 export function useSpecificCryptoInfo() {
-  const [data, setData] = useState<data>();
+  const [data, setData] = useState<CryptoInfoData>();
   const { mutate: getSpecificCryptoInfo, isSuccess } = useMutation({
     mutationFn: getSpecificCryptoInfoApi,
     onSuccess: (data) => {
