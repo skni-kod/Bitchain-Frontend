@@ -1,4 +1,3 @@
-import { useUserWidth } from "../../hooks/useUserWidth";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegStar } from "react-icons/fa6";
 import { CryptoData, UserCurrencyType } from "./MarketsTableRows";
@@ -26,7 +25,6 @@ export default function CryptoRow({
   userCurrency,
   usdtPrice,
 }: CryptoRowProps) {
-  const width = useUserWidth();
   const navigate = useNavigate();
   const { addFavoriteCrypto } = useAddFavoriteCrypto();
   const queryClient = useQueryClient();
@@ -43,7 +41,9 @@ export default function CryptoRow({
     setAnchorEl(null);
   };
 
-  function handleAddFavoriteCrypto() {
+  function handleAddFavoriteCrypto(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    e.stopPropagation();
     if (favoritesCrypto) {
       if (favoritesCrypto.favorite_crypto_symbol.includes(crypto.symbol)) {
         const filtered = favoritesCrypto.favorite_crypto_symbol.filter(
@@ -63,14 +63,17 @@ export default function CryptoRow({
   }
 
   return (
-    <div className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right ">
+    <Link
+      to={`/details?crypto=${crypto.id}`}
+      className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right "
+    >
       <div className="w-[260px] flex gap-2 items-center">
         <button
           className={`text-slate-300 hover:text-yellow-500 transition-colors duration-300 cursor-pointer ${
             favoritesCrypto?.favorite_crypto_symbol.includes(crypto.symbol) &&
             "text-yellow-500"
           }`}
-          onClick={handleAddFavoriteCrypto}
+          onClick={(e) => handleAddFavoriteCrypto(e)}
         >
           {favoritesCrypto?.favorite_crypto_symbol.includes(crypto.symbol) ? (
             <FaStar />
@@ -115,13 +118,13 @@ export default function CryptoRow({
         </p>
       </div>
       <div className="w-[130px] hidden lg:block">
-        <p>{formatBigNumbers(crypto.volumeUsd24Hr)}</p>
+        <p>{formatBigNumbers(+crypto.volumeUsd24Hr)}</p>
       </div>
       <div className="w-[130px] hidden lg:block">
         <p>
           {+crypto.marketCapUsd === 0
             ? "--"
-            : formatBigNumbers(crypto.marketCapUsd)}
+            : formatBigNumbers(+crypto.marketCapUsd)}
         </p>
       </div>
       <div className="w-[130px] justify-center items-center gap-2 ml-3 hidden sm:flex">
@@ -184,6 +187,6 @@ export default function CryptoRow({
           </Menu>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
