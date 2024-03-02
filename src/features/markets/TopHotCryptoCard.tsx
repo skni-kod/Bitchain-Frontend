@@ -6,6 +6,7 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import { NavLink } from "react-router-dom";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useForceUpdate } from "../../hooks/useForceUpdate";
 
 export interface CryptoData {
   id: string;
@@ -47,6 +48,7 @@ interface UserCurrencyType {
 
 export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
   const { isDarkMode } = useDarkMode();
+  const { forceUpdate } = useForceUpdate();
   const { getSpecificCryptoInfo, data: topCryptoPrices } =
     useSpecificCryptoInfo();
   const queryClient = useQueryClient();
@@ -96,7 +98,6 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
 
   useEffect(
     function () {
-      console.log(isDarkMode);
       if (isDarkMode) {
         stops.current = [
           [0, "rgba(255, 87, 0, 0.3)"],
@@ -108,9 +109,9 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
           [1, "rgba(241,245,252,1 )"],
         ];
       }
-      console.log(stops.current);
+      forceUpdate();
     },
-    [isDarkMode]
+    [isDarkMode, forceUpdate]
   );
 
   useEffect(() => {
