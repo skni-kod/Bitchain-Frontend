@@ -119,7 +119,7 @@ export default function CryptoDetailsChart({
         } else if (choosenInterval === "h1") {
           percentage.current = +formatCurrency(
             (+crypto.data.priceUsd /
-              +timeFramesData?.ago30DaysHistory.data[0].priceUsd -
+              +timeFramesData?.ago30DaysHistory.data[0]?.priceUsd -
               1) *
               100
           );
