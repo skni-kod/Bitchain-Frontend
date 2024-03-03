@@ -6,9 +6,12 @@ import SearchCrypto from "../features/markets/SearchCrypto";
 import MainMarketsTable from "../features/markets/MainMarketsTable";
 import BottonAdMarkets from "../features/markets/BottonAdMarkets";
 import Footer from "../ui/Footer";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Markets() {
   const { data, isSuccess: isFetched } = useAllCryptoPrice(500);
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(["user"]);
   const [label, setLabel] = useState<string>("");
 
   return (
@@ -29,7 +32,7 @@ export default function Markets() {
             <SearchCrypto setLabel={setLabel} label={label} />
           </div>
           <MainMarketsTable label={label} />
-          <BottonAdMarkets />
+          {user === null ? <BottonAdMarkets /> : <div className="py-14"></div>}
           <Footer />
         </>
       ) : (
