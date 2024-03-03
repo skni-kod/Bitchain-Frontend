@@ -3,12 +3,13 @@ import { FaRegStar } from "react-icons/fa6";
 import { CryptoData, UserCurrencyType } from "./MarketsTableRows";
 import { formatBigNumbers, formatCurrency } from "../../utils/helpers";
 import { Button, Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import useDarkMode from "../../hooks/useDarkMode";
 import { FaStar } from "react-icons/fa";
 import { useAddFavoriteCrypto } from "./useAddFavoriteCrypto";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useUserWidth } from "../../hooks/useUserWidth";
 
 interface CryptoRowProps {
   crypto: CryptoData;
@@ -26,6 +27,7 @@ export default function CryptoRow({
   usdtPrice,
 }: CryptoRowProps) {
   const navigate = useNavigate();
+  const width = useUserWidth();
   const { addFavoriteCrypto } = useAddFavoriteCrypto();
   const queryClient = useQueryClient();
   const favoritesCrypto: FavoriteCrypto | undefined = queryClient.getQueryData([
@@ -64,11 +66,8 @@ export default function CryptoRow({
     }
   }
 
-  return (
-    <Link
-      to={`/details?crypto=${crypto.id}`}
-      className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right "
-    >
+  const Content = (
+    <>
       <div className="w-[260px] flex gap-2 items-center">
         <button
           className={`text-slate-300 hover:text-yellow-500 transition-colors duration-300 cursor-pointer ${
@@ -190,6 +189,23 @@ export default function CryptoRow({
           </Menu>
         </div>
       </div>
-    </Link>
+    </>
+  );
+
+  return (
+    <>
+      {width > 640 ? (
+        <div className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right ">
+          {Content}
+        </div>
+      ) : (
+        <Link
+          to={`/details?crypto=${crypto.id}`}
+          className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right "
+        >
+          {Content}
+        </Link>
+      )}
+    </>
   );
 }
