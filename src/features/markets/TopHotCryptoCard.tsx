@@ -63,8 +63,6 @@ export default function TopHotCryptoCard({
     "userCurrency",
   ]);
 
-  console.log(isSuccess);
-
   useEffect(() => {
     if (data) {
       let popular;
@@ -76,7 +74,7 @@ export default function TopHotCryptoCard({
         popular = data.data.slice(0, 3);
       }
 
-      topCrypto.current = popular?.sort((a, b) => {
+      topCrypto.current = popular?.concat().sort((a, b) => {
         const priceA = parseFloat(a.changePercent24Hr);
         const priceB = parseFloat(b.changePercent24Hr);
 
@@ -87,7 +85,7 @@ export default function TopHotCryptoCard({
         } else {
           return 0;
         }
-      });
+      })[0];
       topCrypto.current = popular?.reduce((prevCrypto, currentCrypto) => {
         const prevChangePercent = parseFloat(prevCrypto.changePercent24Hr);
         const currentChangePercent = parseFloat(
