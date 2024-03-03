@@ -2,10 +2,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { useSpecificCryptoInfo } from "./useSpecificCryptoInfo";
 import { formatCurrency } from "../../utils/helpers";
-import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
 import { NavLink } from "react-router-dom";
-import useDarkMode from "../../hooks/useDarkMode";
+import TopCryptoChart from "./TopCryptoChart";
 
 export interface CryptoData {
   id: string;
@@ -29,13 +27,14 @@ interface CryptoInfo {
   time: number;
 }
 
-interface CryptoInfoData {
+export interface CryptoInfoData {
   data: CryptoInfo[];
   timestamp: number;
 }
 
 interface TopHotCryptoCardProps {
   type: "hot24" | "top24" | "big24";
+  data: AllCryptoData;
 }
 
 interface UserCurrencyType {
@@ -45,79 +44,28 @@ interface UserCurrencyType {
   rateUsd: string;
 }
 
-export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
-  const { isDarkMode } = useDarkMode();
-  const { getSpecificCryptoInfo, data: topCryptoPrices } =
-    useSpecificCryptoInfo();
+export default function TopHotCryptoCard({
+  data,
+  type,
+}: TopHotCryptoCardProps) {
+  const {
+    getSpecificCryptoInfo,
+    data: topCryptoPrices,
+    isSuccess,
+  } = useSpecificCryptoInfo();
   const queryClient = useQueryClient();
-  const data: AllCryptoData = queryClient.getQueryData(["cryptoPrice"])!;
-  let hot24Data: CryptoInfoData | undefined;
-  if (type === "hot24") {
-    hot24Data = queryClient.getQueryData(["hot24"]);
-  } else if (type === "top24") {
-    hot24Data = queryClient.getQueryData(["top24"]);
-  } else if (type === "big24") {
-    hot24Data = queryClient.getQueryData(["big24"]);
-  }
-
-  const series = hot24Data?.data.map((item) => [item.time, +item.priceUsd]);
-
-  let minValue: number | undefined;
-  let maxValue: number | undefined;
-  if (series && series.length > 0) {
-    minValue = series.reduce(
-      (min, current) => (current[1] < min ? current[1] : min),
-      series[0][1]
-    );
-    maxValue = series.reduce(
-      (max, current) => (current[1] > max ? current[1] : max),
-      series[0][1]
-    );
-  }
-  const stops = useRef(
-    isDarkMode
-      ? [
-          [0, "hsla(20.47058823529412, 100%, 50%, 0.3)"],
-          [1, "rgba(20, 21, 25,0.5)"],
-        ]
-      : [
-          [0, "rgba(255, 87, 0, 0.3)"],
-          [1, "rgba(241,245,252,1 )"],
-        ]
-  );
+  topCryptoPrices as CryptoInfoData | undefined;
 
   const topCrypto = useRef<CryptoData>();
-  const options = useRef<unknown>();
   const firstFetch = useRef<CryptoData>();
   const usdtPrice: number | undefined = queryClient.getQueryData(["USDT"]);
   const userCurrency: UserCurrencyType | undefined = queryClient.getQueryData([
     "userCurrency",
   ]);
 
-  useEffect(
-    function () {
-      console.log(isDarkMode);
-      if (isDarkMode) {
-        stops.current = [
-          [0, "rgba(255, 87, 0, 0.3)"],
-          [1, "rgba(20, 21, 25,0.5)"],
-        ];
-      } else {
-        stops.current = [
-          [0, "rgba(255, 87, 0, 0.3)"],
-          [1, "rgba(241,245,252,1 )"],
-        ];
-      }
-      console.log(stops.current);
-    },
-    [isDarkMode]
-  );
-
   useEffect(() => {
     if (data) {
-      const today = new Date().getTime();
       let popular;
-      const twentyFourHoursAgo = today - 24 * 3600000;
       if (type === "hot24") {
         popular = data.data.slice(0, 15);
       } else if (type === "top24") {
@@ -125,6 +73,19 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
       } else if (type === "big24") {
         popular = data.data.slice(0, 3);
       }
+
+      topCrypto.current = popular?.concat().sort((a, b) => {
+        const priceA = parseFloat(a.changePercent24Hr);
+        const priceB = parseFloat(b.changePercent24Hr);
+
+        if (priceA > priceB) {
+          return -1;
+        } else if (priceA < priceB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      })[0];
       topCrypto.current = popular?.reduce((prevCrypto, currentCrypto) => {
         const prevChangePercent = parseFloat(prevCrypto.changePercent24Hr);
         const currentChangePercent = parseFloat(
@@ -138,91 +99,25 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
         return pop;
       }, popular[0]);
       if (!firstFetch.current?.priceUsd) {
-        getSpecificCryptoInfo({
-          id: topCrypto.current!.id!,
-          interval: "m15",
-          start: twentyFourHoursAgo,
-          end: today,
-        });
         firstFetch.current = topCrypto.current;
-      }
-      if (type === "hot24") {
-        queryClient.setQueryData(["hot24"], topCryptoPrices);
-      } else if (type === "top24") {
-        queryClient.setQueryData(["top24"], topCryptoPrices);
-      } else if (type === "big24") {
-        queryClient.setQueryData(["big24"], topCryptoPrices);
       }
     }
   }, [data, getSpecificCryptoInfo, topCryptoPrices, queryClient, type]);
 
-  useEffect(() => {
-    if (!hot24Data) {
-      return;
-    }
-    const cryptoData = hot24Data;
-    const series = cryptoData?.data.map((item) => [item.time, +item.priceUsd]);
+  useEffect(
+    function () {
+      const today = new Date().getTime();
+      const twentyFourHoursAgo = today - 24 * 3600000;
 
-    options.current = {
-      chart: {
-        type: "area",
-        width: 120,
-        height: 80,
-        backgroundColor: "rgba(0, 0, 0, 0)",
-      },
-      plotOptions: {
-        series: {
-          color: "#ff5700",
-          spline: true,
-          name: "",
-          fillColor: {
-            linearGradient: {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 0.9,
-            },
-            stops: stops.current,
-          },
-          enableMouseTracking: false,
-          marker: {
-            enabled: false,
-          },
-          dataLabels: {
-            enabled: false,
-          },
-          legend: {
-            enabled: false,
-          },
-        },
-      },
-      credits: { enabled: false },
-      tooltip: {
-        enabled: false,
-        track: null,
-      },
-      title: {
-        text: null,
-      },
-      legend: {
-        enabled: false,
-      },
-      xAxis: {
-        visible: false,
-      },
-      yAxis: {
-        visible: false,
-        min: minValue,
-        max: maxValue,
-      },
-      series: [
-        {
-          data: series,
-          name: "Crypto Prices",
-        },
-      ],
-    };
-  }, [hot24Data, minValue, maxValue, isDarkMode]);
+      getSpecificCryptoInfo({
+        id: topCrypto.current!.id!,
+        interval: "m15",
+        start: twentyFourHoursAgo,
+        end: today,
+      });
+    },
+    [getSpecificCryptoInfo]
+  );
 
   return (
     <NavLink
@@ -275,12 +170,7 @@ export default function TopHotCryptoCard({ type }: TopHotCryptoCardProps) {
               %
             </p>
           </div>
-          <div className="hidden xs:block">
-            <HighchartsReact
-              options={options.current}
-              highcharts={Highcharts}
-            ></HighchartsReact>
-          </div>
+          {isSuccess && <TopCryptoChart hot24Data={topCryptoPrices} />}
         </div>
       </>
     </NavLink>

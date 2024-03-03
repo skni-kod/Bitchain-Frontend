@@ -23,15 +23,12 @@ export default function MarketsTableHeader({
     switch (counter.current) {
       case 0:
         onFilter(`${filterType}Desc`);
-        console.log(counter.current, filter);
         break;
       case 1:
         onFilter(`${filterType}Asc`);
-        console.log(counter.current, filter);
         break;
       case 2:
         onFilter("");
-        console.log(counter.current, filter);
         break;
       default:
         break;
@@ -143,7 +140,7 @@ export default function MarketsTableHeader({
         </>
       ) : (
         <div className="flex ">
-         <button
+          <button
             className="w-[130px] flex justify-end gap-2 p-2 ml-3"
             onClick={() => onChangeFilter("price")}
           >

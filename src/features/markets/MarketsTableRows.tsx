@@ -233,62 +233,61 @@ export default function MarketsTableRows({
 
   return (
     <div className="min-h-[600px]">
-      {data.current.length === 0 ? (
-        isAuth ? (
-          <div className="w-full h-[600px] flex flex-col justify-center items-center gap-8">
-            <div className="flex flex-col justify-center items-center text-sm gap-4">
-              <p className="text-gray">No data available</p>
-              <p className="text-sm text-gray">
-                If you add any favorite cryptocurrency, you will see it here.{" "}
-              </p>
+      {data.current.length === 0
+        ? favorites &&
+          (isAuth ? (
+            <div className="w-full h-[600px] flex flex-col justify-center items-center gap-8">
+              <div className="flex flex-col justify-center items-center text-sm gap-4">
+                <p className="text-gray">No data available</p>
+                <p className="text-sm text-gray">
+                  If you add any favorite cryptocurrency, you will see it here.{" "}
+                </p>
+              </div>
+              <button
+                onClick={() => onFavorites(false)}
+                className="bg-main text-white rounded-lg hover:bg-mainHover p-3 text-sm transition-colors duration-300"
+              >
+                Add Favorites
+              </button>
             </div>
-            <button
-              onClick={() => onFavorites(false)}
-              className="bg-main text-white rounded-lg hover:bg-mainHover p-3 text-sm transition-colors duration-300"
-            >
-              Add Favorites
-            </button>
-          </div>
-        ) : (
-          <div className="w-full h-[600px] flex flex-col justify-center items-center gap-8">
-            <div className="flex flex-col justify-center items-center text-sm gap-4">
-              <p className="text-gray">No data available</p>
-              <p className="text-sm text-gray">
-                Please log in to your account to add your favorite
-                cryptocurrency.
-              </p>
+          ) : (
+            <div className="w-full h-[600px] flex flex-col justify-center items-center gap-8">
+              <div className="flex flex-col justify-center items-center text-sm gap-4">
+                <p className="text-gray">No data available</p>
+                <p className="text-sm text-gray">
+                  Please log in to your account to add your favorite
+                  cryptocurrency.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  onFavorites(false);
+                  navigate("/login");
+                }}
+                className="bg-main text-white rounded-lg hover:bg-mainHover p-3 text-sm transition-colors duration-300"
+              >
+                Log in
+              </button>
             </div>
-            <button
-              onClick={() => {
-                onFavorites(false);
-                navigate("/login");
-              }}
-              className="bg-main text-white rounded-lg hover:bg-mainHover p-3 text-sm transition-colors duration-300"
-            >
-              Log in
-            </button>
-          </div>
-        )
-      ) : (
-        data.current
-          .slice(
-            (page - 1) * ITEMS_ON_PAGE,
-            (page - 1) * ITEMS_ON_PAGE + ITEMS_ON_PAGE
-          )
-          .map(
-            (crypto) =>
-              crypto.symbol !== "USDT" &&
-              crypto.symbol !== "WBTC" &&
-              crypto.symbol !== "BTCB" && (
-                <CryptoRow
-                  crypto={crypto}
-                  key={crypto.id}
-                  usdtPrice={usdtPrice}
-                  userCurrency={userCurrency}
-                />
-              )
-          )
-      )}
+          ))
+        : data.current
+            .slice(
+              (page - 1) * ITEMS_ON_PAGE,
+              (page - 1) * ITEMS_ON_PAGE + ITEMS_ON_PAGE
+            )
+            .map(
+              (crypto) =>
+                crypto.symbol !== "USDT" &&
+                crypto.symbol !== "WBTC" &&
+                crypto.symbol !== "BTCB" && (
+                  <CryptoRow
+                    crypto={crypto}
+                    key={crypto.id}
+                    usdtPrice={usdtPrice}
+                    userCurrency={userCurrency}
+                  />
+                )
+            )}
       <div className="flex justify-center items-center w-full my-8 text-main">
         {totalPages !== 1 && (
           <Pagination

@@ -1,15 +1,15 @@
-import { useUserWidth } from "../../hooks/useUserWidth";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegStar } from "react-icons/fa6";
 import { CryptoData, UserCurrencyType } from "./MarketsTableRows";
 import { formatBigNumbers, formatCurrency } from "../../utils/helpers";
 import { Button, Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import useDarkMode from "../../hooks/useDarkMode";
 import { FaStar } from "react-icons/fa";
 import { useAddFavoriteCrypto } from "./useAddFavoriteCrypto";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useUserWidth } from "../../hooks/useUserWidth";
 
 interface CryptoRowProps {
   crypto: CryptoData;
@@ -26,8 +26,8 @@ export default function CryptoRow({
   userCurrency,
   usdtPrice,
 }: CryptoRowProps) {
-  const width = useUserWidth();
   const navigate = useNavigate();
+  const width = useUserWidth();
   const { addFavoriteCrypto } = useAddFavoriteCrypto();
   const queryClient = useQueryClient();
   const favoritesCrypto: FavoriteCrypto | undefined = queryClient.getQueryData([
@@ -37,13 +37,17 @@ export default function CryptoRow({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  function handleAddFavoriteCrypto() {
+  function handleAddFavoriteCrypto(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    e.stopPropagation();
     if (favoritesCrypto) {
       if (favoritesCrypto.favorite_crypto_symbol.includes(crypto.symbol)) {
         const filtered = favoritesCrypto.favorite_crypto_symbol.filter(
@@ -62,15 +66,15 @@ export default function CryptoRow({
     }
   }
 
-  return (
-    <div className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right ">
+  const Content = (
+    <>
       <div className="w-[260px] flex gap-2 items-center">
         <button
           className={`text-slate-300 hover:text-yellow-500 transition-colors duration-300 cursor-pointer ${
             favoritesCrypto?.favorite_crypto_symbol.includes(crypto.symbol) &&
             "text-yellow-500"
           }`}
-          onClick={handleAddFavoriteCrypto}
+          onClick={(e) => handleAddFavoriteCrypto(e)}
         >
           {favoritesCrypto?.favorite_crypto_symbol.includes(crypto.symbol) ? (
             <FaStar />
@@ -81,6 +85,7 @@ export default function CryptoRow({
         <img
           className="rounded-full w-6 mx-3 hidden sm:block"
           src={`https://assets.coincap.io/assets/icons/${crypto.symbol.toLocaleLowerCase()}@2x.png`}
+          alt=""
         />
         {`${crypto.symbol}/USDT`}
       </div>
@@ -115,13 +120,13 @@ export default function CryptoRow({
         </p>
       </div>
       <div className="w-[130px] hidden lg:block">
-        <p>{formatBigNumbers(crypto.volumeUsd24Hr)}</p>
+        <p>{formatBigNumbers(+crypto.volumeUsd24Hr)}</p>
       </div>
       <div className="w-[130px] hidden lg:block">
         <p>
           {+crypto.marketCapUsd === 0
             ? "--"
-            : formatBigNumbers(crypto.marketCapUsd)}
+            : formatBigNumbers(+crypto.marketCapUsd)}
         </p>
       </div>
       <div className="w-[130px] justify-center items-center gap-2 ml-3 hidden sm:flex">
@@ -184,6 +189,23 @@ export default function CryptoRow({
           </Menu>
         </div>
       </div>
-    </div>
+    </>
+  );
+
+  return (
+    <>
+      {width > 640 ? (
+        <div className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right ">
+          {Content}
+        </div>
+      ) : (
+        <Link
+          to={`/details?crypto=${crypto.id}`}
+          className="flex p-4 text-bgDark dark:text-white items-center justify-between text-xs xs:text-[16px] hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover rounded-lg transition-colors duration-300 h-[60px] text-right "
+        >
+          {Content}
+        </Link>
+      )}
+    </>
   );
 }
