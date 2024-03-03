@@ -3,12 +3,25 @@ import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import { Bitcoinv2 } from './Bitcoinv2';
 import { useUserWidth } from '../../hooks/useUserWidth';
+import { useEffect } from 'react';
 
 function Container() {
 	const windowSize = useUserWidth();
 	const scale = windowSize < 400 ? 0.2 : windowSize < 700 ? 0.25 : 0.3;
+
+	useEffect(() => {
+		function callback(e: KeyboardEvent) {
+			if (e.code === 'Enter') {
+				console.log('We have the best Pawel on the planet one the backend');
+			}
+		}
+
+		document.addEventListener('keydown', callback);
+		return () => document.addEventListener('keydown', callback);
+	}, []);
+
 	return (
-		<Canvas>
+		<Canvas className='grid grid-rows-[1fr_auto] h-full dark:text-white text-bgDark'>
 			<ambientLight intensity={1} />
 			<group scale={0.5}>
 				<Html position={[0, 5, -2]} transform>
