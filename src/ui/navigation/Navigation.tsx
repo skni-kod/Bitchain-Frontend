@@ -151,17 +151,17 @@ const Navigation: React.FC = () => {
                 <AccountBalanceCard onCloseFunction={undefined as never} />
                 <DropdownItem
                   title="Overview"
-                  to="account"
+                  to="overview"
                   onCloseFunction={undefined as never}
                 />
                 <DropdownItem
                   title="Assets"
-                  to="assets"
+                  to="overview?tab=1"
                   onCloseFunction={undefined as never}
                 />
                 <DropdownItem
                   title="History"
-                  to="history"
+                  to="overview?tab=3"
                   onCloseFunction={undefined as never}
                 />
                 <DropdownItem

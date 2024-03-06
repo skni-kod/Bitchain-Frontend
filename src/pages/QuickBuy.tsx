@@ -11,7 +11,7 @@ export default function QuickBuy() {
   const amount = state?.amount ?? 0; // z crypto details mozna dostac amount
 
   return (
-    <div className="flex flex-col justify-center items-center ">
+    <div className="flex flex-col justify-center items-center   ">
       <BuySellButtons sell={sell} setSell={setSell} />
       {sell ? <BuyForm amount={amount} /> : <SellForm />}
     </div>
