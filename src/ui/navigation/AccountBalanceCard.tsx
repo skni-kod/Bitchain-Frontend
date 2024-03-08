@@ -13,7 +13,7 @@ export default function AccountBalanceCard({
 
   return (
     <div className="flex flex-col w-full p-3 bg-bgWhite1Hover dark:bg-bgDark1Hover rounded-lg mb-3 mt-2 cursor-default">
-      <NavLink to="assets" className="flex justify-between items-center w-full" onClick={onCloseFunction}>
+      <NavLink to="/overview?tab=1" className="flex justify-between items-center w-full" onClick={onCloseFunction}>
         <p>Total assets</p>
         <span>
           <IoIosArrowForward />
