@@ -16,14 +16,20 @@ export default function Overview() {
 
   useEffect(
     function () {
-      setTab(searchParams.get("tab") ?? "0");
+      const param = searchParams.get("tab");
+      if (!param || +param > 4) {
+        setTab("0");
+        setSearchParams({ ["tab"]: "0" });
+      } else {
+        setTab(param);
+      }
     },
-    [searchParams]
+    [searchParams, setSearchParams]
   );
 
   return (
-    <div className="flex flex-col md750:flex-row">
-      <WalletNav tab={tab} setTab={setTab} setSearchParams={setSearchParams} />
+    <div className="flex flex-col md750:flex-row h-fit">
+      <WalletNav setTab={setTab} setSearchParams={setSearchParams} />
       <WalletContent tab={tab} />
     </div>
   );

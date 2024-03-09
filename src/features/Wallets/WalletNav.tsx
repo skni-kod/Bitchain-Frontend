@@ -11,6 +11,7 @@ import { FaChartLine } from "react-icons/fa6";
 import { RiStackLine } from "react-icons/ri";
 import { RiFileHistoryLine } from "react-icons/ri";
 import WalletMobileNavButton from "./WalletMobileNavButton";
+import WalletDecorationBar from "./WalletDecorationBar";
 
 interface WalletNavProps {
   setSearchParams: SetURLSearchParams;
@@ -93,7 +94,7 @@ export default function WalletNav({ setSearchParams, setTab }: WalletNavProps) {
           </Modal.Window>
         </Modal>
       ) : (
-        <div className="flex flex-col w-[250px] border-r border-r-solid border-r-slate-100 dark:border-stone-700 gap-3 mt-7">
+        <div className="relative flex flex-col w-[250px] h-full border-r border-r-solid border-r-slate-100 dark:border-stone-700 gap-3 pt-7">
           <WalletNavItem
             setSearchParams={setSearchParams}
             setTab={setTab}
@@ -134,6 +135,7 @@ export default function WalletNav({ setSearchParams, setTab }: WalletNavProps) {
             setContent={setContent}
             tab={4}
           />
+          <WalletDecorationBar />
         </div>
       )}
     </div>

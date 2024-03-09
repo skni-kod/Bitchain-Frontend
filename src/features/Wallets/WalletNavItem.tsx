@@ -34,7 +34,7 @@ export default function WalletNavItem({
 
   return (
     <button
-      className={`flex justify-between items-center min-w-[220px] w-full p-4 hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover text-bgDark dark:text-bgWhite transition-colors duration-300 ${
+      className={`flex justify-between items-center min-w-[220px] w-full p-4 px-6 hover:bg-bgWhite1Hover dark:hover:bg-bgDark1Hover text-bgDark dark:text-bgWhite transition-colors duration-300 ${
         mobile && "rounded-lg"
       } ${
         tab.toString() === searchParams.get("tab") &&
