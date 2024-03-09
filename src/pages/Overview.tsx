@@ -9,6 +9,7 @@ import WalletNav from "../features/Wallets/WalletNav";
 
 export default function Overview() {
   const [tab, setTab] = useState<string>("0");
+  const [analysis, setAnalysis] = useState<string>("0");
   const [searchParams, setSearchParams]: [
     URLSearchParamsInit,
     SetURLSearchParams
@@ -23,6 +24,7 @@ export default function Overview() {
       } else {
         setTab(param);
       }
+      setAnalysis(searchParams.get("analysis") || "false");
     },
     [searchParams, setSearchParams]
   );
@@ -30,7 +32,7 @@ export default function Overview() {
   return (
     <div className="flex flex-col md750:flex-row h-fit">
       <WalletNav setTab={setTab} setSearchParams={setSearchParams} />
-      <WalletContent tab={tab} />
+      <WalletContent tab={tab} analysis={analysis === "true"} />
     </div>
   );
 }

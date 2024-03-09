@@ -71,7 +71,7 @@ export default function WalletNav({ setSearchParams, setTab }: WalletNavProps) {
               <WalletNavItem
                 setSearchParams={setSearchParams}
                 setTab={setTab}
-                text="Staking Account"
+                text="Stacking Account"
                 icon={<RiStackLine />}
                 setContent={setContent}
                 mobile={width < 750}
@@ -82,7 +82,7 @@ export default function WalletNav({ setSearchParams, setTab }: WalletNavProps) {
               <WalletNavItem
                 setSearchParams={setSearchParams}
                 setTab={setTab}
-                text="Asset Records"
+                text="Assets Records"
                 icon={<RiFileHistoryLine />}
                 setContent={setContent}
                 mobile={width < 750}
@@ -122,7 +122,7 @@ export default function WalletNav({ setSearchParams, setTab }: WalletNavProps) {
           <WalletNavItem
             setSearchParams={setSearchParams}
             setTab={setTab}
-            text="Staking Account"
+            text="Stacking Account"
             icon={<RiStackLine />}
             setContent={setContent}
             tab={3}
@@ -130,7 +130,7 @@ export default function WalletNav({ setSearchParams, setTab }: WalletNavProps) {
           <WalletNavItem
             setSearchParams={setSearchParams}
             setTab={setTab}
-            text="Asset Records"
+            text="Assets Records"
             icon={<RiFileHistoryLine />}
             setContent={setContent}
             tab={4}
