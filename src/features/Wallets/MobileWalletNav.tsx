@@ -1,4 +1,4 @@
-import React, { ReactElement, cloneElement } from "react";
+import { ReactElement, cloneElement } from "react";
 import { HiXMark } from "react-icons/hi2";
 
 interface Props {
