@@ -6,14 +6,21 @@ import {
 } from "react-router-dom";
 import WalletContent from "../features/Wallets/WalletContent";
 import WalletNav from "../features/Wallets/WalletNav";
+import { getFundBalance } from "../services/apiWalletOperations";
+import { useGetFundBalance } from "../hooks/useGetFundBalance";
+import { useGetFundHistory } from "../hooks/useGetFundHistory";
 
 export default function Overview() {
+  const { data: fundBalance, isLoading: isLoadingBalance } = useGetFundBalance();
+  const { data: fundHistory, isLoading: isLoadingHistory } = useGetFundHistory();
   const [tab, setTab] = useState<string>("0");
   const [analysis, setAnalysis] = useState<string>("0");
   const [searchParams, setSearchParams]: [
     URLSearchParamsInit,
     SetURLSearchParams
   ] = useSearchParams();
+
+  console.log(fundHistory);
 
   useEffect(
     function () {
