@@ -12,15 +12,12 @@ import { useGetFundHistory } from "../hooks/useGetFundHistory";
 
 export default function Overview() {
   const { data: fundBalance, isLoading: isLoadingBalance } = useGetFundBalance();
-  const { data: fundHistory, isLoading: isLoadingHistory } = useGetFundHistory();
   const [tab, setTab] = useState<string>("0");
   const [analysis, setAnalysis] = useState<string>("0");
   const [searchParams, setSearchParams]: [
     URLSearchParamsInit,
     SetURLSearchParams
   ] = useSearchParams();
-
-  console.log(fundHistory);
 
   useEffect(
     function () {
@@ -37,7 +34,7 @@ export default function Overview() {
   );
 
   return (
-    <div className="flex flex-col md750:flex-row h-fit">
+    <div className="flex flex-col md750:flex-row h-fit ">
       <WalletNav setTab={setTab} setSearchParams={setSearchParams} />
       <WalletContent tab={tab} analysis={analysis === "true"} />
     </div>

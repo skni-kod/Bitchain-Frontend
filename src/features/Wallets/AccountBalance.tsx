@@ -28,7 +28,7 @@ export default function AccountBalance({
   return (
     <button
       onClick={onClick}
-      className="flex justify-between items-center py-10 w-full text-bgDark dark:text-bgWhite"
+      className="flex justify-between items-center h-[130px] w-full text-bgDark dark:text-bgWhite"
     >
       <div className="flex flex-col gap-3 text-left">
         <p className="text-sm">{title}</p>

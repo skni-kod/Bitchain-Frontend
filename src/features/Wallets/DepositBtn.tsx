@@ -9,7 +9,7 @@ export default function DepositBtn() {
       transaction_amount: 10,
       transaction_currency: "SOL",
       transaction_price_usd: "1232",
-      transaction_type: "spot",
+      transaction_type: "deposit",
     });
   }
 
