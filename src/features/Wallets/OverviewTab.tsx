@@ -7,12 +7,17 @@ import TransferBtn from "./TransferBtn";
 import ConvertBtn from "./ConvertBtn";
 import AccountDetail from "./AccountDetail";
 import OperationsHistory from "./OperationsHistory";
+import { FundBalanceItemInterface } from "../../interfaces/FundBalanceInterface";
 
-export default function OverviewTab() {
+interface OverviewTabProps {
+  fundBalance: FundBalanceItemInterface[];
+}
+
+export default function OverviewTab({ fundBalance }: OverviewTabProps) {
   return (
     <div className="w-full p-6 md800:p-16 md800:py-10">
       <TabTitle title="Overview" pnl={true} />
-      <AccountBalanceCard assetsUsd={68600} type="account" />
+      <AccountBalanceCard assetsUsd={68600} type="account" fundBalance={fundBalance}/>
       <div className="flex sm:gap-4 xs:gap-3 flex-wrap gap-1 w">
         <DepositBtn />
         <WithdrawBtn />

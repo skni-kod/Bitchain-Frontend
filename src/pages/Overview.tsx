@@ -19,6 +19,8 @@ export default function Overview() {
     SetURLSearchParams
   ] = useSearchParams();
 
+  console.log(fundBalance);
+
   useEffect(
     function () {
       const param = searchParams.get("tab");
@@ -36,7 +38,7 @@ export default function Overview() {
   return (
     <div className="flex flex-col md750:flex-row h-fit ">
       <WalletNav setTab={setTab} setSearchParams={setSearchParams} />
-      <WalletContent tab={tab} analysis={analysis === "true"} />
+      <WalletContent tab={tab} analysis={analysis === "true"} fundBalance={fundBalance}/>
     </div>
   );
 }
