@@ -4,7 +4,6 @@ import Dashboard from "./pages/DashBoard";
 import HomePage from "./pages/HomePage";
 import PageNotFound from "./pages/PageNotFound";
 import DarkModeProvider from "./context/DarkModeContext";
-import Assets from "./pages/Assets";
 import QuickBuy from "./pages/QuickBuy";
 import P2p from "./pages/P2p";
 import Markets from "./pages/Markets";
@@ -14,8 +13,7 @@ import Convert from "./pages/Convert";
 import Stacking from "./pages/Stacking";
 import LeaderBoard from "./pages/LeaderBoard";
 import About from "./pages/About";
-import Account from "./pages/Account";
-import History from "./pages/History";
+import Overview from "./pages/Overview";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -67,9 +65,7 @@ function App() {
                 <Route path="stack" element={<Stacking />} />
                 <Route path="leaderboard" element={<LeaderBoard />} />
                 <Route path="about" element={<About />} />
-                <Route path="account" element={<Account />} />
-                <Route path="history" element={<History />} />
-                <Route path="assets" element={<Assets />} />
+                <Route path="overview" element={<Overview />} />
                 <Route path="settings" element={<Settings />} />
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Register />} />

@@ -148,20 +148,24 @@ const Navigation: React.FC = () => {
                 onCloseFunction={undefined as never}
                 direction="right-0"
               >
-                <AccountBalanceCard onCloseFunction={undefined as never} />
+                <AccountBalanceCard
+                  assetsUsd={68600}
+                  type="nav"
+                  onCloseFunction={undefined as never}
+                />
                 <DropdownItem
                   title="Overview"
-                  to="account"
+                  to="overview"
                   onCloseFunction={undefined as never}
                 />
                 <DropdownItem
                   title="Assets"
-                  to="assets"
+                  to="overview?tab=1"
                   onCloseFunction={undefined as never}
                 />
                 <DropdownItem
                   title="History"
-                  to="history"
+                  to="overview?tab=3"
                   onCloseFunction={undefined as never}
                 />
                 <DropdownItem
